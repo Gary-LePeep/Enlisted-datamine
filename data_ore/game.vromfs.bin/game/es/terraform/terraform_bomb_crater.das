@@ -49,7 +49,9 @@ def can_terraform_bomb_crater_part(trace_up_height : float;
                                    crater_disabled_phys_mat_ids : IntList;
                                    ri_pool_flags : IntList)
   var isTerraformBlocked = false
-
+  isTerraformBlocked = find_query() <| $ [es(REQUIRE=disableBombCrater)] => true
+  if isTerraformBlocked
+    return false
   find_query() <| $ [es(REQUIRE=railroad__points)] ()
     let railroadPos = project_on_railroad(part_pos)
     if length_sq(railroadPos.xz - part_pos.xz) < square(part_radius + railroad_half_width)

@@ -6,82 +6,82 @@
          "soldiers" : [
             {
                "displayedKind" : "mgun",
-               "inventory" : [
-                  {
-                     "gametemplate" : "medkit_item"
-                  }
-               ],
                "human_weap__weapTemplates" : {
-                  "secondary" : "browning_m1918a1_gun"
+                  "secondary" : "browning_m1919a6_gun"
                },
                "human_weap__weapInfo" : [
                   {},
                   {
-                     "numReserveAmmo" : 10,
-                     "reserveAmmoTemplate" : "browning_m1918_magazine"
+                     "numReserveAmmo" : 4,
+                     "reserveAmmoTemplate" : "browning_m1919a6_magazine"
                   }
                ],
                "human_weap__weapInitialComponents" : [
                   {},
                   {
                      "gun__reloadTime" : -15.0,
-                     "gun__kineticDamageMult" : 10.0,
                      "gun__shotFreq" : 10.0,
-                     "gun_spread__maxDeltaAngle" : -15.0
+                     "gun_spread__maxDeltaAngle" : -15.0,
+                     "gun__kineticDamageMult" : 10.0
+                  }
+               ],
+               "inventory" : [
+                  {
+                     "gametemplate" : "medkit_item"
                   }
                ]
             },
             {
                "displayedKind" : "mgun",
-               "inventory" : [
-                  {
-                     "gametemplate" : "medkit_item"
-                  }
-               ],
                "human_weap__weapTemplates" : {
-                  "secondary" : "browning_m1918a1_gun"
+                  "secondary" : "browning_m1919a6_gun"
                },
                "human_weap__weapInfo" : [
                   {},
                   {
-                     "numReserveAmmo" : 10,
-                     "reserveAmmoTemplate" : "browning_m1918_magazine"
+                     "numReserveAmmo" : 4,
+                     "reserveAmmoTemplate" : "browning_m1919a6_magazine"
                   }
                ],
                "human_weap__weapInitialComponents" : [
                   {},
                   {
                      "gun__reloadTime" : -15.0,
-                     "gun__kineticDamageMult" : 10.0,
                      "gun__shotFreq" : 10.0,
-                     "gun_spread__maxDeltaAngle" : -15.0
+                     "gun_spread__maxDeltaAngle" : -15.0,
+                     "gun__kineticDamageMult" : 10.0
+                  }
+               ],
+               "inventory" : [
+                  {
+                     "gametemplate" : "medkit_item"
                   }
                ]
             },
             {
                "displayedKind" : "mgun",
-               "inventory" : [
-                  {
-                     "gametemplate" : "medkit_item"
-                  }
-               ],
                "human_weap__weapTemplates" : {
-                  "secondary" : "browning_m1918a1_gun"
+                  "secondary" : "browning_m1919a6_gun"
                },
                "human_weap__weapInfo" : [
                   {},
                   {
-                     "numReserveAmmo" : 10,
-                     "reserveAmmoTemplate" : "browning_m1918_magazine"
+                     "numReserveAmmo" : 4,
+                     "reserveAmmoTemplate" : "browning_m1919a6_magazine"
                   }
                ],
                "human_weap__weapInitialComponents" : [
                   {},
                   {
                      "gun__reloadTime" : -15.0,
-                     "gun__kineticDamageMult" : 10.0,
                      "gun__shotFreq" : 10.0,
-                     "gun_spread__maxDeltaAngle" : -15.0
+                     "gun_spread__maxDeltaAngle" : -15.0,
+                     "gun__kineticDamageMult" : 10.0
+                  }
+               ],
+               "inventory" : [
+                  {
+                     "gametemplate" : "medkit_item"
                   }
                ]
             },
@@ -120,55 +120,55 @@
          "soldiers" : [
             {
                "displayedKind" : "anti_tank",
-               "inventory" : [
-                  {
-                     "gametemplate" : "usa_antitank_mine"
-                  }
-               ],
                "human_weap__weapTemplates" : {
-                  "secondary" : "m1_bazooka_gun"
+                  "secondary" : "m9_bazooka_gun"
                },
                "human_weap__weapInfo" : [
                   {},
                   {
                      "numReserveAmmo" : 12,
-                     "reserveAmmoTemplate" : "m6a1_bazooka_item"
+                     "reserveAmmoTemplate" : "m6a3_bazooka_item"
+                  }
+               ],
+               "inventory" : [
+                  {
+                     "gametemplate" : "usa_antitank_mine"
                   }
                ]
             },
             {
                "displayedKind" : "anti_tank",
-               "inventory" : [
-                  {
-                     "gametemplate" : "usa_antitank_mine"
-                  }
-               ],
                "human_weap__weapTemplates" : {
-                  "secondary" : "m1_bazooka_gun"
+                  "secondary" : "m9_bazooka_gun"
                },
                "human_weap__weapInfo" : [
                   {},
                   {
                      "numReserveAmmo" : 12,
-                     "reserveAmmoTemplate" : "m6a1_bazooka_item"
+                     "reserveAmmoTemplate" : "m6a3_bazooka_item"
+                  }
+               ],
+               "inventory" : [
+                  {
+                     "gametemplate" : "usa_antitank_mine"
                   }
                ]
             },
             {
                "displayedKind" : "anti_tank",
-               "inventory" : [
-                  {
-                     "gametemplate" : "usa_antitank_mine"
-                  }
-               ],
                "human_weap__weapTemplates" : {
-                  "secondary" : "m1_bazooka_gun"
+                  "secondary" : "m9_bazooka_gun"
                },
                "human_weap__weapInfo" : [
                   {},
                   {
                      "numReserveAmmo" : 12,
-                     "reserveAmmoTemplate" : "m6a1_bazooka_item"
+                     "reserveAmmoTemplate" : "m6a3_bazooka_item"
+                  }
+               ],
+               "inventory" : [
+                  {
+                     "gametemplate" : "usa_antitank_mine"
                   }
                ]
             },
@@ -207,21 +207,21 @@
          "soldiers" : [
             {
                "displayedKind" : "mortarman",
-               "inventory" : [
-                  {
-                     "gametemplate" : "mk2_grenade_item"
-                  }
-               ],
                "human_weap__weapTemplates" : {
-                  "secondary" : "two_inch_mortar_gun"
+                  "secondary" : "m2_mortar_gun"
                },
                "human_weap__weapInfo" : [
                   {},
                   {
                      "numReserveAmmo" : 20,
-                     "reserveAmmoTemplate" : "two_inch_he_shell_item",
+                     "reserveAmmoTemplate" : "m49a2_item",
                      "additionalNumReserveAmmos" : [ 20 ],
-                     "additionalReserveAmmoTemplates" : [ "two_inch_smoke_shell_item" ]
+                     "additionalReserveAmmoTemplates" : [ "m49a2_smoke_item" ]
+                  }
+               ],
+               "inventory" : [
+                  {
+                     "gametemplate" : "mk2_grenade_item"
                   }
                ]
             },
@@ -238,21 +238,21 @@
             },
             {
                "displayedKind" : "mortarman",
-               "inventory" : [
-                  {
-                     "gametemplate" : "mk2_grenade_item"
-                  }
-               ],
                "human_weap__weapTemplates" : {
-                  "secondary" : "two_inch_mortar_gun"
+                  "secondary" : "m2_mortar_gun"
                },
                "human_weap__weapInfo" : [
                   {},
                   {
                      "numReserveAmmo" : 20,
-                     "reserveAmmoTemplate" : "two_inch_he_shell_item",
+                     "reserveAmmoTemplate" : "m49a2_item",
                      "additionalNumReserveAmmos" : [ 20 ],
-                     "additionalReserveAmmoTemplates" : [ "two_inch_smoke_shell_item" ]
+                     "additionalReserveAmmoTemplates" : [ "m49a2_smoke_item" ]
+                  }
+               ],
+               "inventory" : [
+                  {
+                     "gametemplate" : "mk2_grenade_item"
                   }
                ]
             },
@@ -291,74 +291,70 @@
          "soldiers" : [
             {
                "displayedKind" : "sniper",
-               "inventory" : [
-                  {
-                     "gametemplate" : "usa_antipersonnel_mine"
-                  }
-               ],
                "human_weap__weapTemplates" : {
-                  "secondary" : "m1903a1_springfield_gun"
+                  "secondary" : "lee_enfield_no4_mk1_with_scope_gun"
                },
                "human_weap__weapInfo" : [
                   {},
                   {
-                     "gunSlots" : {
-                        "scope" : "unertl_8x_sight_item"
-                     },
-                     "numReserveAmmo" : 10,
-                     "reserveAmmoTemplate" : "m1903_springfield_magazine"
+                     "numReserveAmmo" : 6,
+                     "reserveAmmoTemplate" : "lee_enfield_no4_mk1_magazine"
                   }
                ],
                "human_weap__weapInitialComponents" : [
                   {},
                   {
-                     "gun__kineticDamageMult" : 15.0,
+                     "gun_spread__maxDeltaAngle" : -35.0,
                      "gun__shotFreq" : 15.0,
-                     "gun_spread__maxDeltaAngle" : -35.0
+                     "gun__kineticDamageMult" : 15.0
+                  }
+               ],
+               "inventory" : [
+                  {
+                     "gametemplate" : "usa_antipersonnel_mine"
                   }
                ]
             },
             {
                "displayedKind" : "radioman",
-               "human_weap__weapTemplates" : { },
-               "inventory" : [
-                  {
-                     "gametemplate" : "usa_antipersonnel_mine"
-                  }
-               ],
+               "human_weap__weapTemplates" : {
+                  "secondary" : "scr_300_gun"
+               },
                "equipment" : {
                    "radio" : {
                       "gametemplate" : "scr_300_gun",
                       "slot" : "radio"
                    }
-               }
-            },
-            {
-               "displayedKind" : "sniper",
+               },
                "inventory" : [
                   {
                      "gametemplate" : "usa_antipersonnel_mine"
                   }
-               ],
+               ]
+            },
+            {
+               "displayedKind" : "sniper",
                "human_weap__weapTemplates" : {
-                  "secondary" : "m1903a1_springfield_gun"
+                  "secondary" : "lee_enfield_no4_mk1_with_scope_gun"
                },
                "human_weap__weapInfo" : [
                   {},
                   {
-                     "gunSlots" : {
-                        "scope" : "unertl_8x_sight_item"
-                     },
-                     "numReserveAmmo" : 10,
-                     "reserveAmmoTemplate" : "m1903_springfield_magazine"
+                     "numReserveAmmo" : 6,
+                     "reserveAmmoTemplate" : "lee_enfield_no4_mk1_magazine"
                   }
                ],
                "human_weap__weapInitialComponents" : [
                   {},
                   {
-                     "gun__kineticDamageMult" : 15.0,
+                     "gun_spread__maxDeltaAngle" : -35.0,
                      "gun__shotFreq" : 15.0,
-                     "gun_spread__maxDeltaAngle" : -35.0
+                     "gun__kineticDamageMult" : 15.0
+                  }
+               ],
+               "inventory" : [
+                  {
+                     "gametemplate" : "usa_antipersonnel_mine"
                   }
                ]
             },
@@ -797,19 +793,14 @@
          "soldiers" : [
             {
                "displayedKind" : "assault",
-               "inventory" : [
-                  {
-                     "gametemplate" : "medkit_item"
-                  }
-               ],
                "human_weap__weapTemplates" : {
-                  "secondary" : "lanchester_32_gun"
+                  "secondary" : "m1_thompson_gun"
                },
                "human_weap__weapInfo" : [
                   {},
                   {
-                     "numReserveAmmo" : 10,
-                     "reserveAmmoTemplate" : "lanchester_magazine"
+                     "numReserveAmmo" : 8,
+                     "reserveAmmoTemplate" : "m1928a_thompson_magazine"
                   }
                ],
                "human_weap__weapInitialComponents" : [
@@ -818,26 +809,26 @@
                      "gun__reloadTime" : -10.0,
                      "gun__shotFreq" : 15.0,
                      "gun__recoilAmount" : -10.0,
-                     "gun__kineticDamageMult" : 20.0,
-                     "gun_spread__maxDeltaAngle" : -15.0
+                     "gun_spread__maxDeltaAngle" : -15.0,
+                     "gun__kineticDamageMult" : 20.0
+                  }
+               ],
+               "inventory" : [
+                  {
+                     "gametemplate" : "medkit_item"
                   }
                ]
             },
             {
                "displayedKind" : "assault",
-               "inventory" : [
-                  {
-                     "gametemplate" : "medkit_item"
-                  }
-               ],
                "human_weap__weapTemplates" : {
-                  "secondary" : "lanchester_32_gun"
+                  "secondary" : "m1_thompson_gun"
                },
                "human_weap__weapInfo" : [
                   {},
                   {
-                     "numReserveAmmo" : 10,
-                     "reserveAmmoTemplate" : "lanchester_magazine"
+                     "numReserveAmmo" : 8,
+                     "reserveAmmoTemplate" : "m1928a_thompson_magazine"
                   }
                ],
                "human_weap__weapInitialComponents" : [
@@ -846,26 +837,26 @@
                      "gun__reloadTime" : -10.0,
                      "gun__shotFreq" : 15.0,
                      "gun__recoilAmount" : -10.0,
-                     "gun__kineticDamageMult" : 20.0,
-                     "gun_spread__maxDeltaAngle" : -15.0
+                     "gun_spread__maxDeltaAngle" : -15.0,
+                     "gun__kineticDamageMult" : 20.0
+                  }
+               ],
+               "inventory" : [
+                  {
+                     "gametemplate" : "medkit_item"
                   }
                ]
             },
             {
                "displayedKind" : "assault",
-               "inventory" : [
-                  {
-                     "gametemplate" : "medkit_item"
-                  }
-               ],
                "human_weap__weapTemplates" : {
-                  "secondary" : "lanchester_32_gun"
+                  "secondary" : "m1_thompson_gun"
                },
                "human_weap__weapInfo" : [
                   {},
                   {
-                     "numReserveAmmo" : 10,
-                     "reserveAmmoTemplate" : "lanchester_magazine"
+                     "numReserveAmmo" : 8,
+                     "reserveAmmoTemplate" : "m1928a_thompson_magazine"
                   }
                ],
                "human_weap__weapInitialComponents" : [
@@ -874,8 +865,13 @@
                      "gun__reloadTime" : -10.0,
                      "gun__shotFreq" : 15.0,
                      "gun__recoilAmount" : -10.0,
-                     "gun__kineticDamageMult" : 20.0,
-                     "gun_spread__maxDeltaAngle" : -15.0
+                     "gun_spread__maxDeltaAngle" : -15.0,
+                     "gun__kineticDamageMult" : 20.0
+                  }
+               ],
+               "inventory" : [
+                  {
+                     "gametemplate" : "medkit_item"
                   }
                ]
             },
@@ -914,55 +910,55 @@
          "soldiers" : [
             {
                "displayedKind" : "anti_tank",
-               "inventory" : [
-                  {
-                     "gametemplate" : "usa_antitank_mine"
-                  }
-               ],
                "human_weap__weapTemplates" : {
-                  "secondary" : "m1_bazooka_gun"
+                  "secondary" : "m9_bazooka_gun"
                },
                "human_weap__weapInfo" : [
                   {},
                   {
                      "numReserveAmmo" : 12,
-                     "reserveAmmoTemplate" : "m6a1_bazooka_item"
+                     "reserveAmmoTemplate" : "m6a3_bazooka_item"
+                  }
+               ],
+               "inventory" : [
+                  {
+                     "gametemplate" : "usa_antitank_mine"
                   }
                ]
             },
             {
                "displayedKind" : "anti_tank",
-               "inventory" : [
-                  {
-                     "gametemplate" : "usa_antitank_mine"
-                  }
-               ],
                "human_weap__weapTemplates" : {
-                  "secondary" : "m1_bazooka_gun"
+                  "secondary" : "m9_bazooka_gun"
                },
                "human_weap__weapInfo" : [
                   {},
                   {
                      "numReserveAmmo" : 12,
-                     "reserveAmmoTemplate" : "m6a1_bazooka_item"
+                     "reserveAmmoTemplate" : "m6a3_bazooka_item"
+                  }
+               ],
+               "inventory" : [
+                  {
+                     "gametemplate" : "usa_antitank_mine"
                   }
                ]
             },
             {
                "displayedKind" : "anti_tank",
-               "inventory" : [
-                  {
-                     "gametemplate" : "usa_antitank_mine"
-                  }
-               ],
                "human_weap__weapTemplates" : {
-                  "secondary" : "m1_bazooka_gun"
+                  "secondary" : "m9_bazooka_gun"
                },
                "human_weap__weapInfo" : [
                   {},
                   {
                      "numReserveAmmo" : 12,
-                     "reserveAmmoTemplate" : "m6a1_bazooka_item"
+                     "reserveAmmoTemplate" : "m6a3_bazooka_item"
+                  }
+               ],
+               "inventory" : [
+                  {
+                     "gametemplate" : "usa_antitank_mine"
                   }
                ]
             },
@@ -1001,21 +997,21 @@
          "soldiers" : [
             {
                "displayedKind" : "mortarman",
-               "inventory" : [
-                  {
-                     "gametemplate" : "mk2_grenade_item"
-                  }
-               ],
                "human_weap__weapTemplates" : {
-                  "secondary" : "two_inch_mortar_gun"
+                  "secondary" : "m2_mortar_gun"
                },
                "human_weap__weapInfo" : [
                   {},
                   {
                      "numReserveAmmo" : 20,
-                     "reserveAmmoTemplate" : "two_inch_he_shell_item",
+                     "reserveAmmoTemplate" : "m49a2_item",
                      "additionalNumReserveAmmos" : [ 20 ],
-                     "additionalReserveAmmoTemplates" : [ "two_inch_smoke_shell_item" ]
+                     "additionalReserveAmmoTemplates" : [ "m49a2_smoke_item" ]
+                  }
+               ],
+               "inventory" : [
+                  {
+                     "gametemplate" : "mk2_grenade_item"
                   }
                ]
             },
@@ -1032,21 +1028,21 @@
             },
             {
                "displayedKind" : "mortarman",
-               "inventory" : [
-                  {
-                     "gametemplate" : "mk2_grenade_item"
-                  }
-               ],
                "human_weap__weapTemplates" : {
-                  "secondary" : "two_inch_mortar_gun"
+                  "secondary" : "m2_mortar_gun"
                },
                "human_weap__weapInfo" : [
                   {},
                   {
                      "numReserveAmmo" : 20,
-                     "reserveAmmoTemplate" : "two_inch_he_shell_item",
+                     "reserveAmmoTemplate" : "m49a2_item",
                      "additionalNumReserveAmmos" : [ 20 ],
-                     "additionalReserveAmmoTemplates" : [ "two_inch_smoke_shell_item" ]
+                     "additionalReserveAmmoTemplates" : [ "m49a2_smoke_item" ]
+                  }
+               ],
+               "inventory" : [
+                  {
+                     "gametemplate" : "mk2_grenade_item"
                   }
                ]
             },
@@ -1085,74 +1081,78 @@
          "soldiers" : [
             {
                "displayedKind" : "sniper",
-               "inventory" : [
-                  {
-                     "gametemplate" : "usa_antipersonnel_mine"
-                  }
-               ],
                "human_weap__weapTemplates" : {
-                  "secondary" : "m1903a1_springfield_gun"
+                  "secondary" : "sniper_m1_garand_gun"
                },
                "human_weap__weapInfo" : [
                   {},
                   {
                      "gunSlots" : {
-                        "scope" : "unertl_8x_sight_item"
+                        "scope" : "scope_m84"
                      },
-                     "numReserveAmmo" : 10,
-                     "reserveAmmoTemplate" : "m1903_springfield_magazine"
+                     "numReserveAmmo" : 12,
+                     "reserveAmmoTemplate" : "m1_garand_magazine"
                   }
                ],
                "human_weap__weapInitialComponents" : [
                   {},
                   {
-                     "gun__kineticDamageMult" : 15.0,
-                     "gun__shotFreq" : 15.0,
-                     "gun_spread__maxDeltaAngle" : -35.0
+                     "gun_spread__maxDeltaAngle" : -30.0,
+                     "gun__shotFreq" : 10.0,
+                     "gun__recoilAmount" : -15.0,
+                     "gun__kineticDamageMult" : 20.0
+                  }
+               ],
+               "inventory" : [
+                  {
+                     "gametemplate" : "usa_antipersonnel_mine"
                   }
                ]
             },
             {
                "displayedKind" : "radioman",
-               "human_weap__weapTemplates" : { },
-               "inventory" : [
-                  {
-                     "gametemplate" : "usa_antipersonnel_mine"
-                  }
-               ],
+               "human_weap__weapTemplates" : {
+                  "secondary" : "scr_300_gun"
+               },
                "equipment" : {
                    "radio" : {
                       "gametemplate" : "scr_300_gun",
                       "slot" : "radio"
                    }
-               }
-            },
-            {
-               "displayedKind" : "sniper",
+               },
                "inventory" : [
                   {
                      "gametemplate" : "usa_antipersonnel_mine"
                   }
-               ],
+               ]
+            },
+            {
+               "displayedKind" : "sniper",
                "human_weap__weapTemplates" : {
-                  "secondary" : "m1903a1_springfield_gun"
+                  "secondary" : "sniper_m1_garand_gun"
                },
                "human_weap__weapInfo" : [
                   {},
                   {
                      "gunSlots" : {
-                        "scope" : "unertl_8x_sight_item"
+                        "scope" : "scope_m84"
                      },
-                     "numReserveAmmo" : 10,
-                     "reserveAmmoTemplate" : "m1903_springfield_magazine"
+                     "numReserveAmmo" : 12,
+                     "reserveAmmoTemplate" : "m1_garand_magazine"
                   }
                ],
                "human_weap__weapInitialComponents" : [
                   {},
                   {
-                     "gun__kineticDamageMult" : 15.0,
-                     "gun__shotFreq" : 15.0,
-                     "gun_spread__maxDeltaAngle" : -35.0
+                     "gun_spread__maxDeltaAngle" : -30.0,
+                     "gun__shotFreq" : 10.0,
+                     "gun__recoilAmount" : -15.0,
+                     "gun__kineticDamageMult" : 20.0
+                  }
+               ],
+               "inventory" : [
+                  {
+                     "gametemplate" : "usa_antipersonnel_mine"
                   }
                ]
             },
@@ -1193,82 +1193,82 @@
          "soldiers" : [
             {
                "displayedKind" : "mgun",
-               "inventory" : [
-                  {
-                     "gametemplate" : "germ_medkit_item"
-                  }
-               ],
                "human_weap__weapTemplates" : {
-                  "secondary" : "mg_34_gun"
+                  "secondary" : "mg_34_with_patronentrommel_gun"
                },
                "human_weap__weapInfo" : [
                   {},
                   {
                      "numReserveAmmo" : 4,
-                     "reserveAmmoTemplate" : "mg_42_handheld_magazine"
+                     "reserveAmmoTemplate" : "mg_34_with_patronentrommel_magazine"
                   }
                ],
                "human_weap__weapInitialComponents" : [
                   {},
                   {
                      "gun__reloadTime" : -15.0,
-                     "gun__kineticDamageMult" : 10.0,
                      "gun__shotFreq" : 10.0,
-                     "gun_spread__maxDeltaAngle" : -15.0
+                     "gun_spread__maxDeltaAngle" : -15.0,
+                     "gun__kineticDamageMult" : 10.0
+                  }
+               ],
+               "inventory" : [
+                  {
+                     "gametemplate" : "germ_medkit_item"
                   }
                ]
             },
             {
                "displayedKind" : "mgun",
-               "inventory" : [
-                  {
-                     "gametemplate" : "germ_medkit_item"
-                  }
-               ],
                "human_weap__weapTemplates" : {
-                  "secondary" : "mg_34_gun"
+                  "secondary" : "mg_34_with_patronentrommel_gun"
                },
                "human_weap__weapInfo" : [
                   {},
                   {
                      "numReserveAmmo" : 4,
-                     "reserveAmmoTemplate" : "mg_42_handheld_magazine"
+                     "reserveAmmoTemplate" : "mg_34_with_patronentrommel_magazine"
                   }
                ],
                "human_weap__weapInitialComponents" : [
                   {},
                   {
                      "gun__reloadTime" : -15.0,
-                     "gun__kineticDamageMult" : 10.0,
                      "gun__shotFreq" : 10.0,
-                     "gun_spread__maxDeltaAngle" : -15.0
+                     "gun_spread__maxDeltaAngle" : -15.0,
+                     "gun__kineticDamageMult" : 10.0
+                  }
+               ],
+               "inventory" : [
+                  {
+                     "gametemplate" : "germ_medkit_item"
                   }
                ]
             },
             {
                "displayedKind" : "mgun",
-               "inventory" : [
-                  {
-                     "gametemplate" : "germ_medkit_item"
-                  }
-               ],
                "human_weap__weapTemplates" : {
-                  "secondary" : "mg_34_gun"
+                  "secondary" : "mg_34_with_patronentrommel_gun"
                },
                "human_weap__weapInfo" : [
                   {},
                   {
                      "numReserveAmmo" : 4,
-                     "reserveAmmoTemplate" : "mg_42_handheld_magazine"
+                     "reserveAmmoTemplate" : "mg_34_with_patronentrommel_magazine"
                   }
                ],
                "human_weap__weapInitialComponents" : [
                   {},
                   {
                      "gun__reloadTime" : -15.0,
-                     "gun__kineticDamageMult" : 10.0,
                      "gun__shotFreq" : 10.0,
-                     "gun_spread__maxDeltaAngle" : -15.0
+                     "gun_spread__maxDeltaAngle" : -15.0,
+                     "gun__kineticDamageMult" : 10.0
+                  }
+               ],
+               "inventory" : [
+                  {
+                     "gametemplate" : "germ_medkit_item"
                   }
                ]
             },
@@ -1307,11 +1307,6 @@
          "soldiers" : [
             {
                "displayedKind" : "anti_tank",
-               "inventory" : [
-                  {
-                     "gametemplate" : "ger_antitank_mine"
-                  }
-               ],
                "human_weap__weapTemplates" : {
                   "secondary" : "panzerfaust_60_gun"
                },
@@ -1320,37 +1315,34 @@
                   {
                      "numReserveAmmo" : 12,
                      "reserveAmmoTemplate" : "panzerfaust_60_shell_item"
+                  }
+               ],
+               "inventory" : [
+                  {
+                     "gametemplate" : "ger_antitank_mine"
                   }
                ]
             },
             {
                "displayedKind" : "anti_tank",
-               "inventory" : [
-                  {
-                     "gametemplate" : "ger_antitank_mine"
-                  }
-               ],
                "human_weap__weapTemplates" : {
                   "secondary" : "panzerfaust_60_gun"
                },
                "human_weap__weapInfo" : [
                   {},
                   {
-                     "gunSlots" : {
-                        "scope" : "scope_m84_item"
-                     },
                      "numReserveAmmo" : 12,
                      "reserveAmmoTemplate" : "panzerfaust_60_shell_item"
+                  }
+               ],
+               "inventory" : [
+                  {
+                     "gametemplate" : "ger_antitank_mine"
                   }
                ]
             },
             {
                "displayedKind" : "anti_tank",
-               "inventory" : [
-                  {
-                     "gametemplate" : "ger_antitank_mine"
-                  }
-               ],
                "human_weap__weapTemplates" : {
                   "secondary" : "panzerfaust_60_gun"
                },
@@ -1359,6 +1351,11 @@
                   {
                      "numReserveAmmo" : 12,
                      "reserveAmmoTemplate" : "panzerfaust_60_shell_item"
+                  }
+               ],
+               "inventory" : [
+                  {
+                     "gametemplate" : "ger_antitank_mine"
                   }
                ]
             },
@@ -1397,11 +1394,6 @@
          "soldiers" : [
             {
                "displayedKind" : "mortarman",
-               "inventory" : [
-                  {
-                     "gametemplate" : "m24_grenade_item"
-                  }
-               ],
                "human_weap__weapTemplates" : {
                   "secondary" : "granatwerfer_36_gun"
                },
@@ -1413,12 +1405,17 @@
                      "additionalNumReserveAmmos" : [ 20 ],
                      "additionalReserveAmmoTemplates" : [ "wrg_36_smoke_item" ]
                   }
+               ],
+               "inventory" : [
+                  {
+                     "gametemplate" : "m24_grenade_item"
+                  }
                ]
             },
             {
                "displayedKind" : "engineer",
                "human_weap__weapTemplates" : {
-                  "secondary" : "ger_normandy_building_tool_gun"
+                  "secondary" : "ger_building_tool_gun"
                },
                "inventory" : [
                   {
@@ -1428,11 +1425,6 @@
             },
             {
                "displayedKind" : "mortarman",
-               "inventory" : [
-                  {
-                     "gametemplate" : "m24_grenade_item"
-                  }
-               ],
                "human_weap__weapTemplates" : {
                   "secondary" : "granatwerfer_36_gun"
                },
@@ -1443,6 +1435,11 @@
                      "reserveAmmoTemplate" : "wrg_36_item",
                      "additionalNumReserveAmmos" : [ 20 ],
                      "additionalReserveAmmoTemplates" : [ "wrg_36_smoke_item" ]
+                  }
+               ],
+               "inventory" : [
+                  {
+                     "gametemplate" : "m24_grenade_item"
                   }
                ]
             },
@@ -1481,11 +1478,6 @@
          "soldiers" : [
             {
                "displayedKind" : "sniper",
-               "inventory" : [
-                  {
-                     "gametemplate" : "ger_antipersonnel_mine"
-                  }
-               ],
                "human_weap__weapTemplates" : {
                   "secondary" : "sniper_gewehr_43_gun"
                },
@@ -1493,7 +1485,7 @@
                   {},
                   {
                      "gunSlots" : {
-                        "scope" : "scope_zf4_item"
+                        "scope" : "scope_zf4"
                      },
                      "numReserveAmmo" : 10,
                      "reserveAmmoTemplate" : "gewehr_43_magazine"
@@ -1502,34 +1494,37 @@
                "human_weap__weapInitialComponents" : [
                   {},
                   {
-                     "gun__kineticDamageMult" : 15.0,
-                     "gun__shotFreq" : 15.0,
-                     "gun_spread__maxDeltaAngle" : -35.0
+                     "gun_spread__maxDeltaAngle" : -30.0,
+                     "gun__shotFreq" : 10.0,
+                     "gun__recoilAmount" : -15.0,
+                     "gun__kineticDamageMult" : 20.0
+                  }
+               ],
+               "inventory" : [
+                  {
+                     "gametemplate" : "ger_antipersonnel_mine"
                   }
                ]
             },
             {
                "displayedKind" : "radioman",
-               "human_weap__weapTemplates" : { },
-               "inventory" : [
-                  {
-                     "gametemplate" : "ger_antipersonnel_mine"
-                  }
-               ],
+               "human_weap__weapTemplates" : {
+                  "secondary" : "feldfu_b_radio_gun"
+               },
                "equipment" : {
                    "radio" : {
                       "gametemplate" : "feldfu_b_radio_gun",
                       "slot" : "radio"
                    }
-               }
-            },
-            {
-               "displayedKind" : "sniper",
+               },
                "inventory" : [
                   {
                      "gametemplate" : "ger_antipersonnel_mine"
                   }
-               ],
+               ]
+            },
+            {
+               "displayedKind" : "sniper",
                "human_weap__weapTemplates" : {
                   "secondary" : "sniper_gewehr_43_gun"
                },
@@ -1537,7 +1532,7 @@
                   {},
                   {
                      "gunSlots" : {
-                        "scope" : "scope_zf4_item"
+                        "scope" : "scope_zf4"
                      },
                      "numReserveAmmo" : 10,
                      "reserveAmmoTemplate" : "gewehr_43_magazine"
@@ -1546,9 +1541,15 @@
                "human_weap__weapInitialComponents" : [
                   {},
                   {
-                     "gun__kineticDamageMult" : 15.0,
-                     "gun__shotFreq" : 15.0,
-                     "gun_spread__maxDeltaAngle" : -35.0
+                     "gun_spread__maxDeltaAngle" : -30.0,
+                     "gun__shotFreq" : 10.0,
+                     "gun__recoilAmount" : -15.0,
+                     "gun__kineticDamageMult" : 20.0
+                  }
+               ],
+               "inventory" : [
+                  {
+                     "gametemplate" : "ger_antipersonnel_mine"
                   }
                ]
             },
@@ -1581,7 +1582,8 @@
             }
          ]
       }
-  ],  "allies_pacific_event_paratrooper_1" : [
+  ],
+  "allies_pacific_event_paratrooper_1" : [
       {
          "name" : "paratroopers_assault_high",
          "tags": ["high"],

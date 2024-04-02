@@ -23,7 +23,23 @@ function getUrlByGuid(guid) {
   return url.subst(params)
 }
 
+function getShopCategoryUrl(category = "") {
+  let url = isSteamRunning.value
+    ? circuitConf?.shopCategoryUrlSteam
+    : circuitConf?.shopCategoryUrl
+
+  if (!url || category == "")
+    return ""
+
+  let params = { category }
+  if (isSteamRunning.value)
+    params.__update({ appId = steam.get_app_id(), steamId = steam.get_my_id() })
+
+  return url.subst(params)
+}
+
 return {
   getShopUrl
   getUrlByGuid
+  getShopCategoryUrl
 }

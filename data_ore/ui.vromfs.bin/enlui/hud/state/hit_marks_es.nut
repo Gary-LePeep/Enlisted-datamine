@@ -67,7 +67,7 @@ let getVictimTeamQuery = ecs.SqQuery("getVictimTeamQuery", {
   comps_ro=[
     ["team", ecs.TYPE_INT]
   ],
-  comps_no=["stationary_gun"]
+  comps_no=["stationary_gun", "noHitMark"]
 })
 
 let getVictimImmunityTimerQuery = ecs.SqQuery("getVictimImmunityTimerQuery", {

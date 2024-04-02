@@ -382,9 +382,10 @@ def turret_weap_update(gunEid : EntityId;
                            turret_serverAim : Tag const?;
                            turret__isUnderwater : bool;
                            turret__isBroken : bool;
+                           turret__allowShootingFromBroken : bool = false;
                            gun__timeBetweenShotMult : float = 1.0;
                            gun__isOverheat : bool = false)
-    let shoot = !gun__isOverheat && turret_aim__shootFlag && !turret__isUnderwater && !turret__isBroken
+    let shoot = !gun__isOverheat && turret_aim__shootFlag && !turret__isUnderwater && (turret__allowShootingFromBroken || !turret__isBroken)
     let shootDir = turret_serverAim == null && turret_aim__shootDirWithCorrection != null && length_sq(*turret_aim__shootDirWithCorrection) != 0.0 ? *turret_aim__shootDirWithCorrection : turret_state.shoot.dir
 
     let isForReal = true

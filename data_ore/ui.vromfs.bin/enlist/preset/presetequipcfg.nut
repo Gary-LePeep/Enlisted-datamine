@@ -4,19 +4,19 @@ let { mkOnlineSaveData } = require("%enlSqGlob/mkOnlineSaveData.nut")
 let { hasPremium } = require("%enlist/currency/premium.nut")
 let { getKindCfg } = require("%enlSqGlob/ui/soldierClasses.nut")
 let { getRomanNumeral } = require("%sqstd/math.nut")
-let { curArmy, armoryByArmy, getSoldierItemSlots
+let { curArmy, armoryByArmy, getSoldierItemSlots, objInfoByGuid
 } = require("%enlist/soldiers/model/state.nut")
 let { trimUpgradeSuffix } = require("%enlSqGlob/ui/itemsInfo.nut")
 let { getPossibleUnequipList, getAlternativeEquipList, getPossibleEquipList,
   getBetterItem, getWorseItem, MAX_ITEM_BR
 } = require("%enlist/soldiers/model/selectItemState.nut")
-let { campaignsByArmy } = require("%enlist/meta/profile.nut")
+let { campaignsByArmy, campItemsByLink } = require("%enlist/meta/profile.nut")
 let { renameCommonArmies } = require("%enlSqGlob/renameCommonArmies.nut")
 let renameCommonTemplatesWeapons = require("%enlist/configs/renameCommonTemplatesWeapons.nut")
 let { onlineSettingUpdated } = require("%enlist/options/onlineSettings.nut")
 let { armies } = require("%enlist/meta/servProfile.nut")
 let { isUnited } = require("%enlist/meta/campaigns.nut")
-
+let { soldierSlotsCount } = require("%enlist/soldiers/model/soldierSlotsCount.nut")
 let { configs } = require("%enlist/meta/configs.nut")
 
 // equipment presets = {
@@ -44,21 +44,61 @@ const SLOT_COUNT_MAX = 10
 let slotCount = Computed(@() hasPremium.value ? SLOT_COUNT_MAX : SLOT_COUNT)
 
 let minimumEquipList = function(soldier, _items, notFoundItemsWatch, _maxBR) {
-  let unequipList = getPossibleUnequipList(soldier.guid)
-  let changeEquipList = getAlternativeEquipList(soldier, getWorseItem, unequipList, MAX_ITEM_BR)
+  let slotsItems = getSoldierItemSlots(soldier.guid, campItemsByLink.value)
+  let unequipList = getPossibleUnequipList(soldier.guid, slotsItems)
+  let changeEquipList = getAlternativeEquipList(soldier, slotsItems,
+      getWorseItem, unequipList, MAX_ITEM_BR)
     .extend(unequipList)
+
   notFoundItemsWatch({})
   return changeEquipList
 }
 
+function getSlotsIncreaseFromEquipList(equipList) {
+  if (equipList.len == 0)
+    return null
+
+  let result = {}
+  equipList.each(function(slotData) {
+    foreach (slotType, tplsList in configs.value?.equip_slot_increase ?? {})
+      if (slotData.itemTpl in tplsList)
+        result[slotType] <- tplsList[slotData.itemTpl]
+  })
+  return result
+}
+
 let bestEquipList = function(soldier, _items, notFoundItemsWatch, maxBR) {
   maxBR = maxBR ?? MAX_ITEM_BR
-  let toAddEquipList = getPossibleEquipList(soldier, maxBR)
-  let changeEquipList = getAlternativeEquipList(soldier, getBetterItem, [], maxBR)
-    .extend(toAddEquipList)
+  let slotsItems = getSoldierItemSlots(soldier.guid, campItemsByLink.value)
+  let changeEquipList = getAlternativeEquipList(soldier, slotsItems, getBetterItem, [], maxBR)
+
+  let affectedSlotsList = changeEquipList.filter(@(v) v.slotType == "backpack")
+    .map(@(v) v.__update({ itemTpl = objInfoByGuid.value?[v.guid].basetpl }))
+
+  let newSlotsIncrease = affectedSlotsList.len() == 0 ? null // backpack unchanged => use the same value
+    : getSlotsIncreaseFromEquipList(affectedSlotsList)
+  let { guid = null, equipScheme = {} } = soldier
+  let soldierSlotsCountVal = soldierSlotsCount(guid, equipScheme, newSlotsIncrease)
+
+  let toAddEquipList = getPossibleEquipList(soldier, slotsItems, maxBR, soldierSlotsCountVal)
+    .extend(changeEquipList)
+
+  foreach (slotData in toAddEquipList) {
+    if (slotData.slotId >= (soldierSlotsCountVal?[slotData.slotType] ?? 1))
+      slotData.guid = ""
+  }
+
+  foreach(slotData in slotsItems) {
+    if (slotData.slotId >= (soldierSlotsCountVal?[slotData.slotType] ?? 1))
+      toAddEquipList.append({
+        slotType = slotData.slotType
+        slotId = slotData.slotId
+        guid = ""
+      })
+  }
 
   notFoundItemsWatch({})
-  return changeEquipList
+  return toAddEquipList
 }
 
 
@@ -172,17 +212,6 @@ let savePreset = @(presetTbl, slot) function(soldier, campItemsByLinkVal) {
 
   updateStorage(presetTbl, armyId, sKind, slot, presetData)
   return true
-}
-
-let slotsIncrease = function(presetList, index) {
-  let items = presetList?[index].items ?? []
-  let result = {}
-  items.each(function(slotData) {
-    foreach (slotType, tplsList in configs.value?.equip_slot_increase ?? {})
-      if (slotData.itemTpl in tplsList)
-        result[slotType] <- tplsList[slotData.itemTpl]
-  })
-  return items.len() == 0 ? null : result
 }
 
 let renamePreset = function(presetTbl, presetList, slot) {
@@ -323,7 +352,7 @@ return {
   SLOT_COUNT
   SLOT_COUNT_MAX
   slotCount
-  slotsIncrease
+  getSlotsIncreaseFromEquipList
   minimumEquipList
   bestEquipList
   selectedEquipList

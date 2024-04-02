@@ -82,6 +82,65 @@
       "sound_control_disable_timer__duration": 60.0
     }
   },
+  "sound_control_group": {
+    "_group": {
+      "_tags": "sound",
+      "sound_control_group_idx": -1
+    }
+  },
+  "manage_sound_control": [
+    {
+      "_use": "replicating"
+    },
+    {
+      "_use": "sound_control_group"
+    },
+    {
+      "manage_sound_control__maxInstances": 2
+    },
+    {
+      "manage_sound_control__cooldown": 2.0
+    },
+    {
+      "_group": {
+        "_tags": "sound",
+        "manage_sound_control__entities:list<eid>": [],
+        "manage_sound_control__positions:list<p3>": []
+      }
+    }
+  ],
+  "manageable_sound_control": {
+    "_use": "sound_control_group",
+    "_group": {
+      "_tags": "sound",
+      "manageable_sound_control__nextTimeToAllow": 0.0
+    }
+  },
+  "test_manageable_sound_control": [
+    {
+      "_use": "sound_effect"
+    },
+    {
+      "_use": "moveable_sound_effect"
+    },
+    {
+      "_use": "manageable_sound_control"
+    },
+    {
+      "transform": [
+        [1.0,0.0,0.0],
+        [0.0,1.0,0.0],
+        [0.0,0.0,1.0],
+        [0.0,0.0,0.0]
+      ]
+    },
+    {
+      "_group": {
+        "_tags": "sound",
+        "sound_effect__path": "env_effects/fire/fire_mid"
+      }
+    }
+  ],
   "sound_destroy_timer": {
     "_group": {
       "_tags": "server",

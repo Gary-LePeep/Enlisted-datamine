@@ -15,7 +15,9 @@ let goalText = Computed(function() {
   return locId == "" ? "" : loc($"{locId}/short", loc(locId))
 })
 
-let showGoal = @() hints.pushEvent({ uid = "goal", text = goalText.value })
+let goalTtl = Computed(@() localPlayerTeamInfo.value?["team__goalShowTime"] ?? -1.)
+
+let showGoal = @() hints.pushEvent(goalTtl.value > 0. ? { uid = "goal", text = goalText.value, ttl = goalTtl.value} : { uid = "goal", text = goalText.value})
 function showGoalWhenReady() {
   if (needSpawnMenu.value)
     isWaitToShow(true)

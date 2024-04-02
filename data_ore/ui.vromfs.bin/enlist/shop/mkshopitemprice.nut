@@ -113,21 +113,46 @@ function mkItemPurchaseInfo(shopItem, campItems, currencies, isNarrow) {
   return null
 }
 
-function mkItemBarterInfo(shopItem, campItems) {
+function mkItemBarterInfo(shopItem) {
+  let { guid, curItemCost } = shopItem
+  if (curItemCost.len() == 0)
+    return null
+
+  return function() {
+    let children = []
+    foreach (itemTpl, reqCount in curItemCost) {
+      let inStock = curCampItemsCount.value?[itemTpl] ?? 0
+      children.append(mkItemCurrency({
+        currencyTpl = itemTpl
+        count = $"{inStock}/{reqCount}"
+        keySuffix = guid
+        textStyle = (inStock >= reqCount //warning disable: -unwanted-modification
+          ? { color = bonusColor }
+          : {}).__update(fontBody)
+      }))
+    }
+    return {
+      watch = curCampItemsCount
+      flow = FLOW_HORIZONTAL
+      gap = midPadding
+      padding = [0,0,0,sidePadding]
+      children
+    }
+  }
+}
+
+function mkItemPriceInfo(shopItem) {
   let { guid, curItemCost } = shopItem
   if (curItemCost.len() == 0)
     return null
 
   let children = []
   foreach (itemTpl, reqCount in curItemCost) {
-    let inStock = campItems?[itemTpl] ?? 0
     children.append(mkItemCurrency({
       currencyTpl = itemTpl
-      count = $"{inStock}/{reqCount}"
+      count = reqCount
       keySuffix = guid
-      textStyle = (inStock >= reqCount
-        ? { color = bonusColor,  }
-        : {}).__merge(fontBody)
+      textStyle = fontBody
     }))
   }
   return {
@@ -235,7 +260,7 @@ function mkDiscountInfo(discountData) {
   }
 }
 
-function mkShopItemPrice(shopItem, personalOffer = null, isNarrow = false) {
+function mkShopItemPrice(shopItem, personalOffer = null, isNarrow = false, showInStock = true) {
   local {
     curItemCost, curShopItemPrice, shop_price_curr = "",
     shop_price = 0, discountInPercent = 0,
@@ -269,7 +294,9 @@ function mkShopItemPrice(shopItem, personalOffer = null, isNarrow = false) {
     flow = FLOW_HORIZONTAL
     valign = ALIGN_CENTER
     children = [
-      mkItemBarterInfo(shopItem, curCampItemsCount.value)
+      showInStock
+        ? mkItemBarterInfo(shopItem)
+        : mkItemPriceInfo(shopItem)
       mkDiscountInfo(discountData)
       { size = flex() }
       mkItemPurchaseInfo(shopItem, curCampItemsCount.value, currenciesList.value, isNarrow)

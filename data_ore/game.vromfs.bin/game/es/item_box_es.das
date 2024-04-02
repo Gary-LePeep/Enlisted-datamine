@@ -9,6 +9,7 @@ def item_box_use_es(evt : CmdUseUsefulBox;
                     var useful_box__successUse : bool&;
                     var useful_box__requiredUseCount : int&;
                     useful_box__fillMode : Tag const?;
+                    useful_box__noFillMode : Tag const?;
                     useful_box__itemExistTag : string = "")
   useful_box__successUse = true
   useful_box__requiredUseCount = 1
@@ -33,7 +34,7 @@ def item_box_use_es(evt : CmdUseUsefulBox;
 
     if inventoryItemsCount < inventoryCapacity
       let emptyItemSpace = inventoryCapacity - inventoryItemsCount
-      let addItemsAmount = useful_box__fillMode != null ? emptyItemSpace : 1
+      let addItemsAmount = (useful_box__fillMode != null && useful_box__noFillMode == null) ? emptyItemSpace : 1
       for _i in range(addItemsAmount)
         evt.requesterEid |> push_item_in_cont(useful_box__giveItem)
     else

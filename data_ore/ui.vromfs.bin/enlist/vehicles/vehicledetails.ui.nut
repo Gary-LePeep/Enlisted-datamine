@@ -17,7 +17,7 @@ let { focusResearch, findResearchesUpgradeUnlock, getClosestResearch
 let { allResearchStatus } = require("%enlist/researches/researchesState.nut")
 let { getSortedGrowthsByResearch } = require("%enlist/growth/growthState.nut")
 let { jumpToArmyGrowth } = require("%enlist/mainMenu/sectionsState.nut")
-let { mkViewItemDetails } = require("%enlist/soldiers/components/itemDetailsComp.nut")
+let { mkViewDetailsFull } = require("%enlist/soldiers/components/itemDetailsComp.nut")
 let spinner = require("%ui/components/spinner.nut")
 let { isItemActionInProgress } = require("%enlist/soldiers/model/itemActions.nut")
 let { showMsgbox } = require("%enlist/components/msgbox.nut")
@@ -334,7 +334,7 @@ return function() {
           valign = ALIGN_BOTTOM
           gap = midPadding
           children = [
-            mkViewItemDetails(viewVehicle.value, Watched(true),
+            mkViewDetailsFull(viewVehicle.value,
               fsh(75) - safeAreaBorders.value[0] - safeAreaBorders.value[2])
             vehicleStatusRow(vehicle)
           ]

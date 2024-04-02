@@ -14,7 +14,7 @@ let { equipSlotRows } = require("model/config/equipGroups.nut")
 let { openSelectItem } = require("model/selectItemState.nut")
 let mkItemWithMods = require("mkItemWithMods.nut")
 let { ItemNotifiers } = require("components/itemComp.nut")
-let soldierSlotsCount = require("model/soldierSlotsCount.nut")
+let { mkSoldierSlotsComp } = require("model/soldierSlotsCount.nut")
 let { getLinkedArmyName, getLinkedSquadGuid } = require("%enlSqGlob/ui/metalink.nut")
 let { betterWeaponrySoldier, soldierSeenSlots } = require("model/unseenWeaponry.nut")
 let { campItemsByLink } = require("%enlist/meta/profile.nut")
@@ -273,9 +273,7 @@ let soldierEquip = @(soldier, canManage = true, selectedKeyWatch = Watched(null)
       onResearchClickCb = onResearchClickCb
     }))
 
-    let slotsCount = soldierSlotsCount(soldier.value.guid,
-      soldier.value?.equipScheme ?? {}, previewPreset.value?.slotsIncrease)
-
+    let slotsCount = mkSoldierSlotsComp(soldier.value.guid, soldier.value?.equipScheme ?? {})
     let slotsItems = getItemSlotsWithPreset(soldier.value,
       campItemsByLink.value, previewPreset.value)
 

@@ -407,6 +407,11 @@
         }
       },
       {
+        "spreadInPit": {
+          "posParam": "regroupPosition"
+        }
+      },
+      {
         "copyPoint3Var": {
           "from": "regroupPosition",
           "to": "wishPosition"
@@ -454,6 +459,11 @@
       },
       {
         "isPosInPit": {
+          "posParam": "regroupPosition"
+        }
+      },
+      {
+        "spreadInPit": {
           "posParam": "regroupPosition"
         }
       },
@@ -2359,9 +2369,14 @@
       "getRegroupPos": {
         "posParam": "regroupPosition"
       },
-      "getOrderPosition": {
-        "posParam": "regroupPosition",
-        "orderPosParam": "wishPosition"
+      "orderedSelector": {
+        "shouldStayBySpread": {
+          "posParam": "regroupPosition"
+        },
+        "getOrderPosition": {
+          "posParam": "regroupPosition",
+          "orderPosParam": "wishPosition"
+        }
       },
       "subTree": {
         "name": "",
@@ -4700,6 +4715,18 @@
           }
         },
         {
+          "setIntVar": {
+            "to": "regroupToPit",
+            "value": 0
+          }
+        },
+        {
+          "setIntVar": {
+            "to": "mortarAtPosition",
+            "value": 1
+          }
+        },
+        {
           "parallel": {
             "subTree": {
               "treeName": "sub.tryMoveToWishPosition"
@@ -4719,12 +4746,6 @@
           "wait": {
             "range": [10.0,15.0],
             "resetable": true
-          }
-        },
-        {
-          "setIntVar": {
-            "to": "mortarAtPosition",
-            "value": 1
           }
         },
         {
@@ -5205,19 +5226,21 @@
             "lhs": "regroupToPit",
             "rhs_value": 1
           },
-          "moveToPos": {
-            "posParam": "wishPosition",
-            "sprintTimerRange": [10.0,20.0],
-            "minDistToSprint": 1.5,
-            "lookVisc": 0.1,
-            "tryClimbing": true,
-            "maxStanceParam": "maxStance",
-            "stuckDirParam": "stuckDir",
-            "incLadders": true,
-            "timeToStuck": 0.9,
-            "incObstacles": true,
-            "avoidAiObstacles": false,
-            "distThreshold": 0.1
+          "success": {
+            "moveToPos": {
+              "posParam": "wishPosition",
+              "sprintTimerRange": [10.0,20.0],
+              "minDistToSprint": 1.5,
+              "lookVisc": 0.1,
+              "tryClimbing": true,
+              "maxStanceParam": "maxStance",
+              "stuckDirParam": "stuckDir",
+              "incLadders": true,
+              "timeToStuck": 0.9,
+              "incObstacles": true,
+              "avoidAiObstacles": false,
+              "distThreshold": 0.1
+            }
           }
         }
       },
@@ -5227,19 +5250,21 @@
             "lhs": "regroupToPit",
             "rhs_value": 2
           },
-          "moveToPos": {
-            "posParam": "wishPosition",
-            "sprintTimerRange": [10.0,20.0],
-            "minDistToSprint": 1.5,
-            "lookVisc": 0.1,
-            "tryClimbing": true,
-            "maxStanceParam": "maxStance",
-            "stuckDirParam": "stuckDir",
-            "incLadders": true,
-            "timeToStuck": 0.9,
-            "incObstacles": true,
-            "avoidAiObstacles": false,
-            "distThreshold": 2.0
+          "success": {
+            "moveToPos": {
+              "posParam": "wishPosition",
+              "sprintTimerRange": [10.0,20.0],
+              "minDistToSprint": 1.5,
+              "lookVisc": 0.1,
+              "tryClimbing": true,
+              "maxStanceParam": "maxStance",
+              "stuckDirParam": "stuckDir",
+              "incLadders": true,
+              "timeToStuck": 0.9,
+              "incObstacles": true,
+              "avoidAiObstacles": false,
+              "distThreshold": 0.2
+            }
           }
         }
       },

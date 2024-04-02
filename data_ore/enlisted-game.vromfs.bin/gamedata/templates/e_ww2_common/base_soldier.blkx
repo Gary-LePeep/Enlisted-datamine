@@ -1667,7 +1667,11 @@
       }
     }
   ],
-  "enlisted_base_soldier": [
+  "enlisted_base_soldier": {
+    "_use": "enlisted_visible_base_soldier",
+    "invisibleUpdatableAnimchar:tag": []
+  },
+  "enlisted_visible_base_soldier": [
     {
       "_use": "base_soldier"
     },
@@ -1723,10 +1727,16 @@
       "_use": "human_vehicle_exit_animator_states"
     },
     {
-      "collision_damage__lethalSpeed": 20.0
+      "paid_loot__points": 0
     },
     {
-      "collision_damage__damageOnLeavingVehicleTemplate": "damage_on_leaving_vehicle"
+      "_replicated": "paid_loot__points"
+    },
+    {
+      "_replicated": "stockOfBuilderCapabilities"
+    },
+    {
+      "_tracked": "paid_loot__points"
     },
     {
       "_tracked": "human_use_object__selectedBuilding"
@@ -1739,6 +1749,12 @@
     },
     {
       "_tracked": "human_paratroopers_supply_box__selectedEid"
+    },
+    {
+      "collision_damage__lethalSpeed": 20.0
+    },
+    {
+      "collision_damage__damageOnLeavingVehicleTemplate": "damage_on_leaving_vehicle"
     },
     {
       "hitpoints__clearOffenderTimer": 30.0
@@ -1796,9 +1812,6 @@
     },
     {
       "stockOfBuilderCapabilities": 20.0
-    },
-    {
-      "_replicated": "stockOfBuilderCapabilities"
     },
     {
       "human_weap__extraGunSpeedOnJump": 0.04
@@ -2005,9 +2018,6 @@
           }
         }
       ]
-    },
-    {
-      "invisibleUpdatableAnimchar:tag": []
     },
     {
       "walker_agent__velocityPredictionErrorsTable:shared:array": [

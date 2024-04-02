@@ -953,6 +953,66 @@
     ]
   },
   {
+    "omni_light_lamppost_undestr": [
+      {
+        "_use": "replicating"
+      },
+      {
+        "_use": "local_light"
+      },
+      {
+        "light__max_radius": 10.0
+      },
+      {
+        "light__color": "#d0bf98ff"
+      },
+      {
+        "light__brightness": 2.0
+      },
+      {
+        "light__nightly": true
+      },
+      {
+        "_group": {
+          "_track": true,
+          "_replicate": true,
+          "light__contact_shadows": true,
+          "light__use_box": true,
+          "light__automatic_box": false,
+          "light__box": [
+            [0.0,0.0,0.0],
+            [0.0,0.0,0.0],
+            [0.0,0.0,0.0],
+            [0.0,0.0,0.0]
+          ],
+          "light__direction": [0.0,-1.0,0.0],
+          "light__texture_name": "ies_barsed_lamp_b"
+        }
+      },
+      {
+        "_group": {
+          "_tags": "render",
+          "_track": true,
+          "omni_light__shadow_quality": 2
+        }
+      },
+      {
+        "_group": {
+          "_tags": "render",
+          "omni_light__inner_attenuation": 0.1,
+          "omni_light__shadows": true,
+          "omni_light__dynamic_obj_shadows": false,
+          "omni_light__shadow_shrink": 2
+        }
+      },
+      {
+        "omni_light": {
+          "_tags": "render"
+        }
+      }
+    ]
+  },
+  {
     "omni_light_lamppost": {
       "_use": "omni_light",
       "light__max_radius": 10.0,
@@ -1783,6 +1843,61 @@
         "spot_light__dynamic_obj_shadows": false,
         "spot_light__shadow_shrink": 2
       }
+    }
+  },
+  {
+    "omni_light_huge_flicker": [
+      {
+        "_use": "omni_light_huge"
+      },
+      {
+        "_use": "light_flicker_updater_light"
+      },
+      {
+        "light_flicker_updater__template": "omni_flicker_light_template_a"
+      }
+    ]
+  },
+  {
+    "omni_flicker_light_template_a": {
+      "_use": "light_flicker",
+      "light_flicker__attack_time": [2.0,2.5],
+      "light_flicker__on_time": [0.8,1.0],
+      "light_flicker__release_time": [1.08,1.25],
+      "light_flicker__off_time": [2.4,2.5],
+      "light_flicker__on_brightness": [2.0,2.2],
+      "light_flicker__off_brightness": [0.8,1.2],
+      "light_flicker__noise_brightness_on": [2.5,3.0],
+      "light_flicker__noise_brightness_off": [0.8,1.0],
+      "light_flicker__noise_time": 2.0
+    }
+  },
+  {
+    "omni_flicker_light_template_b": {
+      "_use": "light_flicker",
+      "light_flicker__attack_time": [3.0,3.5],
+      "light_flicker__on_time": [0.5,0.8],
+      "light_flicker__release_time": [2.08,2.25],
+      "light_flicker__off_time": [3.4,3.5],
+      "light_flicker__on_brightness": [2.0,2.2],
+      "light_flicker__off_brightness": [0.8,1.0],
+      "light_flicker__noise_brightness_on": [2.5,3.0],
+      "light_flicker__noise_brightness_off": [0.8,1.0],
+      "light_flicker__noise_time": 2.0
+    }
+  },
+  {
+    "omni_flicker_light_template_c": {
+      "_use": "light_flicker",
+      "light_flicker__attack_time": [1.0,1.5],
+      "light_flicker__on_time": [1.8,1.9],
+      "light_flicker__release_time": [2.5,3.0],
+      "light_flicker__off_time": [1.2,1.5],
+      "light_flicker__on_brightness": [2.0,2.2],
+      "light_flicker__off_brightness": [0.7,1.2],
+      "light_flicker__noise_brightness_on": [2.5,3.0],
+      "light_flicker__noise_brightness_off": [0.8,1.0],
+      "light_flicker__noise_time": 2.0
     }
   }
 ]

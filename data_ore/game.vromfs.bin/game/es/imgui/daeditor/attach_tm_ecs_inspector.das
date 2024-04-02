@@ -8,8 +8,7 @@ require daslib/safe_addr
 require math.base
 
 
-[ecs_inspector(field_name="seats_attach_nodes__attachTm", type_name="TMatrix")]
-def draw_edit_seat_attach_nodes_tm(eid : array<EntityId> implicit; flags : uint; name : string; refs : array<EntityComponentRef#>#; level : int; var changed : bool?; sub_menu : block<(var changed : bool?) : bool>) : void
+def draw_edit_attach_nodes_tm_impl(eid : array<EntityId> implicit; name : string; refs : array<EntityComponentRef#>#; var changed : bool?; sub_menu : block<(var changed : bool?) : bool>) : void
   var val = unsafe(reinterpret<float3x4?> refs[0].rawData)
 
   let rotMin = -180.0
@@ -59,3 +58,20 @@ def draw_edit_seat_attach_nodes_tm(eid : array<EntityId> implicit; flags : uint;
   (*val) = rotTm
 
   default_menu(eid, name, "TMatrix", $() => to_string(*val), $(str) { update_value(to_TMatrix(str), val, changed); }, $() => to_string_via_blk(name, eid[0]), changed, sub_menu)
+
+
+[ecs_inspector(field_name="seats_attach_nodes__attachTm", type_name="TMatrix")]
+def draw_edit_seat_attach_nodes_tm(eid : array<EntityId> implicit; flags : uint; name : string; refs : array<EntityComponentRef#>#; level : int; var changed : bool?; sub_menu : block<(var changed : bool?) : bool>) : void
+  draw_edit_attach_nodes_tm_impl(eid, name, refs, changed, sub_menu)
+
+[ecs_inspector(field_name="anim__attachHandsLocalTm", type_name="TMatrix")]
+def draw_edit_anim_attach_nodes_tm(eid : array<EntityId> implicit; flags : uint; name : string; refs : array<EntityComponentRef#>#; level : int; var changed : bool?; sub_menu : block<(var changed : bool?) : bool>) : void
+  draw_edit_attach_nodes_tm_impl(eid, name, refs, changed, sub_menu)
+
+[ecs_inspector(field_name="zombie__attachLHandAdditiveTm", type_name="TMatrix")]
+def draw_edit_anim_l_hand_attach_nodes_tm(eid : array<EntityId> implicit; flags : uint; name : string; refs : array<EntityComponentRef#>#; level : int; var changed : bool?; sub_menu : block<(var changed : bool?) : bool>) : void
+  draw_edit_attach_nodes_tm_impl(eid, name, refs, changed, sub_menu)
+
+[ecs_inspector(field_name="zombie__attachRHandAdditiveTm", type_name="TMatrix")]
+def draw_edit_anim_r_hand_attach_nodes_tm(eid : array<EntityId> implicit; flags : uint; name : string; refs : array<EntityComponentRef#>#; level : int; var changed : bool?; sub_menu : block<(var changed : bool?) : bool>) : void
+  draw_edit_attach_nodes_tm_impl(eid, name, refs, changed, sub_menu)

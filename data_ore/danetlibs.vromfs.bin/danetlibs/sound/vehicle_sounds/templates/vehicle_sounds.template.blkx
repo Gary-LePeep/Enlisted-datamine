@@ -62,21 +62,27 @@
     }
   },
   "vehicle_horn_sound_subtemplate": {
-    "_use": "vehicle_net_horn",
     "_group": {
       "_tags": "sound",
       "vehicle_horn_sound__event:SoundEvent": []
     }
   },
-  "vehicle_horn_sound": {
-    "_use": "vehicle_horn_note",
-    "_group": {
-      "_tags": "sound",
-      "vehicle_horn_sound__path:shared:object": {
-        "path": "enemy/vehicle/car/horns/default/horn"
+  "vehicle_horn_sound": [
+    {
+      "_use": "vehicle_net_horn"
+    },
+    {
+      "_use": "vehicle_horn_note"
+    },
+    {
+      "_group": {
+        "_tags": "sound",
+        "vehicle_horn_sound__path:shared:object": {
+          "path": "enemy/vehicle/car/horns/default/horn"
+        }
       }
     }
-  },
+  ],
   "motorcycle_vehicle_horn_sound_setup": {
     "vehicle_horn_sound__path:shared:object": {
       "_tags": "sound",

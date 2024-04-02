@@ -1,19 +1,4 @@
 {
-  "projectile_sound": {
-    "_group": {
-      "_tags": "sound",
-      "projectile_sound__shellCaliberThreshold": 0.025,
-      "projectile_sound__ricoThreshold": 0.0,
-      "projectile_sound__paths:shared:object": {
-        "hitBullet": "impact/bullet",
-        "hitShell": "impact/shell",
-        "explodeBullet": "impact/bullet",
-        "explodeShell": "impact/shell",
-        "ricoBullet": "impact/rico_bullet",
-        "ricoShell": "enemy/vehicle/tank/impacts/rico_mid"
-      }
-    }
-  },
   "projectile_sound_physmat": {
     "_use": "sound_physmat",
     "_group": {

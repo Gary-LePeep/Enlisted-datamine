@@ -8,7 +8,7 @@ let { makeVertScroll } = require("%ui/components/scrollbar.nut")
 let { allItemTemplates } = require("%enlist/soldiers/model/all_items_templates.nut")
 let { safeAreaBorders } = require("%enlist/options/safeAreaState.nut")
 let { curArmy } = require("%enlist/soldiers/model/state.nut")
-let { mkViewItemDetails } = require("%enlist/soldiers/components/itemDetailsComp.nut")
+let { mkViewDetailsFull } = require("%enlist/soldiers/components/itemDetailsComp.nut")
 let {
   sceneWithCameraAdd, sceneWithCameraRemove
 } = require("%enlist/sceneWithCamera.nut")
@@ -109,7 +109,7 @@ function viewItemScene() {
           {
             hplace = ALIGN_RIGHT
             vplace = ALIGN_BOTTOM
-            children = mkViewItemDetails(itemToShow.value, Watched(true), fsh(95))
+            children = mkViewDetailsFull(itemToShow.value, fsh(95))
           }
         ]
       }

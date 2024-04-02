@@ -10,7 +10,7 @@ require enlisted.events_enlisted
 def init_useful_box_refill_count_es(evt : Event; useful_box__maxUseCount : int; var useful_box__useCount : int&)
   useful_box__useCount = useful_box__maxUseCount
 
-[es(tag=server)]
+[es(tag=server, REQUIRE_NOT=(paid_box__ressuplyCost, paid_loot__cost))]
 def useful_box_use_request_es(evt : CmdUse;
                               eid : EntityId;
                               useful_box__useCount : int;

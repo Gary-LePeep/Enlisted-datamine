@@ -1,7 +1,7 @@
 from "%enlSqGlob/ui/ui_library.nut" import *
 
 let serverTime = require("%enlSqGlob/userstats/serverTime.nut")
-let shopItemClick = require("%enlist/shop/shopItemClick.nut")
+let { shopItemClick } = require("%enlist/shop/shopItemClick.nut")
 let isChineseVersion = require("%enlSqGlob/isChineseVersion.nut")
 let { fontBody, fontSub } = require("%enlSqGlob/ui/fontsStyle.nut")
 let { utf8ToUpper } = require("%sqstd/string.nut")
@@ -448,22 +448,35 @@ function mkWidgetList() {
 
   return Computed(function() {
     let list = []
-    let activeOffers = allActiveOffers.value
-    if (activeOffers.len() > 0)
-      list.extend(activeOffers.map(@(specOffer, idx) {
-        widgetType = WidgetType.OFFER
-        data = specOffer
-        id = idx
-        backImage = specOffer?.widgetImg ?? defOfferImg
-      }))
-    else if (featuredItem.value != null)
-      list.append({
-        widgetType = WidgetType.FEATURED
-        data = featuredItem.value
-        backImage = featuredItem.value?.image ?? defOfferImg
-      })
+    let eventCount = hasBaseEvent.value ? 1 : 0
+    let modesCount = eventsKeysSorted.value.len()
+    let offersCount = allActiveOffers.value.len()
+    let featuredCount = featuredItem.value != null ? 1 : 0
+    let linksCount = eventForcedUrl.value.len()
+    local countLeft = MAX_WIDGETS - eventCount - modesCount
 
-    if (hasBaseEvent.value && eventsKeysSorted.value.len() < MAX_WIDGETS - 1) {
+    if (countLeft > 0) {
+      if (offersCount > 0) {
+        list.extend(allActiveOffers.value
+          .slice(0, countLeft)
+          .map(@(specOffer, idx) {
+            widgetType = WidgetType.OFFER
+            data = specOffer
+            id = idx
+            backImage = specOffer?.widgetImg ?? defOfferImg
+          }))
+        countLeft -= offersCount
+      } else if (featuredCount > 0) {
+        list.append({
+          widgetType = WidgetType.FEATURED
+          data = featuredItem.value
+          backImage = featuredItem.value?.image ?? defOfferImg
+        })
+        countLeft -= featuredCount
+      }
+    }
+
+    if (eventCount > 0) {
       local { locId = "events_and_custom_matches", title = "", queues = [] } = promotedEvent.value
       let queue = queues?[0]
       if (title == "")
@@ -477,17 +490,18 @@ function mkWidgetList() {
       })
     }
 
-    if (list.len() < MAX_WIDGETS)
-      list.extend(eventForcedUrl.value.map(@(v, idx) {
-        widgetType = WidgetType.URL
-        data = v
-        id = idx
-        backImage = v?.image ?? defExtUrlImg
-      }))
+    if (linksCount > 0 && countLeft > 0) {
+      list.extend(eventForcedUrl.value
+        .slice(0, countLeft)
+        .map(@(v, idx) {
+          widgetType = WidgetType.URL
+          data = v
+          id = idx
+          backImage = v?.image ?? defExtUrlImg
+        }))
+    }
 
-    foreach (eventId in eventsKeysSorted.value) {
-      if (list.len() >= MAX_WIDGETS)
-        break
+    foreach (eventId in eventsKeysSorted.value.slice(0, MAX_WIDGETS - eventCount)) {
       let event = eventsData.value?[eventId]
       if (event != null) {
         let { id, imagepromo = defOfferImg } = event
@@ -684,8 +698,8 @@ function mkOffersPromoWidget(isExpandLocked) {
         v.subscribe(startSwitchTimer)
       startSwitchTimer()
     }
-    if (widgets.len() == 0)
-      return {watch}
+    if (offers == 0)
+      return { watch }
     let curIdx = isExpandLocked.value ? -1 : curLargeWidgetIdx.value
     return {
       watch

@@ -18,7 +18,7 @@ def add_obstacle_template(eid : EntityId; transform : float3x4; cur_time : float
     set(init, "obstacle__lastStillTime", cur_time)
 
 def still_player_obstacles_from_grid(cur_time : float; obstacle_template : string)
-  ecs::query() <| $ [es(REQUIRE_NOT=(obstacle__still, obstacle__handle, deadEntity), REQUIRE=(human, collres, grid_obj))] (eid : EntityId; transform : float3x4; beh_tree__enabled : bool)
+  ecs::query() <| $ [es(REQUIRE_NOT=(obstacle__still, obstacle__handle, deadEntity, still_obstacles__disable), REQUIRE=(human, collres, grid_obj))] (eid : EntityId; transform : float3x4; beh_tree__enabled : bool)
     if !beh_tree__enabled
       add_obstacle_template(eid, transform, cur_time, obstacle_template)
 

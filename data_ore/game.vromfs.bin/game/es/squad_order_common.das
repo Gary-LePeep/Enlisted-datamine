@@ -26,3 +26,7 @@ enum SquadFormationSpread
   ESFN_CLOSEST
   ESFN_STANDARD
   ESFN_WIDE
+
+enum SquadAISpreadType
+  DEFAULT
+  SPREAD_IN_PIT

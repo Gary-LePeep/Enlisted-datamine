@@ -20,7 +20,7 @@ let { mkItemDemands, mkItemListDemands } = require("model/mkItemDemands.nut")
 let { sceneWithCameraAdd, sceneWithCameraRemove } = require("%enlist/sceneWithCamera.nut")
 let { itemTypesInSlots } = require("model/all_items_templates.nut")
 let closeBtnBase = require("%ui/components/closeBtn.nut")
-let { mkViewItemDetails, lockedInfo } = require("components/itemDetailsComp.nut")
+let { mkViewDetailsSwitchable, lockedInfo } = require("components/itemDetailsComp.nut")
 let { curUpgradeDiscount, campPresentation } = require("%enlist/campaigns/campaignConfig.nut")
 let { setTooltip, normalTooltipTop } = require("%ui/style/cursors.nut")
 let spinner = require("%ui/components/spinner.nut")
@@ -59,7 +59,6 @@ let { getShopItemsCmp } = require("%enlist/shop/armyShopState.nut")
 let { mkOnlinePersistentFlag } = require("%enlist/options/mkOnlinePersistentFlag.nut")
 let openArmoryTutorial = require("%enlist/tutorial/armoryTutorial.nut")
 let isNewbie = require("%enlist/unlocks/isNewbie.nut")
-let { isDetailsFull, detailsModeCheckbox } = require("%enlist/items/detailsMode.nut")
 let { isObjGuidBelongToRentedSquad } = require("%enlist/soldiers/model/squadInfoState.nut")
 let { showRentedSquadLimitsBox } = require("%enlist/soldiers/components/squadsComps.nut")
 let clickShopItem = require("%enlist/shop/clickShopItem.nut")
@@ -672,7 +671,6 @@ function mkDemandsInfo(item) {
   }
 }
 
-
 let infoBlock = @() {
   watch = viewItem
   size = flex()
@@ -681,9 +679,8 @@ let infoBlock = @() {
   halign = ALIGN_RIGHT
   gap = midPadding
   children = [
-    mkViewItemDetails(viewItem.value, isDetailsFull, fsh(80))
+    mkViewDetailsSwitchable(viewItem.value, fsh(74))
     mkDemandsInfo(viewItem.value)
-    detailsModeCheckbox
     buttonsUi
   ]
 }

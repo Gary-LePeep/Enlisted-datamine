@@ -116,6 +116,11 @@ function getSortedGrowthsByResearch(army, research) {
   return sortedGrowths
 }
 
+let isShopItemSuitable = @(item) (item?.can_be_bought ?? true)
+  || (item?.curShopItemPrice.price ?? 0) > 0
+  || (item?.price ?? 0) > 0
+  || (item?.itemCost.len() ?? 0) > 0
+
 console_register_command(@(growthId) growth_select(curArmy.value, growthId),
   "meta.growthSelect")
 console_register_command(@() growth_select_forced(curArmy.value, curGrowthId.value),
@@ -154,6 +159,7 @@ return {
   growthSquadsByArmy
   getGrowthToFocus
   getSortedGrowthsByResearch
+  isShopItemSuitable
 
   callGrowthExp = growth_use_army_exp
   callGrowthBuyExp = growth_buy_exp

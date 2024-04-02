@@ -1446,6 +1446,40 @@ let rewardsPresentation = {
     cardImage = "!ui/soldiers/ussr/squad_ussr_engineer_2_event_1_image.avif"
     mkImage = mkImageCtor([210, 157], [0, 0])
   },
+  ["510"] = {
+    name = loc("items/m1911a1_colt_nickel")
+    description = loc("items/m1911a1_colt_nickel/desc")
+    icon = "ui/skin#currency/event_order.svg"
+    cardImage = "!ui/shop/weapons/m1911a1_colt_nickel.avif"
+    mkImage = mkImageCtor([350, 200], [0, 0])
+  },
+  ["511"] = {
+    icon = "ui/skin#battlepass/base_booster_icon.svg"
+    worth = 2
+    bgImage = "ui/skin#battlepass/bg_boost.avif"
+    cardImage = "ui/skin#battlepass/boost_global.avif"
+    cardImageParams = mkImageParams([154, 144], [0, 15])
+  },
+  ["514"] = {
+    name = loc("decorator/zombie_bonus_portrait_A")
+    icon = "!ui/portraits/default_portrait.svg"
+    cardImage = "!ui/portraits/event/zombie_bonus_portrait_A.avif"
+    mkImage = mkImageCtor([150, 150])
+  },
+  ["515"] = {
+    name = loc("decorator/zombie_bonus_portrait_B")
+    icon = "!ui/portraits/default_portrait.svg"
+    cardImage = "!ui/portraits/event/zombie_bonus_portrait_B.avif"
+    mkImage = mkImageCtor([150, 150])
+  },
+  ["516"] = {
+    name = loc("items/nickFrame")
+    description = loc("items/nickFrame/desc")
+    icon = "ui/skin#currency/nickframe_order_event.svg"
+    bgImage = "ui/skin#battlepass/bg_other.avif"
+    cardImage = "ui/skin#battlepass/nickframe_bp.avif"
+    cardImageParams = mkImageParams([160, 178])
+  },
 
 
 

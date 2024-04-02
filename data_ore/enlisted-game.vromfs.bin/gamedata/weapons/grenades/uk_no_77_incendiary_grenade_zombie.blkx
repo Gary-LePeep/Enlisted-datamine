@@ -1,0 +1,43 @@
+{
+  "mass": 0.5,
+  "momentOfInertia": [0.04,0.008,0.04],
+  "caliber": 0.04,
+  "speed": 18.5,
+  "speedPitch": 5.0,
+  "maxDistance": 5.0,
+  "physMat": "grenadeRay",
+  "useFutureContacts": true,
+  "logCCD": false,
+  "frictionGround": 1.0,
+  "noSleepAtTheSlopeCos": 0.766,
+  "ccdClipVelocityMult": 0.0,
+  "entityTemplate": "uk_no_77_incendiary_grenade",
+  "entityPhysTemplate": "uk_no_77_incendiary_zombie_grenade_phys",
+  "splashDamage": {
+    "radius": [1.0,4.0],
+    "penetration": [2.0,2.0],
+    "damage": 2.0,
+    "dmgOffset": [0.0,0.25,0.0]
+  },
+  "ccdSpheres": {
+    "ccd": [0.0,0.02,0.0,0.03]
+  },
+  "solver": {
+    "energyConservation": 0.85
+  },
+  "detonation": {
+    "onHit": false,
+    "timer": 5.0
+  },
+  "shellSound": {
+    "activatePath": "/weapon/incendiary_grenade/activate"
+  },
+  "shellSoundNet": {
+    "throwPhrase": "phosphorusThrow"
+  },
+  "collisionResource": {
+    "props": {
+      "volumeBox_1": true
+    }
+  }
+}

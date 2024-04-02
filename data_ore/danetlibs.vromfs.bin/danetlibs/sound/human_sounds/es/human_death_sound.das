@@ -12,4 +12,4 @@ def human_death_sound(evt : Event;
                       transform : float3x4;
                       sound_tags : Object;
                       is_watched_sound : bool = false)
-  sound_player_common::play("death", human_voice_sound__path, human_voice_sound__descs, sound_tags, is_watched_sound, transform[3], sound_hash("concussed"), sound_event_group)
+  sound_player_common::play("death", human_voice_sound__path, human_voice_sound__descs, sound_tags, is_watched_sound, transform[3], sound_hash(""), sound_event_group)

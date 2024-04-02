@@ -10,6 +10,7 @@ enum MissionType {
   ASSAULT = 3
   DOMINATION = 4
   ESCORT = 5
+  DEFENSE = 6
 }
 
 let typeToLocId = {
@@ -18,7 +19,8 @@ let typeToLocId = {
   [MissionType.INVASION] = "missionType/invasion",
   [MissionType.DESTRUCTION] = "missionType/destruction",
   [MissionType.ESCORT] = "missionType/escort",
-  [MissionType.CONFRONTATION] = "missionType/confrontation"
+  [MissionType.CONFRONTATION] = "missionType/confrontation",
+  [MissionType.DEFENSE] = "missionType/defense"
 }
 
 enum MissionArmy {
@@ -140,6 +142,12 @@ let missions = {
     image = "ui/volokolamsk_fortification_01.avif"
     locId = "lobbies/volokolamsk_fortification_inv_axis"
     army = MissionArmy.AXIS
+  }
+
+  volokolamsk_fortification_zombie = {
+    image = "ui/volokolamsk_fortification_02.avif"
+    locId = "zombie_mode/volokolamsk_fortification_zombie"
+    type = MissionType.DEFENSE
   }
 
   volokolamsk_grove_dom = {

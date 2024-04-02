@@ -6,8 +6,8 @@ let { campItemsByLink, curCampSoldiers } = require("%enlist/meta/profile.nut")
 let { getLinkedArmyName, getLinkedSquadGuid } = require("%enlSqGlob/ui/metalink.nut")
 let sClassesCfg = require("%enlist/soldiers/model/config/sClassesConfig.nut")
 let { equipByList } = require("%enlist/soldiers/model/itemActions.nut")
-let { SLOT_COUNT_MAX, slotCount, slotsIncrease, minimumEquipList, bestEquipList,
-  selectedEquipList, equipmentPresetWatch, savePreset, renamePreset, deletePreset
+let { SLOT_COUNT_MAX, slotCount, minimumEquipList, bestEquipList, selectedEquipList,
+  equipmentPresetWatch, savePreset, renamePreset, deletePreset
 } = require("presetEquipCfg.nut")
 let { trimUpgradeSuffix } = require("%enlSqGlob/ui/itemsInfo.nut")
 let { allItemTemplates, findItemTemplate
@@ -50,7 +50,6 @@ let mkSlotDesc = @(presetTbl, presetList, i) {
   fnRename = i < SLOT_COUNT_MAX ? renamePreset(presetTbl, presetList, i) : null
   fnDelete = i >= SLOT_COUNT_MAX ? deletePreset(presetTbl, presetList, i) : null
   fnSave = i < SLOT_COUNT_MAX ? savePreset(presetTbl, i) : null
-  slotsIncrease = slotsIncrease(presetList, i)
 }
 
 let mkSlotPrem = @(presetList, i) {

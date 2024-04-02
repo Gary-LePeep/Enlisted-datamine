@@ -209,10 +209,11 @@ def hero_human_use_downed_human_object_es(info : ParallelUpdateFrameDelayed;
                                           human_reviver__maxDistance : float2 = float2(0.0, 0.0);
                                           human_reviver__maxAngle : float = 45.0;
                                           human_use_object__nodeId : int = 0;
+                                          canReviveWithoutItem : Tag const?;
                                           var human_use_object__selectedObject : EntityId&)
   if human_use_object__selectedObject != INVALID_ENTITY_ID
     return
-  if total_kits__targetRevive == 0
+  if total_kits__targetRevive == 0 && canReviveWithoutItem == null
     return
   let camTm = get_cam_itm()
   let tracePos = (human_use_object__nodeId > 0 ? *animchar.nodeTree |> geomtree_getNodeWpos(human_use_object__nodeId)

@@ -123,8 +123,8 @@ def spawn_soldier_done(evt : Event;
                                           vehicle_seats__seatEids : EidList;
                                           mobile_respawn__spawnCooldown : float)
               for seatNo in range(length(vehicle_seats__seatEids))
-                query(vehicle_seats__seatEids[seatNo]) <| $ [es] (seat__ownerEid : EntityId; seats_order__canPlaceOnlyOwner : bool = false)
-                  if !seat__ownerEid && !seats_order__canPlaceOnlyOwner
+                query(vehicle_seats__seatEids[seatNo]) <| $ [es] (seat__ownerEid : EntityId; seat__isOwnerAlive : bool; seats_order__canPlaceOnlyOwner : bool = false)
+                  if (!seat__ownerEid || !seat__isOwnerAlive) && !seats_order__canPlaceOnlyOwner
                     seatsOffset = seatNo
                 if seatsOffset != -1
                   break
@@ -206,11 +206,12 @@ def use_vehicle_on_spawn(possessed : EntityId; squad : EntityId; player_eid : En
 
     query(vehicle_seats__seatEids[seatNo]) <| $ [es] (seat__component : int;
                                                       var seat__isPlayer : bool&;
+                                                      var seat__isOwnerAlive : bool&;
                                                       var seat__ownerEid : EntityId&;
                                                       var seat__playerEid : EntityId&;
                                                       var seat__squadEid : EntityId&)
       set(possessed, "", uint(seat__component), true)
-
+      seat__isOwnerAlive = true
       seat__isPlayer = isPlayer
       seat__ownerEid = possessed
       seat__playerEid = player_eid

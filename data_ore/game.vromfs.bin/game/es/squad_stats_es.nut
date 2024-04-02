@@ -114,6 +114,10 @@ let scoringPlayerAwardsQuery = ecs.SqQuery("scoringPlayerAwardsQuery", {
     ["scoring_player__explosiveKills", ecs.TYPE_INT],
     ["scoring_player__longRangeKills", ecs.TYPE_INT],
     ["scoring_player__gunGameLevelup", ecs.TYPE_INT],
+    ["scoring_player__zombieKills", ecs.TYPE_INT, 0],
+    ["scoring_player__zombieHeadshots", ecs.TYPE_INT, 0],
+    ["scoring_player__zombieWaves", ecs.TYPE_INT, 0],
+    ["scoring_player__zombieTotalScore", ecs.TYPE_INT, 0],
   ]
 })
 

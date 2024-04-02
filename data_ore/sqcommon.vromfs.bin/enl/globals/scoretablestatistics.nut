@@ -87,6 +87,10 @@ let scoringPlayerSoldiersStatsComps = [
   ["scoring_player__friendlyApcKills", ecs.TYPE_INT],
   ["scoring_player__friendlyPlaneHits", ecs.TYPE_INT],
   ["scoring_player__friendlyPlaneKills", ecs.TYPE_INT],
+  ["scoring_player__zombieKills", ecs.TYPE_INT, 0],
+  ["scoring_player__zombieHeadshots", ecs.TYPE_INT, 0],
+  ["scoring_player__zombieWaves", ecs.TYPE_INT, 0],
+  ["scoring_player__zombieTotalScore", ecs.TYPE_INT, 0],
 ]
 
 let scoringPlayerPlayerOnlyStatsComps = [

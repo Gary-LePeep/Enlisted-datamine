@@ -8,6 +8,15 @@ let { isPlatformRelevant, is_pc } = require("%dngscripts/platform.nut")
 let isDmmDistr = require("%enlSqGlob/dmm_distr.nut")
 
 
+let shopSquadsCompensations = Computed(function() {
+  return configs.value?.shop_compensations.squads ?? {}
+})
+
+let shopDecorsCompensations = Computed(function() {
+  return configs.value?.shop_compensations.decorators ?? {}
+})
+
+
 let shopItemsBase = Computed(function() {
   let ownedSquads = squadsByArmies.value
   let shopItems = configs.value?.shop_items ?? {}
@@ -171,4 +180,6 @@ return {
   shopItems
   shopDiscountGen
   priorityDiscounts
+  shopSquadsCompensations
+  shopDecorsCompensations
 }

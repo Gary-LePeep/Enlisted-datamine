@@ -1,0 +1,1201 @@
+[
+  {
+    "repeat": [
+      {
+        "name": "nzombie_attacker"
+      },
+      {
+        "selectStrategy": "ordered"
+      },
+      {
+        "reaction": {
+          "event": "onHit",
+          "sequencer": {
+            "findDanger": {
+              "paramName": "enemy",
+              "radiusParamName": "enemyRadius",
+              "minDanger": 0.6,
+              "tag": "human"
+            },
+            "selectNode": {
+              "name": "attack"
+            }
+          }
+        }
+      },
+      {
+        "reaction": {
+          "event": "onEnemyPlayerNear",
+          "sequencer": {
+            "findDanger": {
+              "paramName": "enemy",
+              "radiusParamName": "enemyRadius",
+              "minDanger": 0.6,
+              "tag": "human"
+            },
+            "selectNode": {
+              "name": "attack"
+            }
+          }
+        }
+      },
+      {
+        "reaction": {
+          "event": "onBulletNearby",
+          "sequencer": {
+            "findDanger": {
+              "paramName": "enemy",
+              "radiusParamName": "enemyRadius",
+              "minDanger": 0.6,
+              "tag": "human"
+            },
+            "selectNode": {
+              "name": "attack"
+            }
+          }
+        }
+      },
+      {
+        "reaction": {
+          "event": "onBlindness",
+          "sequencer": {
+            "recalculateTree": []
+          }
+        }
+      },
+      {
+        "sequencer": {
+          "name": "blindness",
+          "isInBlindness": [],
+          "nMeshFindRandomPointAroundPos": {
+            "posParam": "walker_agent__targetPos",
+            "dist": [8.0,10.0],
+            "aroundPos": "navmesh_phys__prevPos"
+          },
+          "parallel": {
+            "inBlindness": [],
+            "nPhysCorridorMoveToPos": {
+              "posParam": "walker_agent__targetPos",
+              "forceToWalk": false,
+              "stopDist": 1.0,
+              "navLookAhead": 0.75
+            }
+          }
+        }
+      },
+      {
+        "sequencer": {
+          "name": "leave_obstacle",
+          "reaction": {
+            "event": "regularCheck",
+            "selector": {
+              "selectStrategy": "ordered",
+              "selectOnSuccess": true,
+              "subTree": {
+                "treeName": "sub.clearPath"
+              },
+              "sequencer": {
+                "compareNode": {
+                  "lhs": "obstacle_avoider__penetration",
+                  "operator": "<",
+                  "rhs": 0.01
+                },
+                "recalculateTree": []
+              }
+            }
+          },
+          "sequencer": {
+            "compareNode": {
+              "lhs": "walker_agent__targetEid",
+              "operator": "==",
+              "rhs": 0
+            },
+            "modifyNode": {
+              "target": "walker_agent__targetEid",
+              "operator": "=",
+              "arg": "walker_agent__priorityTarget"
+            }
+          },
+          "compareNode": {
+            "lhs": "obstacle_avoider__penetration",
+            "operator": ">",
+            "rhs": 0.2
+          },
+          "ifThenElse": {
+            "compareNode": {
+              "lhs": "walker_agent__targetEid",
+              "operator": "==",
+              "rhs": 0
+            },
+            "nMeshFindRandomPointAroundPos": {
+              "posParam": "walker_agent__targetPos",
+              "dist": [3.0,4.0],
+              "aroundPos": "navmesh_phys__currentPos"
+            },
+            "nMeshFindRandomPointAroundTarget": {
+              "posParam": "walker_agent__targetPos",
+              "dist": [3.0,4.0],
+              "targetParam": "walker_agent__targetEid"
+            }
+          },
+          "nPhysCorridorMoveToPos": {
+            "posParam": "walker_agent__targetPos",
+            "stopDist": 2.0,
+            "navLookAhead": 0.75
+          }
+        }
+      },
+      {
+        "subTree": {
+          "refId": "attack",
+          "name": "attack"
+        }
+      },
+      {
+        "selector": {
+          "name": "wanderEverywhere",
+          "selectStrategy": "ordered",
+          "reaction": {
+            "event": "regularCheck",
+            "selector": [
+              {
+                "selectStrategy": "ordered"
+              },
+              {
+                "selectOnSuccess": true
+              },
+              {
+                "sequencer": {
+                  "nFindAttractPosition": {
+                    "posParam": "walker_agent__targetPos"
+                  },
+                  "selectNode": {
+                    "name": "moveToAttraction"
+                  }
+                }
+              },
+              {
+                "sequencer": {
+                  "findDanger": {
+                    "paramName": "enemy",
+                    "radiusParamName": "enemyRadius",
+                    "minDanger": 0.6,
+                    "tag": "human"
+                  },
+                  "selectNode": {
+                    "name": "attack"
+                  }
+                }
+              },
+              {
+                "subTree": {
+                  "treeName": "sub.clearPath"
+                }
+              },
+              {
+                "subTree": {
+                  "treeName": "sub.recalculateTreeOnStuck"
+                }
+              }
+            ]
+          },
+          "subTree": {
+            "refId": "wander"
+          }
+        }
+      },
+      {
+        "selector": {
+          "name": "moveToAttraction",
+          "selectStrategy": "ordered",
+          "reaction": {
+            "event": "regularCheck",
+            "selector": [
+              {
+                "selectStrategy": "ordered"
+              },
+              {
+                "selectOnSuccess": true
+              },
+              {
+                "subTree": {
+                  "treeName": "sub.clearPath"
+                }
+              },
+              {
+                "subTree": {
+                  "treeName": "sub.recalculateTreeOnStuck"
+                }
+              }
+            ]
+          },
+          "repeatUntilFail": {
+            "nFindAttractPosition": {
+              "posParam": "walker_agent__targetPos"
+            },
+            "nMeshFindRandomPointAroundPos": {
+              "posParam": "walker_agent__targetPos",
+              "aroundPos": "walker_agent__targetPos",
+              "dist": [3.0,4.0]
+            },
+            "nPhysCorridorMoveToPos": {
+              "posParam": "walker_agent__targetPos",
+              "forceToWalk": true,
+              "navLookAhead": 0.75
+            },
+            "wait": {
+              "range": [2.0,5.0],
+              "resetable": true
+            }
+          }
+        }
+      },
+      {
+        "repeatUntilFail": {
+          "name": "door_opener",
+          "count": 4,
+          "findDestructableObstacle": {
+            "traceDist": 1.5
+          },
+          "selector": {
+            "selectStrategy": "ordered",
+            "selectOnSuccess": true,
+            "sequencer": {
+              "compareNode": {
+                "lhs": "destructable_obstacle_handler__isRi",
+                "operator": "!=",
+                "rhs": 0.0
+              },
+              "nPhysLookAtRi": {
+                "targetParam": "destructable_obstacle_handler__targetEid"
+              }
+            },
+            "nPhysLookAtEntity": {
+              "targetParam": "destructable_obstacle_handler__targetEid"
+            }
+          },
+          "speak": {
+            "phrase": "attackDoor",
+            "timeMinMax": [3.0,6.0]
+          },
+          "runAction": {
+            "action": "stand_melee"
+          },
+          "wait": {
+            "range": [0.5,1.0],
+            "resetable": true
+          }
+        }
+      }
+    ]
+  },
+  {
+    "repeat": [
+      {
+        "name": "sub.zombieAggressiveBeh"
+      },
+      {
+        "setIntVar": {
+          "to": "minStance",
+          "value": 2
+        }
+      },
+      {
+        "setIntVar": {
+          "to": "dangerNearbyBeware",
+          "value": 0
+        }
+      },
+      {
+        "subTree": {
+          "name": "",
+          "refId": "updateRegroupPos"
+        }
+      },
+      {
+        "subTree": {
+          "name": "",
+          "treeName": "sub.deactivateWeapMod"
+        }
+      },
+      {
+        "subTree": {
+          "name": "",
+          "treeName": "sub.swimUp"
+        }
+      },
+      {
+        "subTree": {
+          "name": "",
+          "treeName": "sub.selfExtinguish"
+        }
+      },
+      {
+        "subTree": {
+          "name": "",
+          "treeName": "sub.selfHealing"
+        }
+      },
+      {
+        "subTree": {
+          "name": "",
+          "treeName": "sub.dmgZoneEscape"
+        }
+      },
+      {
+        "subTree": {
+          "name": "",
+          "treeName": "sub.rethrowGrenade"
+        }
+      },
+      {
+        "subTree": {
+          "name": "",
+          "treeName": "sub.grenadeEscape"
+        }
+      },
+      {
+        "subTree": {
+          "name": "",
+          "treeName": "sub.bombEscape"
+        }
+      },
+      {
+        "subTree": {
+          "treeName": "sub.checkEndCoverAttack"
+        }
+      },
+      {
+        "orderedSelector": [
+          {
+            "name": "attack"
+          },
+          {
+            "subTree": {
+              "name": "",
+              "treeName": "sub.enemyMelee"
+            }
+          },
+          {
+            "sequencer": {
+              "setIntVar": {
+                "to": "antiTankAttackTarget",
+                "value": 0
+              },
+              "subTree": {
+                "name": "",
+                "treeName": "sub.zombieTryAntiTankWeaponAttack"
+              }
+            }
+          },
+          {
+            "sequencer": [
+              {
+                "isReadyForAction": []
+              },
+              {
+                "isVarsIntEqual": {
+                  "lhs": "coverAttack",
+                  "rhs_value": 0
+                }
+              },
+              {
+                "findDanger": {
+                  "paramName": "shootEnemy",
+                  "outSeeTimeParam": "shootEnemyTime",
+                  "radiusParamName": "enemyVehicleRadius",
+                  "minDanger": 0.0,
+                  "tag": "vehicle"
+                }
+              },
+              {
+                "setIntVar": {
+                  "to": "dangerNearbyBeware",
+                  "value": 1
+                }
+              },
+              {
+                "setIntVar": {
+                  "to": "grenadeAttackFailed",
+                  "value": 1
+                }
+              },
+              {
+                "setIntVar": {
+                  "to": "grenadeAttackFailed",
+                  "value": 0
+                }
+              },
+              {
+                "hasGrenade": []
+              },
+              {
+                "subTree": {
+                  "treeName": "sub.attackVehicle"
+                }
+              }
+            ]
+          },
+          {
+            "sequencer": {
+              "not": {
+                "isVarsIntEqual": {
+                  "lhs": "coverAttack",
+                  "rhs_value": 0
+                }
+              },
+              "copyIntVar": {
+                "to": "shootEnemy",
+                "from": "coverAttackEnemy"
+              },
+              "setIntVar": {
+                "to": "dangerNearbyBeware",
+                "value": 1
+              },
+              "getTime": {
+                "to": "enemyNearTime"
+              },
+              "success": {
+                "subTree": {
+                  "treeName": "sub.oneShootAttack"
+                }
+              }
+            }
+          },
+          {
+            "sequencer": {
+              "isVarsIntEqual": {
+                "lhs": "dangerNearbyBeware",
+                "rhs_value": 0
+              },
+              "subTree": {
+                "treeName": "sub.tryContinueAttackWithStationaryGun"
+              }
+            }
+          },
+          {
+            "sequencer": {
+              "isVarsIntEqual": {
+                "lhs": "dangerNearbyBeware",
+                "rhs_value": 0
+              },
+              "findDanger": {
+                "paramName": "shootEnemy",
+                "outSeeTimeParam": "shootEnemyTime",
+                "radiusParamName": "enemyRadius",
+                "minDanger": 0.1,
+                "tag": "human"
+              },
+              "orderedSelector": [
+                {
+                  "subTree": {
+                    "treeName": "sub.tryBeginAttackWithStationaryGun"
+                  }
+                },
+                {
+                  "subTree": {
+                    "treeName": "sub.oneShootAttack"
+                  }
+                }
+              ],
+              "parallel": {
+                "wait": {
+                  "range": [0.5,1.0],
+                  "resetable": true
+                },
+                "success": {
+                  "sequencer": {
+                    "checkAtTime": {
+                      "timeParam": "rememberEnemyTime",
+                      "range": [0.0,10.0]
+                    },
+                    "checkTarget": {
+                      "targetUnitParam": "rememberEnemy"
+                    },
+                    "wanderLook": {
+                      "posParam": "rememberEnemyPos",
+                      "range": [0.2,0.1],
+                      "maxStanceParam": "coverStance"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          {
+            "failed": {
+              "sequencer": {
+                "isVarsIntEqual": {
+                  "lhs": "dangerNearbyBeware",
+                  "rhs_value": 0
+                },
+                "decreaseDangerLevel": {
+                  "paramName": "dangerLevel",
+                  "decreaseCoef": 0.5
+                }
+              }
+            }
+          }
+        ]
+      },
+      {
+        "orderedSelector": {
+          "sequencer": [
+            {
+              "isVarsIntEqual": {
+                "lhs": "isInShootState",
+                "rhs_value": 1
+              }
+            },
+            {
+              "initPeriodicTimer": {
+                "timeParam": "onBulletNearbyTimer",
+                "timePeriod": [2.0,4.0]
+              }
+            },
+            {
+              "initPeriodicTimer": {
+                "timeParam": "onTraceableDangerTimer",
+                "timePeriod": [2.0,4.0]
+              }
+            },
+            {
+              "initPeriodicTimer": {
+                "timeParam": "onFollowPosFindDangerTimer",
+                "timePeriod": [2.0,4.0]
+              }
+            }
+          ],
+          "continue": []
+        }
+      },
+      {
+        "orderedSelector": {
+          "not": {
+            "isVarsIntEqual": {
+              "lhs": "coverAttack",
+              "rhs_value": 0
+            }
+          },
+          "sequencer": {
+            "name": "followPosition",
+            "modifyNode": {
+              "targetIntParam": "targetEid",
+              "operator": "=",
+              "arg": "walker_agent__priorityTarget"
+            },
+            "findPointNearTarget": {
+              "posParam": "regroupPosition",
+              "dist": [2.0,2.5],
+              "targetParam": "targetEid",
+              "traceTarget": false,
+              "reusePrevPos": false
+            },
+            "copyPoint3Var": {
+              "from": "regroupPosition",
+              "to": "storedRegroupPosition"
+            },
+            "setCurrentAiAction": {
+              "state": "move"
+            },
+            "subTree": {
+              "name": "",
+              "treeName": "sub.move"
+            },
+            "orderedSelector": {
+              "isVarsIntEqual": {
+                "lhs": "dangerNearbyBeware",
+                "rhs_value": 1
+              },
+              "subTree": {
+                "name": "",
+                "treeName": "sub.stay"
+              }
+            }
+          }
+        }
+      }
+    ]
+  },
+  {
+    "selector": [
+      {
+        "name": "sub.nWanderEverywhere"
+      },
+      {
+        "selectStrategy": "ordered"
+      },
+      {
+        "sequencer": {
+          "once": [],
+          "wait": {
+            "range": [0.1,0.1],
+            "resetable": true
+          },
+          "nPhysCorridorMoveToPos": {
+            "posParam": "walker_agent__targetPos",
+            "forceToWalk": false,
+            "navLookAhead": 0.75
+          }
+        }
+      },
+      {
+        "sequencer": {
+          "nMeshfindInsideZonePos": {
+            "posParam": "walker_agent__targetPos"
+          },
+          "nPhysCorridorMoveToPos": {
+            "posParam": "walker_agent__targetPos",
+            "forceToWalk": true,
+            "navLookAhead": 0.75
+          },
+          "selector": {
+            "sequencer": {
+              "findDanger": {
+                "paramName": "enemy",
+                "radiusParamName": "enemyRadius",
+                "tryClimbing": false,
+                "minDanger": 0.6,
+                "tag": "human"
+              },
+              "selectNode": {
+                "name": "attack"
+              }
+            },
+            "wait": {
+              "range": [5.0,10.0],
+              "resetable": true
+            }
+          }
+        }
+      }
+    ]
+  },
+  {
+    "selector": [
+      {
+        "name": "sub.clearPath"
+      },
+      {
+        "selectStrategy": "ordered"
+      },
+      {
+        "selectOnSuccess": true
+      },
+      {
+        "sequencer": {
+          "findDoorObstacle": [],
+          "selectNode": {
+            "name": "door_opener"
+          }
+        }
+      },
+      {
+        "sequencer": {
+          "compareNode": {
+            "lhs": "stuck_detector__value",
+            "operator": ">",
+            "rhs": 0.45
+          },
+          "findDestructableObstacle": {
+            "traceDist": 1.5
+          },
+          "selectNode": {
+            "name": "door_opener"
+          }
+        }
+      },
+      {
+        "handleCarObstacle": []
+      }
+    ]
+  },
+  {
+    "sequencer": {
+      "name": "sub.nWanderInRegion",
+      "nMeshFindPointInRegion": {
+        "regionParam": "region",
+        "posParam": "walker_agent__targetPos"
+      },
+      "nPhysCorridorMoveToPos": {
+        "posParam": "walker_agent__targetPos",
+        "forceToWalk": true,
+        "navLookAhead": 0.75
+      },
+      "selector": {
+        "sequencer": {
+          "findDanger": {
+            "paramName": "enemy",
+            "radiusParamName": "enemyRadius",
+            "minDanger": 0.6,
+            "tag": "human"
+          },
+          "selectNode": {
+            "name": "attack"
+          }
+        },
+        "wait": {
+          "range": [5.0,10.0],
+          "resetable": true
+        }
+      }
+    }
+  },
+  {
+    "sequencer": {
+      "name": "sub.nAttackPriorityTarget",
+      "success": {
+        "sequencer": {
+          "name": "run_to_target",
+          "speak": {
+            "effect": "seeDanger",
+            "timeMinMax": [6.0,10.0]
+          },
+          "checkDistanceToTarget": {
+            "targetParam": "walker_agent__targetEid",
+            "radius": 10.0
+          },
+          "nPhysCorridorMoveToTarget": {
+            "targetParam": "walker_agent__targetEid",
+            "stopDist": 1.3,
+            "navLookAhead": 0.75
+          }
+        }
+      },
+      "repeatUntilFail": {
+        "nPhysCorridorMoveToTarget": {
+          "targetParam": "walker_agent__targetEid",
+          "forceToWalk": false,
+          "stopDist": 1.3,
+          "navLookAhead": 0.75,
+          "loseInvisibleTarget": false
+        },
+        "runAction": {
+          "action": "stand_melee"
+        },
+        "parallel": {
+          "nPhysStareAtEntity": {
+            "targetParam": "walker_agent__targetEid"
+          },
+          "wait": {
+            "range": [0.5,1.0],
+            "resetable": true
+          }
+        },
+        "modifyNode": {
+          "targetIntParam": "enemy",
+          "operator": "=",
+          "arg": "walker_agent__targetEid"
+        },
+        "checkTarget": {
+          "targetUnitParam": "enemy"
+        }
+      }
+    }
+  },
+  {
+    "sequencer": [
+      {
+        "name": "sub.recalculateTreeOnStuck"
+      },
+      {
+        "compareNode": {
+          "lhs": "stuck_detector_debug__enabled",
+          "operator": ">",
+          "rhs": 0.0
+        }
+      },
+      {
+        "compareNode": {
+          "lhs": "stuck_detector__value",
+          "operator": ">",
+          "rhs": 0.6
+        }
+      },
+      {
+        "modifyNode": {
+          "target": "stuck_detector__value",
+          "operator": "=",
+          "arg": 0.0
+        }
+      },
+      {
+        "modifyNode": {
+          "target": "walker_agent__targetEid",
+          "operator": "=",
+          "arg": 0.0
+        }
+      },
+      {
+        "setBlind": {
+          "duration": [2.0,5.0]
+        }
+      },
+      {
+        "recalculateTree": []
+      }
+    ]
+  },
+  {
+    "sequencer": {
+      "name": "sub.runtoAndAttack",
+      "orderedSelector": {
+        "sequencer": {
+          "findDanger": {
+            "paramName": "enemy",
+            "radiusParamName": "enemyRadius",
+            "minDanger": 0.6,
+            "tag": "human"
+          },
+          "modifyNode": {
+            "target": "walker_agent__targetEid",
+            "operator": "=",
+            "argIntParam": "enemy"
+          }
+        },
+        "failed": {
+          "modifyNode": {
+            "target": "walker_agent__targetEid",
+            "operator": "=",
+            "arg": 0
+          }
+        }
+      },
+      "success": {
+        "sequencer": {
+          "name": "run_to_target",
+          "speak": {
+            "effect": "seeDanger",
+            "timeMinMax": [6.0,10.0]
+          },
+          "checkDistanceToTarget": {
+            "targetParam": "walker_agent__targetEid",
+            "radius": 10.0
+          },
+          "nPhysCorridorMoveToTarget": {
+            "targetParam": "walker_agent__targetEid",
+            "stopDist": 3.0,
+            "navLookAhead": 0.75
+          }
+        }
+      },
+      "repeatUntilFail": {
+        "nPhysCorridorMoveToTarget": {
+          "targetParam": "walker_agent__targetEid",
+          "forceToWalk": false,
+          "stopDist": 1.0,
+          "navLookAhead": 0.75
+        },
+        "runAction": {
+          "action": "stand_melee"
+        },
+        "parallel": {
+          "nPhysStareAtEntity": {
+            "targetParam": "walker_agent__targetEid"
+          },
+          "wait": {
+            "range": [0.5,1.0],
+            "resetable": true
+          }
+        },
+        "checkTarget": {
+          "targetUnitParam": "enemy"
+        }
+      }
+    }
+  },
+  {
+    "sequencer": {
+      "name": "sub.attackPlayer",
+      "reaction": {
+        "event": "regularCheck",
+        "selector": [
+          {
+            "selectStrategy": "ordered"
+          },
+          {
+            "selectOnSuccess": true
+          },
+          {
+            "sequencer": {
+              "nFindAttractPosition": {
+                "posParam": "walker_agent__targetPos"
+              },
+              "selectNode": {
+                "name": "moveToAttraction"
+              }
+            }
+          },
+          {
+            "sequencer": {
+              "updateObstaclePenetration": [],
+              "compareNode": {
+                "lhs": "obstacle_avoider__penetration",
+                "operator": ">",
+                "rhs": 0.2
+              },
+              "selectNode": {
+                "name": "leave_obstacle"
+              }
+            }
+          },
+          {
+            "subTree": {
+              "treeName": "sub.clearPath"
+            }
+          },
+          {
+            "subTree": {
+              "treeName": "sub.recalculateTreeOnStuck"
+            }
+          }
+        ]
+      },
+      "subTree": {
+        "treeName": "sub.runtoAndAttack"
+      }
+    }
+  },
+  {
+    "sequencer": {
+      "name": "sub.attackPlayerOpportunistic",
+      "reaction": {
+        "event": "regularCheck",
+        "selector": [
+          {
+            "selectStrategy": "ordered"
+          },
+          {
+            "selectOnSuccess": true
+          },
+          {
+            "sequencer": {
+              "nFindAttractPosition": {
+                "posParam": "walker_agent__targetPos"
+              },
+              "selectNode": {
+                "name": "moveToAttraction"
+              }
+            }
+          },
+          {
+            "sequencer": {
+              "updateObstaclePenetration": [],
+              "compareNode": {
+                "lhs": "obstacle_avoider__penetration",
+                "operator": ">",
+                "rhs": 0.2
+              },
+              "selectNode": {
+                "name": "leave_obstacle"
+              }
+            }
+          },
+          {
+            "sequencer": {
+              "compareNode": {
+                "lhs": "walker_agent__targetEid",
+                "operator": "==",
+                "rhs": 0
+              },
+              "modifyNode": {
+                "target": "walker_agent__targetEid",
+                "operator": "=",
+                "arg": "walker_agent__priorityTarget"
+              }
+            }
+          },
+          {
+            "subTree": {
+              "treeName": "sub.clearPath"
+            }
+          },
+          {
+            "subTree": {
+              "treeName": "sub.recalculateTreeOnStuck"
+            }
+          }
+        ]
+      },
+      "successChance": {
+        "chanceParam": "rush_zombie__attackChance"
+      },
+      "subTree": {
+        "treeName": "sub.runtoAndAttack"
+      }
+    }
+  },
+  {
+    "sequencer": [
+      {
+        "name": "sub.zombieTryAntiTankWeaponAttack"
+      },
+      {
+        "setIntVar": {
+          "to": "attackTarget",
+          "value": 0
+        }
+      },
+      {
+        "setIntVar": {
+          "to": "tryAntiTankWeaponAttack",
+          "value": 0
+        }
+      },
+      {
+        "setIntVar": {
+          "to": "antiTankAttackTarget",
+          "value": 0
+        }
+      },
+      {
+        "orderedSelector": [
+          {
+            "sequencer": {
+              "isVarsIntEqual": {
+                "lhs": "tryAntiTankWeaponAttack",
+                "rhs_value": 1
+              },
+              "wait": {
+                "range": [1.0,1.0],
+                "resetable": true
+              }
+            }
+          },
+          {
+            "sequencer": {
+              "not": {
+                "isVarsIntEqual": {
+                  "lhs": "antiTankAttackTarget",
+                  "rhs_value": 0
+                }
+              },
+              "copyIntVar": {
+                "to": "attackTarget",
+                "from": "antiTankAttackTarget"
+              },
+              "setIntVar": {
+                "to": "antiTankAttackTarget",
+                "value": 0
+              },
+              "wait": {
+                "range": [1.0,1.0],
+                "resetable": true
+              }
+            }
+          },
+          {
+            "subTree": {
+              "name": "",
+              "treeName": "sub.checkAntiTankWeaponAttack"
+            }
+          }
+        ]
+      },
+      {
+        "orderedSelector": {
+          "sequencer": [
+            {
+              "findWeaponSlotWithSpecAIType": {
+                "specAIWeapTypeName": "ROCKET_LAUNCHERS",
+                "toParam": "weaponSlot",
+                "minAmmo": 1
+              }
+            },
+            {
+              "changeStance": {
+                "stanceName": "crouch"
+              }
+            },
+            {
+              "changeStance": {
+                "stanceName": "stand"
+              }
+            },
+            {
+              "changeStance": {
+                "stanceName": "crouch"
+              }
+            },
+            {
+              "findPiercableEnemyVehicle": {
+                "outTargetEidParam": "shootVehicle",
+                "outLocalPosParam": "shootAtLocalPos",
+                "weaponSlotParam": "weaponSlot",
+                "shootStance": 2,
+                "wideTraceRadius": 0.5,
+                "wideTraceOffsetUp": 0.2,
+                "wideTraceDistance": 10.0,
+                "inTargerEidParam": "attackTarget",
+                "outShootLocalPosParam": "shootFromLocalPos",
+                "chanceToTargetHumanPlayer": 1.0
+              }
+            },
+            {
+              "setPosFromEntity": {
+                "to": "shootVehiclePos",
+                "from": "shootVehicle"
+              }
+            },
+            {
+              "rotateToPoint": {
+                "posParam": "shootVehiclePos",
+                "aimSpeedCoef": 0.5
+              }
+            },
+            {
+              "wait": {
+                "range": [1.0,2.0],
+                "resetable": true
+              }
+            },
+            {
+              "wait": {
+                "range": [1.0,2.0],
+                "resetable": true
+              }
+            },
+            {
+              "wait": {
+                "range": [2.0,3.0],
+                "resetable": true
+              }
+            },
+            {
+              "changeWeapon": {
+                "param": "weaponSlot"
+              }
+            },
+            {
+              "traceLineOfSight": {
+                "fromLocalPosParam": "shootFromLocalPos",
+                "toEidParam": "shootVehicle",
+                "toLocalPosParam": "shootAtLocalPos",
+                "traceDistance": 4.0,
+                "traceRadius": 0.5,
+                "traceWorld": false,
+                "traceHumans": true,
+                "traceVehicles": true
+              }
+            },
+            {
+              "setIntVar": {
+                "to": "maxStance",
+                "value": 2
+              }
+            },
+            {
+              "subTree": {
+                "name": "",
+                "treeName": "sub.antiTankAttackShoot"
+              }
+            },
+            {
+              "chooseBestWeapon": []
+            }
+          ]
+        }
+      }
+    ]
+  }
+]

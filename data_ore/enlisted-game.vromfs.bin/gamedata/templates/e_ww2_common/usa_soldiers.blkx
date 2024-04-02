@@ -124,7 +124,7 @@
     }
   },
   {
-    "usa_soldier_speechless": [
+    "usa_soldier_no_sound": [
       {
         "engineer__isMenuOpen": false
       },
@@ -141,15 +141,6 @@
         "_use": "human_bush_collision_effects"
       },
       {
-        "_use": "human_sound"
-      },
-      {
-        "_use": "human_sound_paths"
-      },
-      {
-        "_use": "human_net_sound"
-      },
-      {
         "_use": "squad_member_ai"
       },
       {
@@ -159,23 +150,75 @@
         "_use": "base_human_actions"
       },
       {
+        "_use": "human_hide_slots_in_scope"
+      },
+      {
         "beh_tree__blackboard__enemyRadius": 90.0
       }
     ]
   },
   {
-    "usa_soldier": [
+    "usa_soldier_sound": [
       {
-        "_use": "usa_soldier_speechless"
+        "_use": "base_human_sound"
+      },
+      {
+        "_use": "possessable_human_sound"
+      },
+      {
+        "_use": "human_loot_sound"
+      },
+      {
+        "_use": "human_voice_effect_burning"
+      },
+      {
+        "_use": "human_voice_effect_coughing"
+      },
+      {
+        "_use": "human_voice_effect_drinking"
+      },
+      {
+        "_use": "human_voice_effect_hold_breath"
+      },
+      {
+        "_use": "human_voice_effect_fallcry"
+      },
+      {
+        "_use": "human_sound_paths"
+      },
+      {
+        "_use": "human_steps_sound_paths"
+      },
+      {
+        "_use": "human_intersected_with_projectile_sound_paths"
+      },
+      {
+        "_use": "human_hit_sound_paths"
+      },
+      {
+        "_use": "human_voice_sound_paths"
+      },
+      {
+        "_use": "human_melee_sound_paths"
+      },
+      {
+        "_use": "human_net_sound"
       },
       {
         "_use": "human_speech"
       },
       {
         "_use": "human_hooray_speech"
+      }
+    ]
+  },
+  {
+    "usa_soldier": [
+      {
+        "_use": "usa_soldier_no_sound"
       },
       {
-        "_use": "human_hide_slots_in_scope"
+        "_use": "usa_soldier_sound"
       }
     ]
   },

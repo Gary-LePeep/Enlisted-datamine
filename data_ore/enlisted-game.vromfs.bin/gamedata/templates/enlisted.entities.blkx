@@ -54,6 +54,9 @@
     "import": "e_ww2_common/*.blk"
   },
   {
+    "import": "zombie/*.blk"
+  },
+  {
     "import": "tutorial_minimap.blk"
   },
   {
@@ -1081,7 +1084,7 @@
     }
   },
   {
-    "ai_vehicle_tank": {
+    "ai_vehicle_tank_no_objective": {
       "_tags": "server",
       "_use": "ai_vehicle_tank_bullet_type_efficiency",
       "ai_vehicle_tank__nextPosition": [0.0,0.0,0.0],
@@ -1090,12 +1093,15 @@
       "ai_vehicle_tank__steeringDeadZone": 0.523,
       "ai_vehicle_tank__stepSize": 3.0,
       "ai_vehicle_tank__maxStepSize": 5.0,
+      "ai_vehicle_tank__maxPathLength": 100.0,
+      "ai_vehicle_tank__plannedPathCheckedPointCount": 5,
       "ai_vehicle_tank__nextPositionReachedThreshold": 3.0,
       "ai_vehicle_tank__nextPositionReachedWaitTime": 8.0,
       "ai_vehicle_tank__tryToGetUnstuckWaitTime": 4.0,
+      "ai_vehicle_tank__tryToExitObstacleWaitTime": 2.0,
       "ai_vehicle_tank__nextPositionTooFarThreshold": 10.0,
       "ai_vehicle_tank__plannedPathLengthForSlowingDown": 3,
-      "ai_vehicle_tank__curCapzonePosIdx": -1,
+      "ai_vehicle_tank__curObjectivePosIdx": -1,
       "ai_vehicle_tank__motionState": 0,
       "ai_vehicle_tank__destination": [0.0,0.0,0.0],
       "ai_vehicle_tank__motionStateTimeoutAt": 0.0,
@@ -1103,14 +1109,27 @@
       "ai_vehicle_tank__nextPositionRecordedMinDistanceStep": 0.2,
       "ai_vehicle_tank__updateInterval": 0.1,
       "ai_vehicle_tank__nextUpdateAt": 0.0,
-      "ai_vehicle_tank__pathFindingDelay": 0.3,
-      "ai_vehicle_tank__pathFindingTryCountPerFrame": 5,
-      "ai_vehicle_tank__allowPathFindingAtTime": 0.0,
       "ai_vehicle_tank__targetScoreThresholdForStanding": 0.1,
+      "ai_vehicle_tank__updatePathWaitTime": 5.0,
+      "ai_vehicle_tank__updatingPathTriesPerFrame": 1.0,
+      "ai_vehicle_tank__updatingDestinationTriesPerFrame": 3.0,
+      "ai_vehicle_tank__pathFindingState": 0,
+      "ai_vehicle_tank__pathFindingStateTimeoutAt": 0.0,
+      "ai_vehicle_tank__pathFindingTryCountRemainder": 0.0,
+      "ai_vehicle_tank__ignoreBattleArea": false,
+      "ai_vehicle_tank__attackerMinCaliber": 0.007,
+      "ai_vehicle_tank__attackerTimeoutInterval": 8.0,
       "ai_vehicle_tank:tag": [],
       "turret_control__hasTankAiGunners:tag": [],
-      "ai_vehicle_tank__curCapzone:eid": [],
-      "ai_vehicle_tank__plannedPath:list<p3>": []
+      "ai_vehicle_tank__curObjective:eid": [],
+      "ai_vehicle_tank__plannedPath:list<p3>": [],
+      "ai_vehicle_tank__checkedObjective:eid": []
+    }
+  },
+  {
+    "ai_vehicle_tank": {
+      "_use": "ai_vehicle_tank_no_objective",
+      "aiVehicleTankGoToCapzones:tag": []
     }
   },
   {
@@ -1171,6 +1190,29 @@
       },
       {
         "destroyIfNoCrewLeft": true
+      },
+      {
+        "vehicle__stillPosThreshold": 0.5
+      },
+      {
+        "vehicle__stillCheckUpdateInterval": 3.0
+      },
+      {
+        "vehicle__stillNextCheckAt": 0.0
+      },
+      {
+        "vehicle__stillBoxExtents": 3.0
+      },
+      {
+        "vehicle__stillTransform": [
+          [1.0,0.0,0.0],
+          [0.0,1.0,0.0],
+          [0.0,0.0,1.0],
+          [0.0,0.0,0.0]
+        ]
+      },
+      {
+        "vehicle__isStill": false
       },
       {
         "separate_coll_objs:list<t>": [
@@ -2410,7 +2452,13 @@
         "tank_kills_by_engineer_buildings": true,
         "plane_kills_by_engineer_buildings": true,
         "apc_kills_by_engineer_buildings": true,
-        "game_with_developers": true
+        "game_with_developers": true,
+        "zombie_kills": true,
+        "zombie_waves": true,
+        "zombie_score": true,
+        "zombie_batlles": true,
+        "zombie_early_quits": true,
+        "zombie_headshots": true
       }
     }
   },
@@ -2461,6 +2509,15 @@
       },
       {
         "squad__allMembers:list<eid>": []
+      },
+      {
+        "_group": {
+          "_tags": "server",
+          "squad__ai_spreadType": 0,
+          "squad__ai_spreadForPos": [0.0,0.0,0.0],
+          "squad__ai_spreadWho:list<eid>": [],
+          "squad__ai_spreadPos:list<p3>": []
+        }
       }
     ]
   },
@@ -2662,7 +2719,7 @@
   {
     "supply_box_parachute": {
       "parachute__template": "parachute_canopy_item+supply_box_parachute_canopy_item_sound",
-      "parachute__autoDeployHeight": 280.0,
+      "parachute__autoDeployHeight": 350.0,
       "parachute__deleteAtTime": -1.0,
       "parachute__deleteAfterTime": 1.0,
       "human_parachute__eid:eid": []
@@ -3510,7 +3567,12 @@
           "scoring_player__friendlyApcKills": 0,
           "scoring_player__friendlyPlaneHits": 0,
           "scoring_player__friendlyPlaneKills": 0,
-          "scoring_player__friendlyFirePenalty": 0
+          "scoring_player__friendlyFirePenalty": 0,
+          "scoring_player__zombieKills": 0,
+          "scoring_player__zombieHeadshots": 0,
+          "scoring_player__zombieWaves": 0,
+          "scoring_player__zombieTotalScore": 0,
+          "scoring_player__zombieLastSavedScore": 0
         }
       },
       {

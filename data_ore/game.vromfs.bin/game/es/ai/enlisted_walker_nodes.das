@@ -296,13 +296,25 @@ class GetRegroupPos : BehNodeAdapter
     return EBehResult ER_SUCCESS
 
 
+let
+  PIT_OVERGROUND_EPSILON : float = 1.0 // because regroup position always at navmesh i.e. over ground
+  PIT_UNDERGROUND_EPSILON : float = 0.2 // because of ground holes and underground locations
+
+def is_pos_in_pit(pos : float3; min_depth : float)
+  let pos2D = float2(pos.x, pos.z)
+  var inPit = false
+  let hasResult = find_query() <| $ [es] (terraform : TerraformComponent)
+    let origHeight = terraform_getHmapHeightOrigValAtPos(terraform, pos2D)
+    if pos.y < origHeight + PIT_OVERGROUND_EPSILON
+      let nowHeight = traceht_hmap(pos2D)
+      inPit = origHeight - nowHeight >= min_depth && pos.y >= nowHeight - PIT_UNDERGROUND_EPSILON
+    return true
+  return hasResult && inPit
+
 [beh_node(name="isPosInPit")]
 class IsPosInPit : BehNodeAdapter
   posParam : int = -1
-  minDepth : float = 0.5
-
-  OVERGROUND_EPSILON : float = 1.0 // because regroup position always at navmesh i.e. over ground
-  UNDERGROUND_EPSILON : float = 0.1 // because of ground holes and underground locations
+  minDepth : float = 0.62
 
   def override loadFromBlk(var data : DataBlock) : void
     posParam = owner.blackBoard |> get_or_create(datablock_getStr(data, "posParam", "wishPosition"), float3())
@@ -310,17 +322,129 @@ class IsPosInPit : BehNodeAdapter
 
   def override update(dt : float) : EBehResult
     let pos = owner.blackBoard |> datablock_getPoint3(posParam)
-    let pos2D = float2(pos.x, pos.z)
-    var inPit = false
-    let hasResult = find_query() <| $ [es] (terraform : TerraformComponent)
-      let origHeight = terraform_getHmapHeightOrigValAtPos(terraform, pos2D)
-      if pos.y < origHeight + OVERGROUND_EPSILON
-        let nowHeight = traceht_hmap(pos2D)
-        inPit = origHeight - nowHeight >= minDepth && pos.y >= nowHeight - UNDERGROUND_EPSILON
-      return true
-    if !hasResult || !inPit
+    return is_pos_in_pit(pos, minDepth) ? EBehResult ER_SUCCESS : EBehResult ER_FAILED
+
+let SpreadInPit_dirAngles = [[float[8] 135.0; -135.0; 180.0; -90.0; 90.0; 45.0; -45.0; 0.0]]
+
+[beh_node(name="spreadInPit")]
+class SpreadInPit : BehNodeAdapter
+  posParam : int = -1
+  minDist : float = 2.0
+  minDepth : float = 0.62
+  awayDist : float = 3.5
+
+  def override loadFromBlk(var data : DataBlock) : void
+    posParam = owner.blackBoard |> get_or_create(datablock_getStr(data, "posParam", "wishPosition"), float3())
+    minDist = datablock_getReal(data, "minDist", minDist)
+    minDepth = datablock_getReal(data, "minDepth", minDepth)
+
+  def override update(dt : float) : EBehResult
+    let agent = beh_tree_entity_agent(*owner)
+    if agent == null
       return EBehResult ER_FAILED
-    return EBehResult ER_SUCCESS
+
+    if get_bool(agent.eid, "squad_member__isPersonalOrder") ?? false
+      return EBehResult ER_SUCCESS
+
+    var pos = owner.blackBoard |> datablock_getPoint3(posParam)
+
+    var hasResult = false
+    query(agent.eid) <| $ [es] (squad_member__squad : EntityId)
+      query(squad_member__squad) <| $ [es] (var squad__ai_spreadType : int&;
+                                            var squad__ai_spreadForPos : float3&;
+                                            var squad__ai_spreadWho : EidList&;
+                                            var squad__ai_spreadPos : Point3List&)
+        if squad__ai_spreadType != int(SquadAISpreadType SPREAD_IN_PIT) || squad__ai_spreadForPos != pos
+          squad__ai_spreadType = int(SquadAISpreadType SPREAD_IN_PIT)
+          squad__ai_spreadForPos = pos
+          squad__ai_spreadWho |> clear()
+          squad__ai_spreadPos |> clear()
+          squad__ai_spreadWho |> push(agent.eid)
+          squad__ai_spreadPos |> push(pos)
+
+        for spreadWho, spreadPos in squad__ai_spreadWho, squad__ai_spreadPos
+          if spreadWho == agent.eid
+            pos = spreadPos
+            hasResult = true
+            break
+        if hasResult
+          return
+
+        pos = float3()
+        let minDistSq = square(minDist)
+        for spreadWho, spreadPos in squad__ai_spreadWho, squad__ai_spreadPos
+          var hasPos = false
+          var forw = float3()
+          var side = float3()
+          query(spreadWho) <| $ [es] (transform : float3x4)
+            hasPos = true
+            forw = transform[0]
+            side = transform[2]
+          if !hasPos
+            continue
+
+          for dir in 0..16
+            let dirAng = deg_to_rad(SpreadInPit_dirAngles[dir % 8])
+            var dirSin, dirCos : float
+            sincos(dirAng, dirSin, dirCos)
+            var tryPos = spreadPos
+            let dist = dir < 8 ? minDist : awayDist
+            tryPos += forw * (dirCos * dist)
+            tryPos += side * (dirSin * dist)
+            let hmapPos = float2(tryPos.x, tryPos.z)
+            tryPos.y = traceht_hmap(hmapPos)
+            if !is_pos_in_pit(tryPos, minDepth)
+              continue
+            var collide = false
+            for otherPos in squad__ai_spreadPos
+              if distance_sq(otherPos, tryPos) < minDistSq
+                collide = true
+                break
+            if !collide
+              pos = tryPos
+              hasResult = true
+              break
+          if hasResult
+            break
+        squad__ai_spreadWho |> push(agent.eid)
+        squad__ai_spreadPos |> push(pos)
+
+    if pos == float3()
+      hasResult = false
+
+    if hasResult
+      owner.blackBoard |> set(posParam, pos)
+
+    return hasResult ? EBehResult ER_SUCCESS : EBehResult ER_FAILED
+
+[beh_node(name="shouldStayBySpread")]
+class ShouldStayBySpread : BehNodeAdapter
+  posParam : int = -1
+
+  def override loadFromBlk(var data : DataBlock) : void
+    posParam = owner.blackBoard |> get_or_create(datablock_getStr(data, "posParam", "wishPosition"), float3())
+
+  def override update(dt : float) : EBehResult
+    let agent = beh_tree_entity_agent(*owner)
+    if agent == null
+      return EBehResult ER_FAILED
+
+    if get_bool(agent.eid, "squad_member__isPersonalOrder") ?? false
+      return EBehResult ER_FAILED
+
+    let pos = owner.blackBoard |> datablock_getPoint3(posParam)
+
+    var shouldStay = false
+    query(agent.eid) <| $ [es] (squad_member__squad : EntityId)
+      query(squad_member__squad) <| $ [es] (squad__ai_spreadType : int;
+                                            squad__ai_spreadForPos : float3;
+                                            squad__ai_spreadWho : EidList)
+        if squad__ai_spreadType != int(SquadAISpreadType DEFAULT) && squad__ai_spreadForPos == pos
+          for spreadWho in squad__ai_spreadWho
+            if spreadWho == agent.eid
+              shouldStay = true
+              break
+    return shouldStay ? EBehResult ER_SUCCESS : EBehResult ER_FAILED
 
 
 [beh_node(name="setSquadFormation")]

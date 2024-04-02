@@ -1,31 +1,19 @@
 from "%enlSqGlob/ui/ui_library.nut" import *
 
-let { configs } = require("%enlist/meta/configs.nut")
-let { perksData, getTotalPerkValue } = require("soldierPerks.nut")
-let { slotsIncrease, curCampSoldiers } = require("%enlist/meta/profile.nut")
-let perksList = require("%enlist/meta/perks/perksList.nut")
-let { perksStatsCfg } = require("%enlist/meta/perks/perksStats.nut")
+let { slotsIncrease } = require("%enlist/meta/profile.nut")
 
-let slotTypeToPerk = Computed(@() configs.value?.perks.slotCountPerks ?? {})
-
-function soldierSlotsCount(soldierGuid, equipScheme, slotsIncreaseTbl = null) {
-  let baseSlots = equipScheme.map(@(s) s?.listSize ?? 0)
-    .filter(@(s) s > 0)
-  if (baseSlots.len() == 0)
-    return Watched({})
-  return Computed(function() {
-    let perks = perksData.value?[soldierGuid]
-    local modSlots = baseSlots.map(@(val, slotType) slotType in slotTypeToPerk.value
-      ? val + getTotalPerkValue(perksList.value, perksStatsCfg.value,
-                                perks, slotTypeToPerk.value?[slotType]).tointeger()
-      : val)
-    let soldier = curCampSoldiers.value?[soldierGuid]
-    if (soldier != null) {
-      let incByItems = slotsIncreaseTbl ?? slotsIncrease.value?[soldierGuid]
-      modSlots = modSlots.map(@(val, slotType) val + (incByItems?[slotType] ?? 0))
-    }
-    return modSlots
-  })
+function countSlots(equipScheme, slotsIncreaseTbl) {
+  let baseSlots = equipScheme.map(@(s) s?.listSize ?? 0).filter(@(s) s > 0)
+  return baseSlots.map(@(val, slotType) val + (slotsIncreaseTbl?[slotType] ?? 0))
 }
 
-return soldierSlotsCount
+let soldierSlotsCount = @(soldierGuid, equipScheme, slotsIncreaseTbl = null)
+  countSlots(equipScheme, slotsIncreaseTbl ?? slotsIncrease.value?[soldierGuid])
+
+let mkSoldierSlotsComp = @(soldierGuid, equipScheme, slotsIncreaseTbl = null)
+  Computed(@() countSlots(equipScheme, slotsIncreaseTbl ?? slotsIncrease.value?[soldierGuid]))
+
+return {
+  soldierSlotsCount
+  mkSoldierSlotsComp
+}

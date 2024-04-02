@@ -778,10 +778,12 @@ struct ProjectileOnHitEntityWithHp
   trace_ray_mat_id : int
   check_if_should_apply_damage : bool
 
-[event(broadcast)]
-struct ProjectileOnIntersectEntityWithHp
+[event(unicast)]
+struct EventProjectileIntersectEntityWithHp
   victim : EntityId
   offender : EntityId
+  pos : float3
+  collNodeId : int
 
 [event(broadcast)]
 struct CmdSetCinematicModeEnabled

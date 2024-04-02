@@ -1,6 +1,6 @@
 from "%enlSqGlob/ui/ui_library.nut" import *
 
-let shopItemClick = require("shopItemClick.nut")
+let { shopItemClick, isShopItemComposite } = require("shopItemClick.nut")
 let viewShopItemsScene = require("viewShopItemsScene.nut")
 let hoverHoldAction = require("%darg/helpers/hoverHoldAction.nut")
 let mkDotPaginator = require("%enlist/components/mkDotPaginator.nut")
@@ -32,7 +32,7 @@ let { mkProductView, getCantBuyData } = require("%enlist/shop/shopPkg.nut")
 let starterPack = require("%enlist/soldiers/starterPackPromoWnd.nut")
 let serverTime = require("%enlSqGlob/userstats/serverTime.nut")
 let {
-  curGrowthState, curGrowthProgress, curGrowthConfig, curGrowthTiers
+  curGrowthState, curGrowthProgress, curGrowthConfig, curGrowthTiers, isShopItemSuitable
 } = require("%enlist/growth/growthState.nut")
 
 
@@ -220,7 +220,7 @@ function buildShopUi() {
       let clickCb = @() cb(sItem, content, lockData != null)
 
       let infoCb = sItem?.isStarterPack ? @() starterPack(sItem)
-        : squad == null || lockData != null ? null
+        : squad == null || lockData != null || isShopItemComposite(sItem) ? null
         : @() buySquadWindow({
             shopItem = sItem
             productView = mkProductView(sItem, allItemTemplates)
@@ -296,7 +296,7 @@ function buildShopUi() {
     let curGroup = curShopItemsByGroup.value?[curGroupIdx.value]
     let { id = "", goods = [], chapters = null, autoseenDelay = false } = curGroup
 
-    let featured = curFeaturedByGroup.value?[id] ?? []
+    let featured = (curFeaturedByGroup.value?[id] ?? []).filter(isShopItemSuitable)
     let army = curArmyData.value
     if ((goods.len() == 0 && chapters == null && featured.len() == 0) || army == null)
       return res.__update({

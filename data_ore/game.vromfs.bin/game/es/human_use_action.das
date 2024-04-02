@@ -68,7 +68,8 @@ def human_use_action_es(info : ParallelUpdateFrameDelayed;
     useActionEid = selectedObjectEid
   elif selectedItemEid != INVALID_ENTITY_ID
     var tryPickUp = false
-    query(selectedItemEid) <| $ [es] (item__weapTemplate : string = "")
+    query(selectedItemEid) <| $ [es] (item__weapTemplate : string = "";
+                                      paid_loot__cost : int = -1)
       if item__weapTemplate != ""
         query(selectedItemEid) <| $ [es] (item__weapSlots : Array)
           tryPickUp = false
@@ -80,7 +81,7 @@ def human_use_action_es(info : ParallelUpdateFrameDelayed;
               continue
             haveEmptySlot = true
             break
-          if !haveEmptySlot
+          if !haveEmptySlot && paid_loot__cost <= 0
             useActionAvailable = int(HumanAction ACTION_SWITCH_WEAPONS)
           else
             tryPickUp = true

@@ -120,6 +120,11 @@
     "shell_explosion_fx__default": "explosion_grenades_phosphorus_effect",
     "shell_explosion_fx__traceLength": 1.5
   },
+  "hit_effect_group_zombie_phosphorus_grenade_explosion": {
+    "_use": "shell_explosion_fx_info",
+    "shell_explosion_fx__default": "event_zombie_explosion_grenades_green_effect",
+    "shell_explosion_fx__traceLength": 1.5
+  },
   "hit_effect_group_mortar_shell_explosion": {
     "_use": "shell_explosion_fx_info",
     "shell_explosion_fx__default": "explosion_packet_air_effect",

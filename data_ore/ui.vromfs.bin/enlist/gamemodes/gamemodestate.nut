@@ -200,7 +200,7 @@ let allGameModes = Computed(function() {
     gMode.isLocal = gMode.isLocal || !!queue?.isLocal
     gMode.lockLevel = gMode.lockLevel == 0 ? minCampaignLevel
       : min(gMode.lockLevel, minCampaignLevel)
-    gMode.image = gMode.image ?? queue?.image
+    gMode.image = gMode.image ?? queue?.image ?? extraParams?.image
     gMode.uiOrder = max(gMode.uiOrder, queue?.uiOrder ?? 0)
     gMode.reqVersion = gMode.reqVersion ?? queue?.reqVersion
     gMode.isVersionCompatible = gMode.isVersionCompatible && (queue?.isVersionCompatible ?? true)
@@ -213,6 +213,7 @@ let allGameModes = Computed(function() {
     gMode.leaderboardTables.extend(leaderboardTables)
     gMode.customProfile = gMode.customProfile ?? customProfile
     gMode.campaignsToShow.extend(campaignsToShow)
+    gMode.isEnabled = gMode.isEnabled || !!queue?.enabled
 
     local modeTitle = loc(queue?.locId, "")
     if (modeTitle == "") {

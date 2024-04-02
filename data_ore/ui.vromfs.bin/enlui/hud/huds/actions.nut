@@ -4,6 +4,7 @@ from "%enlSqGlob/ui/ui_library.nut" import *
   attention - this is very poor code, as it coupling different games
 */
 
+let fa = require("%ui/components/fontawesome.map.nut")
 let {pickupItemName, pickupItemEid, useActionEid, lookAtEid, lookAtVehicle, useActionAvailable, customUsePrompt} = require("%ui/hud/state/actions_state.nut")
 let {inVehicle, inPlane, isSafeToExit, isPlayerCanEnter, isPlayerCanExit, isVehicleAlive} = require("%ui/hud/state/vehicle_state.nut")
 let {DEFAULT_TEXT_COLOR} = require("%ui/hud/style.nut")
@@ -13,7 +14,6 @@ let {sendItemHint} = require("%ui/hud/huds/send_quick_chat_msg.nut")
 let {isDowned} = require("%ui/hud/state/health_state.nut")
 let isMachinegunner = require("%ui/hud/state/machinegunner_state.nut")
 let {localPlayerEid, localPlayerTeam} = require("%ui/hud/state/local_player.nut")
-let {round_by_value} = require("%sqstd/math.nut")
 let {sound_play} = require("%dngscripts/sound_system.nut")
 let { is_fast_pickup_item } = require("das.inventory")
 let {CmdSetMarkMain} = require("dasevents")
@@ -39,11 +39,7 @@ localPlayerEid.subscribe(function(v) {
 })
 
 function getItemPrice(entity_eid) {
-    let price = ecs.obsolete_dbg_get_comp_val(entity_eid, "coinPricePerGame")
-    if (price) {
-      let discount = ecs.obsolete_dbg_get_comp_val(localPlayerEid.value, "coinsGameMult") ?? 1.0;
-      return round_by_value(price * discount, 1).tointeger()
-    }
+    let price = ecs.obsolete_dbg_get_comp_val(entity_eid, "paid_loot__cost")
     return price
 }
 
@@ -68,17 +64,21 @@ let actionsMap = {
   },
   [ACTION_REQUEST_AMMO] = {text = loc("hud/request_ammo", "Request ammo") key = usekeyId},
   [ACTION_PICK_UP] = {
-                        keyf = @(item) is_fast_pickup_item(item.eid) ? pickupkeyId : forcedPickupkeyId ,
-                        textf = function (item) {
-                          let count = ecs.obsolete_dbg_get_comp_val(item.eid, "item__count")
-                          let altText = loc($"{item.itemName}/pickup", {count = count, price = getItemPrice(item.eid), nickname = loc("teammate")}, "")
-                          if (altText && altText.len() > 0)
-                            return altText
-                          return is_fast_pickup_item(item.eid)
-                            ? loc("hud/pickup", "Pickup {item}", item)
-                            : loc("hud/replaceItem", "Switch to {item}", item)
-                        }
-                      },
+    keyf = @(item) is_fast_pickup_item(item.eid) ? pickupkeyId : forcedPickupkeyId ,
+    textf = function(item) {
+      local res
+      let price = getItemPrice(item.eid)
+      if (price != null) {
+        res = loc("btn/buyItem", { item = item.item, currency = $"<fa>{fa["star"]}</fa>", price })
+      }
+      else {
+        res = is_fast_pickup_item(item.eid)
+        ? loc("hud/pickup", { item = item.item })
+        : loc("hud/replaceItem", { item = item.item })
+      }
+      return res
+    }
+  },
   [ACTION_RECOVER] = {text = loc("hud/recover", "Recover"), key = usekeyId},
   [ACTION_SWITCH_WEAPONS] = {
                               keyf = @(item) is_fast_pickup_item(item.eid) ? pickupkeyId : forcedPickupkeyId ,

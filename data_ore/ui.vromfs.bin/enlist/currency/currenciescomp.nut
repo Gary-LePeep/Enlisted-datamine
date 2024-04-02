@@ -57,7 +57,8 @@ let mkCurrencyStroke = @(count, txtStyle = null) {
 
 let mkCurrency = kwarg(
   function(currency, price, fullPrice = null, iconSize = null,
-    txtStyle = null, discountStyle = null, dimStyle = null
+    txtStyle = null, discountStyle = null, dimStyle = null,
+    objectsGap = smallPadding
   ) {
     let hasPrice = price != null
     let hasDiscount = (fullPrice ?? 0) > price && (price ?? 0) >= 0
@@ -72,7 +73,7 @@ let mkCurrency = kwarg(
         {
           flow = FLOW_HORIZONTAL
           valign = ALIGN_CENTER
-          gap = smallPadding
+          gap = objectsGap
           children = [
             mkCurrencyImg(currency, iconSize ?? CURRENCY_PARAMS.iconSize)
             hasPrice

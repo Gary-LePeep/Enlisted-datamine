@@ -21,12 +21,20 @@ def battle_music_enabled_track(evt : Event;
     release(battle_music__event.handle)
 
 
+enum BattleMusicStage
+  NONE = 0
+  INTRO
+  OUTRO
+
+
 [es(tag=sound, REQUIRE=player, on_event=EventHeroChanged)]
 def battle_music_intro(evt : Event)
   query() <| $ [es] (battle_music__intro : string;
                      battle_music__enabled : bool;
                      var battle_music__shouldStartIntro : bool&;
-                     var battle_music__event : SoundEvent&)
+                     var battle_music__event : SoundEvent&;
+                     var battle_music__stage : int&)
+    battle_music__stage = int(BattleMusicStage INTRO)
     if battle_music__shouldStartIntro
       battle_music__shouldStartIntro = false
       battle_music__event.abandonOnReset = true
@@ -38,8 +46,10 @@ def battle_music_intro(evt : Event)
 def battle_music_outro(evt : EventTeamRoundResult;
                        battle_music__outro : string;
                        var battle_music__shouldStartIntro : bool&;
-                       var battle_music__event : SoundEvent&)
+                       var battle_music__event : SoundEvent&;
+                       var battle_music__stage : int&)
   if evt.team == get_local_player_team()
+    battle_music__stage = int(BattleMusicStage OUTRO)
     release(battle_music__event.handle)
     battle_music__event |> play(battle_music__outro, get_listener_pos())
     battle_music__event.abandonOnReset = true
@@ -48,3 +58,19 @@ def battle_music_outro(evt : EventTeamRoundResult;
     set_var(battle_music__event.handle, "condition", evt.isWon ? 0. : 1.)
     set_var_optional(battle_music__event.handle, "part", 3.)
     set_var_optional(battle_music__event.handle, "intensity", 1.)
+
+
+[es(tag=sound, track=battle_music__waveId)]
+def battle_music_wave(evt : Event;
+                      var battle_music__waveInited : bool&;
+                      battle_music__waveId : int;
+                      battle_music__waveStartPath : string;
+                      battle_music__waveEndPath : string;
+                      battle_music__stage : int)
+
+  if battle_music__waveInited && battle_music__stage >= int(BattleMusicStage INTRO) && battle_music__stage < int(BattleMusicStage OUTRO)
+    if battle_music__waveId < 0
+      oneshot(battle_music__waveEndPath, get_listener_pos())
+    else
+      oneshot(battle_music__waveStartPath, get_listener_pos())
+  battle_music__waveInited = true

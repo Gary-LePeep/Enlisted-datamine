@@ -105,14 +105,12 @@ def human_hit_net_speech(evt : EventOnEntityHit;
           request_speech(evt.offender, "enemyHit")
 
 
-[es(tag=server)]
-def human_hit_friendly_human_net_speech(evt : ProjectileOnIntersectEntityWithHp;
-                                        eid : EntityId;
-                                        transform aka offender_transform : float3x4;
-                                        isAlive : bool;
-                                        team aka offender_team : int;
-                                        human_net_speech__friendlyFireDistThreshold = 20.)
-  if evt.offender == eid && isAlive
+[es(tag=server, REQUIRE=projectile__stopped)]
+def human_hit_friendly_human_net_speech(evt : EventProjectileIntersectEntityWithHp)
+
+  query(evt.offender) <| $ [es(REQUIRE_NOT=deadEntity)] (transform aka offender_transform : float3x4;
+                                                         team aka offender_team : int;
+                                                         human_net_speech__friendlyFireDistThreshold = 20.)
     query(evt.victim) <| $ [es(REQUIRE=human_net_phys)] (team aka victim_team : int = int(TEAM_UNASSIGNED))
       if is_teams_friendly(offender_team, victim_team)
         var eidToSpeak = INVALID_ENTITY_ID

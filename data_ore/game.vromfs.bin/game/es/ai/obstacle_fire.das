@@ -15,6 +15,9 @@ def obstacle_fire_created_es(evt : Event;
     return
   if !tilecache_is_loaded()
     return
+  let isFireObstaclesDisabled = find_query() <| $ [es(REQUIRE=fire_obstacle__disabler)] => true
+  if isFireObstaclesDisabled
+    return
   let radius = dmgzone__maxRadius > 0.0 ? dmgzone__maxRadius : sphere_zone__radius
   let ext = float3(radius + obstacle__padding, radius, radius + obstacle__padding)
   var tm : float3x4

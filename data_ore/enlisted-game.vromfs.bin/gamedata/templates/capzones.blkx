@@ -113,19 +113,49 @@
     "capzone__smokeTemplateEnemy": "capzone_signal_enemy_smoke_effect",
     "capzone__smokeEid:eid": []
   },
-  "objective_zone_navmesh_tanks": {
+  "ai_tank_objective": {
+    "active": true,
     "_group": {
       "_tags": "server",
-      "capzone_tanks__radiusRange": [30.0,60.0],
-      "capzone_tanks__initStep": 0,
-      "capzone_tanks__initStateUpdateInterval": 30.0,
-      "capzone_tanks__nextInitStepUpdateAt": 0.0,
-      "capzone_tanks__initTryCountPerFrame": 1,
-      "capzone_tanks__maxSlope": 0.05,
-      "capzone_tanks__heightAboveGround": 2.0,
-      "capzone_tanks__positions:list<p3>": [],
-      "capzone_tanks__aimAtPositions:list<p3>": [],
-      "capzone_tanks__maxPositionCountsPerType:list<i>": [
+      "ai_tank_objective__positions:list<p3>": [],
+      "ai_tank_objective__aimAtPositions:list<p3>": [],
+      "ai_tank_objective__positionCountsPerType:list<i>": [],
+      "ai_tank_objective__probabilityPerPositionType:list<r>": []
+    }
+  },
+  "custom_ai_tank_objective": {
+    "_use": "ai_tank_objective",
+    "_group": {
+      "_tags": "server",
+      "ai_tank_objective_custom:tag": [],
+      "ai_tank_objective__positionIds:list<i>": [],
+      "ai_tank_objective__aimAtPositionIds:list<i>": []
+    }
+  },
+  "custom_ai_tank_objective_position": {
+    "transform": [
+      [1.0,0.0,0.0],
+      [0.0,1.0,0.0],
+      [0.0,0.0,1.0],
+      [0.0,0.0,0.0]
+    ],
+    "_group": {
+      "_tags": "server",
+      "ai_tank_objective__positionId": -1
+    }
+  },
+  "generated_ai_tank_objective": {
+    "_use": "ai_tank_objective",
+    "_group": {
+      "_tags": "server",
+      "ai_tank_objective__radiusRange": [30.0,60.0],
+      "ai_tank_objective__initStep": 0,
+      "ai_tank_objective__initStateUpdateInterval": 30.0,
+      "ai_tank_objective__nextInitStepUpdateAt": 0.0,
+      "ai_tank_objective__initTryCountPerFrame": 1,
+      "ai_tank_objective__maxSlope": 0.05,
+      "ai_tank_objective__heightAboveGround": 2.0,
+      "ai_tank_objective__maxPositionCountsPerType:list<i>": [
         {
           "value": 10
         },
@@ -136,11 +166,21 @@
           "value": 10
         }
       ],
-      "capzone_tanks__positionCountsPerType:list<i>": []
+      "ai_tank_objective__probabilityPerPositionType:list<r>": [
+        {
+          "value": 0.4
+        },
+        {
+          "value": 0.4
+        },
+        {
+          "value": 0.2
+        }
+      ]
     }
   },
   "objective_zone_navmesh": {
-    "_use": "objective_zone_navmesh_tanks",
+    "_use": "generated_ai_tank_objective",
     "_group": {
       "_tags": "server",
       "capzone__hasNearestNavmeshPos": false,

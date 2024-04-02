@@ -20,6 +20,7 @@ let { MedicHealState } = require("%enlSqGlob/dasenums.nut")
 let { heroMedicMedpacks } = require("%ui/hud/state/medic_state.nut")
 let { teammatesAvatarsSet, teammatesAvatarsGetWatched } = require("%ui/hud/state/human_teammates.nut")
 let { showTeammateName, showTeammateMarkers } = require("%ui/hud/state/hudOptionsState.nut")
+let {isZombieMode} = require("%ui/hud/state/zombie_mode.nut")
 
 let defTransform = {}
 let hpIconSize = [hdpxi(27), hdpxi(27)]
@@ -121,7 +122,7 @@ let hasEngineers = Computed(@() engineersInSquad.value >0)
 
 let unit = function(eid, showMed){
   let infoState = teammatesAvatarsGetWatched(eid)
-  let watch = [infoState, hasEngineers, showMed ? needShowMed : null, forcedMinimalHud, watchedHeroSquadEid, localPlayerGroupMembers, showTeammateName, showTeammateMarkers]
+  let watch = [infoState, hasEngineers, showMed ? needShowMed : null, forcedMinimalHud, watchedHeroSquadEid, isZombieMode, localPlayerGroupMembers, showTeammateName, showTeammateMarkers]
   return function() {
     let info = infoState.value
     if (!info.isAlive )
@@ -138,7 +139,7 @@ let unit = function(eid, showMed){
     let isGroupmate = !isSquadmate && info.squad_member__playerEid in localPlayerGroupMembers.value
 
     let minHud = forcedMinimalHud.value
-    let showName = info?.name && isGroupmate && !isBot && showTeammateName.value
+    let showName = info?.name && (isGroupmate || isZombieMode.value) && !isBot && showTeammateName.value
     let nameComp = showName
       ? teammateName(eid, frameNick(remap_nick(info?.name), info?["decorators__nickFrame"]),
             HUD_COLOR_TEAMMATE_INNER)
@@ -158,9 +159,14 @@ let unit = function(eid, showMed){
 
     let maxHealIconDistance = minHud ? 25 : 30
     let maxTeammateIconDistance = minHud ? 100 : 1000
+    let isReviveInZombieMod = showMed && info.medic__healState == MedicHealState.MHS_NEED_REVIVE && isZombieMode.value
 
-    return {
-      data = {
+    let data = isReviveInZombieMod ? {
+        eid
+        maxDistance = 30
+        clampToBorder = isReviveInZombieMod
+        yOffs = 0.25
+      } : {
         eid
         opacityForInvisibleAnimchar = 0.4
         minDistance = showMed ? 0 : maxHealIconDistance
@@ -173,7 +179,10 @@ let unit = function(eid, showMed){
           ? maxRange
           : minHud ? opRangeX_hardcore : opRangeX
         opacityRangeY = showName ? maxRange : opRangeY
-      }
+    }
+
+    return {
+      data
 
       key = {}
       sortOrder = eid
@@ -202,7 +211,7 @@ let unit = function(eid, showMed){
           }
           nameComp
           showTeammateMarkers.value
-          ? (showMed && needShowMed.value && iconHpColor
+          ? ((showMed && needShowMed.value && iconHpColor) || isReviveInZombieMod
               ? mkHpIcon(eid, iconHpColor, HUD_COLOR_MEDIC_HP_OUTER)
               : icon)
           : { size=[hdpxi(10), hdpxi(13)] }

@@ -894,6 +894,20 @@
     }
   },
   {
+    "eclipse_controller": {
+      "_singleton": true,
+      "eclipse__start_duration": 1.0,
+      "eclipse__end_duration": 1.0,
+      "_group": {
+        "_track": true,
+        "eclipse__sun_attenuation_base": 0.001,
+        "eclipse__envi_attenuation_base": 0.005,
+        "eclipse__gi_weight_attenuation_base": 0.001
+      },
+      "eclipse_controller_tag:tag": []
+    }
+  },
+  {
     "dafx_rain": [
       {
         "_singleton": true

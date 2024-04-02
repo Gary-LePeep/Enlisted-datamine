@@ -12,8 +12,11 @@ def vehicle_turret_unusable_notification_es(evt : Event;
                                             turret__owner : EntityId;
                                             turret_input__shootFlag : bool;
                                             turret__isUnderwater : bool;
-                                            turret__isBroken : bool)
-  if !turret_input__shootFlag || (!turret__isBroken && !turret__isUnderwater)
+                                            turret__isBroken : bool;
+                                            turret__allowShootingFromBroken : bool = false)
+  let isTurretBrokenAndBlocked = !turret__allowShootingFromBroken && turret__isBroken
+
+  if !turret_input__shootFlag || (!isTurretBrokenAndBlocked && !turret__isUnderwater)
     return
 
   query(turret__owner) <| $ [es] (vehicle__localControls : VehicleControlsState;
@@ -25,7 +28,7 @@ def vehicle_turret_unusable_notification_es(evt : Event;
       return
 
     let hero = get_controlled_hero()
-    if turret__isBroken
+    if isTurretBrokenAndBlocked
       sendEvent(hero, [[CmdHeroLogEvent event="vehicle_turret_shoot_blocked", text="vehicle/vehicle_turret_shoot_blocked", ttl=shootingBlockNotificationTime]])
     elif turret__isUnderwater
       sendEvent(hero, [[CmdHeroLogEvent event="vehicle_turret_shoot_blocked_underwater", text="vehicle/vehicle_turret_shoot_blocked_underwater", ttl=shootingBlockNotificationTime]])

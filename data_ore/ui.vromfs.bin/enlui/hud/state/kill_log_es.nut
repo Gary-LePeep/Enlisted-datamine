@@ -11,7 +11,9 @@ let { forcedMinimalHud } = require("%ui/hud/state/hudGameModes.nut")
 let { minimalistHud } = require("%ui/hud/state/hudOptionsState.nut")
 let getFramedNickByEid = require("%ui/hud/state/getFramedNickByEid.nut")
 let { remap_others } = require("%enlSqGlob/remap_nick.nut")
-let {EventKillReport} = require("dasevents")
+let { EventKillReport } = require("dasevents")
+let { isZombieMode } = require("%ui/hud/state/zombie_mode.nut")
+
 
 let showKillLog = Computed (@() !minimalistHud.value && !forcedMinimalHud.value)
 
@@ -47,7 +49,7 @@ function killEventText(victim, killer) {
   )
 
   return (victimName != null)
-    ? loc("log/eliminated", {user = victimName})
+    ? loc("log/eliminated", {user = loc(victimName)})
     : victim.inMyTeam
       ? loc("log/eliminated_teammate")
       : loc("log/eliminated_enemy")
@@ -68,6 +70,9 @@ function onReportKill(evt, _eid, _comp) {
   let victimInMySquad = evt.victimPlayer == locPlayer
   let victimInMyTeam = is_teams_friendly(myTeam, evt.victimTeam)
   let victimInMyGroup = !victimInMySquad && evt.victimPlayer in localPlayerGroupMembers.value
+
+  let needRemapName = !isZombieMode.value || victimInMyTeam || victimInMySquad || victimInMyGroup
+
   let victim = {
     eid = evt.victim
     player_eid = evt.victimPlayer
@@ -79,7 +84,8 @@ function onReportKill(evt, _eid, _comp) {
     name = evt.isVictimVehicle ? loc(evt.victimName, "")
       : !victimInMySquad && evt.victimPlayer != ecs.INVALID_ENTITY_ID
         ? getFramedNickByEid(evt.victimPlayer, !victimInMyGroup)
-        : remap_others(evt.victimName, !victimInMyGroup)
+      : needRemapName ? remap_others(evt.victimName, !victimInMyGroup)
+      : evt.victimName
     rank = evt.victimRank
   }
   let killerInMyGroup = evt.killerPlayer != locPlayer

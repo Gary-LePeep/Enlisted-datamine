@@ -1,6 +1,7 @@
 require ecs
 require ecs.safe
 require ecs.common
+require app
 require soundEvent
 require soundHash
 require soundProps
@@ -12,8 +13,6 @@ require strings
 
 
 def damage_type_to_sound_path(damage_type : int)
-  if damage_type == int(DamageType DM_PROJECTILE)
-    return "hit_dmgProjectile"
   if damage_type == int(DamageType DM_MELEE) || damage_type == int(DamageType DM_BACKSTAB)
     return "hit_dmgMelee"
   if damage_type == int(DamageType DM_EXPLOSION)
@@ -43,6 +42,8 @@ def play_shatter_sounds(var count : int; var delay_first_next_last : float3; pos
 [es(tag=sound, REQUIRE=humanSound)]
 def human_hit_sound(evt : EventOnEntityHit; eid : EntityId;
                     [[shared_comp]] human_hit_sound__paths : Object;
+                    var human_hit_sound__nextSoundAt : float&;
+                    human_hit_sound__cooldown : float;
                     human_hit_sound__shattersDelayFirstNextLast : float3;
                     is_watched_sound : bool;
                     sound_tags : Object;
@@ -51,7 +52,14 @@ def human_hit_sound(evt : EventOnEntityHit; eid : EntityId;
                     dm_parts__partsArmor : FloatList const?;
                     isAlive : bool;
                     transform : float3x4)
-  if eid == evt.victim
+  if eid != evt.victim || get_sync_time() < human_hit_sound__nextSoundAt
+    return
+  human_hit_sound__nextSoundAt = get_sync_time() + human_hit_sound__cooldown
+
+  query(evt.offender) <| $ [es] ([[shared_comp]] offender_hits_human_sound__path : Object)
+    sound_player_common::play_path(offender_hits_human_sound__path, sound_tags, is_watched_sound, evt.hitPos)
+
+  if evt.damageType != int(DamageType DM_PROJECTILE)
     var name, path : string
     if evt.actionPropsId >= 0
       action_sound_get_props(evt.actionPropsId) <| $(props : SoundActionProps)
@@ -71,9 +79,9 @@ def human_hit_sound(evt : EventOnEntityHit; eid : EntityId;
         if empty(name)
           name = (*pathObj).name ?? ""
         var handle = play_name_path_impl(name, path, evt.hitPos, false/*is_abandon*/)
-        if evt.damageType == int(DamageType DM_PROJECTILE) || evt.damageType == int(DamageType DM_MELEE) || evt.damageType == int(DamageType DM_BACKSTAB)
-          let isArmored = isAlive && is_armored(dm_parts__partsArmor, collNodeId, sound_tags)
-          set_var_optional(handle, "armored", isArmored ? 1. : 0.)
+        if evt.damageType == int(DamageType DM_MELEE) || evt.damageType == int(DamageType DM_BACKSTAB)
+          if isAlive && is_armored(dm_parts__partsArmor, collNodeId, sound_tags)
+            set_var_optional(handle, "armored", 1.)
         let localPos = inverse(transform) * evt.hitPos
         if keyoff(handle)
           add_sound(sound_event_group, sound_hash("hit"), localPos, handle, 4/*max_instances*/)

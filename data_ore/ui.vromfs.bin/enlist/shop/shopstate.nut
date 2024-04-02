@@ -97,11 +97,6 @@ function mkShopState() {
     vehicle_with_skin_order_gold = true
   }
 
-  function hasPriceContainsGold(shopItem) {
-    let { price = 0, currencyId = "" } = shopItem?.shopItemPrice
-    return currencyId == "EnlistedGold" && price > 0
-  }
-
   function hasPriceContainsOrders(shopItem) {
     let { itemCost = {} } = shopItem
     return itemCost.len() > 0
@@ -114,12 +109,6 @@ function mkShopState() {
     return false
   }
 
-  function isExternalPurchase(shopItem) {
-    let { shop_price = 0, shop_price_curr = "", storeId = "", devStoreId = "" } = shopItem
-    return (shop_price_curr != "" && shop_price > 0) //PC type
-      || storeId != "" || devStoreId != ""//Consoles type
-  }
-
   function premFilterFunc(shopItem) {
     if (hasPriceContainsSpecOrders(shopItem))
       return true
@@ -127,8 +116,7 @@ function mkShopState() {
     if (hasPriceContainsOrders(shopItem))
       return false
 
-    return ((hasPriceContainsGold(shopItem) || isExternalPurchase(shopItem))
-      && shopItem?.offerGroup != "enlisted_silver")
+    return shopItem?.offerGroup == "premium_group"
   }
 
   let bpGroupsChapters = {

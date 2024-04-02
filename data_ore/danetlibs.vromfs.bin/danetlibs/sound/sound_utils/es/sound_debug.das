@@ -33,8 +33,19 @@ def sound_debug_draw(evt : Event;
                      sound_event_group : SoundEventGroup const?;
                      human_voice_effect__activeEffects : Object const?;
                      [[shared_comp]] human_voice_effect__allOrderedEffects : StringList const?;
+                     sound_control__allowSound : bool = true;
+                     sound_control__inRange : bool = true;
+                     sound_control__soundEnabled : bool = true;
                      transform : float3x4)
+
+  if !sound_control__inRange
+    return
+
   var text = ""
+  if !sound_control__allowSound
+    text += "sound disallowed"
+  elif !sound_control__soundEnabled
+    text += "sound disabled"
 
   if human_voice_effect__allOrderedEffects != null && human_voice_effect__activeEffects != null
 

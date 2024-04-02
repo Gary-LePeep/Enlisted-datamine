@@ -6,6 +6,27 @@
       "shell_fly_sound__event:SoundEvent": []
     }
   },
+  "entity_intersected_with_projectile_sound": {
+    "_group": {
+      "_tags": "sound",
+      "entity_intersected_with_projectile_sound__paths:shared:object": []
+    }
+  },
+  "projectile_sound": {
+    "_group": {
+      "_tags": "sound",
+      "projectile_sound__shellCaliberThreshold": 0.025,
+      "projectile_sound__ricoThreshold": 0.0,
+      "projectile_sound__paths:shared:object": {
+        "hitBullet": "impact/bullet",
+        "hitShell": "impact/shell",
+        "explodeBullet": "impact/bullet",
+        "explodeShell": "impact/shell",
+        "ricoBullet": "impact/rico_bullet",
+        "ricoShell": "enemy/vehicle/tank/impacts/rico_mid"
+      }
+    }
+  },
   "bullet_projectile_sound": {
     "_use": "projectile_sound"
   },

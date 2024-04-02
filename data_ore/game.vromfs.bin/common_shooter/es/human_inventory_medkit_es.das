@@ -122,11 +122,12 @@ def human_inventory_update_can_use_heal(evt : Event;
                                         hitpoints__criticalHpRatio : float;
                                         human_parachute__isDeployed : bool;
                                         human_unarmed__hiddenWeapon : bool;
+                                        human_inventory__canSelfRevive : bool = true;
                                         maintenance__isExtinguishAvailable : bool = false;
                                         maintenance__isRepairAvailable : bool = false;
                                         var human_inventory__canUseMedkit : bool&)
   let canSelfHeal = !isDowned && total_kits__selfHeal > 0
-  let canSelfRevive = isDowned && total_kits__selfRevive > 0
+  let canSelfRevive = isDowned && total_kits__selfRevive > 0 && human_inventory__canSelfRevive
   let canSelfExtinguish = burning__isBurning && !isInVehicle
 
   let lostHp = hitpoints__maxHp - max(hitpoints__hp, 0.0)

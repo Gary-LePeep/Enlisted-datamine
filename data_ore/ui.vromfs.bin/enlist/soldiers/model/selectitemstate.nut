@@ -12,7 +12,7 @@ let { allItemTemplates, findItemTemplate, itemTypesInSlots
 } = require("%enlist/soldiers/model/all_items_templates.nut")
 let { prepareItems, addShopItems, itemsSort } = require("%enlist/soldiers/model/items_list_lib.nut")
 let { soldierClasses } = require("%enlSqGlob/ui/soldierClasses.nut")
-let soldierSlotsCount = require("soldierSlotsCount.nut")
+let { soldierSlotsCount } = require("soldierSlotsCount.nut")
 let { logerr } = require("dagor.debug")
 let { getLinkedArmyName } = require("%enlSqGlob/ui/metalink.nut")
 let { getObjectName, trimUpgradeSuffix } = require("%enlSqGlob/ui/itemsInfo.nut")
@@ -192,7 +192,7 @@ function openSelectItem(armyId, ownerGuid, slotType, slotId) {
 function selectInsideListSlot(dir, doWrap) {
   local { armyId, ownerGuid, slotType, slotId } = selectParams.value
   let curScheme = curSoldierInfo.value?.equipScheme ?? {}
-  let size = soldierSlotsCount(ownerGuid, curScheme).value?[slotType] ?? 0
+  let size = soldierSlotsCount(ownerGuid, curScheme)?[slotType] ?? 0
 
   if (size <= 1)
     return false
@@ -234,7 +234,7 @@ function selectSlot(dir) {
     return
 
   slotType = availableSlotTypes[slotIdx]
-  let subslotsCount = soldierSlotsCount(curSoldierInfo.value?.guid, equipScheme).value?[slotType] ?? 0
+  let subslotsCount = soldierSlotsCount(curSoldierInfo.value?.guid, equipScheme)?[slotType] ?? 0
   let slotId = subslotsCount < 1 ? -1
     : dir < 0 ? subslotsCount - 1
     : 0
@@ -382,9 +382,9 @@ let sameTypeTier = @(item1, item2) item1 != null && item2 != null
   && (item1?.growthTier ?? 0) == (item2?.growthTier ?? 0)
   && (item1?.tier ?? 0) == (item2?.tier ?? 0)
 
-function getAlternativeEquipList(soldier, chooseFunc, excludeSlots, maxBR) {
+function getAlternativeEquipList(soldier, slotsItems, chooseFunc, excludeSlots, maxBR) {
   let armyId = getLinkedArmyName(soldier)
-  let slotsItems = getSoldierItemSlots(soldier.guid, campItemsByLink.value)
+  let filteredItems = slotsItems
     .filter(@(i) !(excludeSlots.findindex(@(v) v.slotType == i.slotType) != null
       && excludeSlots.findindex(@(v) v.slotId == i.slotId) != null))
 
@@ -393,7 +393,7 @@ function getAlternativeEquipList(soldier, chooseFunc, excludeSlots, maxBR) {
     (sortOrder?[b.itemtype] ?? 0) <=> (sortOrder?[a.itemtype] ?? 0)
 
   let equipList = []
-  foreach (slotsItem in slotsItems) {
+  foreach (slotsItem in filteredItems) {
     let { slotType, slotId } = slotsItem
     let chosenItem = slotsItem?.item
     if (chosenItem?.isFixed ?? false)
@@ -467,10 +467,8 @@ function getEmptyNeededSlots(slotsItems, equipScheme) {
   return slotToGroup
 }
 
-function getPossibleEquipList(soldier, maxBR) {
-  let { guid = null, equipScheme = {} } = soldier
-  let slotsItems = getSoldierItemSlots(guid, campItemsByLink.value)
-  let soldierSlotsCountTbl = soldierSlotsCount(guid, equipScheme).value
+function getPossibleEquipList(soldier, slotsItems, maxBR, soldierSlotsCountTbl) {
+  let { equipScheme = {} } = soldier
   let emptySlotsTypes = getEmptyNeededSlots(slotsItems, equipScheme)
 
   local freeSlots = {}
@@ -558,12 +556,11 @@ function addReplacementItem(toReplace, sortOrder, ownerGuid, slotType, slotsItem
   itemRatingData[ownerGuid] <- slotsItem.item.guid
 }
 
-function getPossibleUnequipList(ownerGuid, toReplace = null, sortOrder = null) {
+function getPossibleUnequipList(ownerGuid, slotsItems, toReplace = null, sortOrder = null) {
   let itemsByLink = campItemsByLink.value
   let infoByGuid = objInfoByGuid.value
   let equipList = []
   let unequipped = {}
-  let slotsItems = getSoldierItemSlots(ownerGuid, itemsByLink)
   foreach (slotsItem in slotsItems) {
     if (slotsItem?.item.isFixed ?? false)
       continue
@@ -683,7 +680,8 @@ function massUnequipSoldierList(soldierList, equipLists, toReplace) {
   foreach (soldier in soldierList) {
     let soldierGuid = soldier.guid
     let sortOrder = defaultSortOrder.__merge(classSortOrder?[soldier.sClass] ?? {})
-    equipLists[soldierGuid] <- getPossibleUnequipList(soldierGuid, toReplace, sortOrder)
+    let soldierItems = getSoldierItemSlots(soldierGuid, campItemsByLink.value)
+    equipLists[soldierGuid] <- getPossibleUnequipList(soldierGuid, soldierItems, toReplace, sortOrder)
   }
 }
 

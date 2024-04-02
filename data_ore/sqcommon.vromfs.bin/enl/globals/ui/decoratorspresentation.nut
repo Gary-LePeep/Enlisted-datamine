@@ -297,6 +297,15 @@ local portraits = {
   engineerDay24_bonus_portrait = {
     icon = "ui/portraits/event/engineerDay24_bonus_portrait.avif"
   }
+  portrait_steam_pack = {
+    icon = "ui/portraits/event/portrait_steam_pack.avif"
+  }
+  zombie_bonus_portrait_A = {
+    icon = "ui/portraits/event/zombie_bonus_portrait_A.avif"
+  }
+  zombie_bonus_portrait_B = {
+    icon = "ui/portraits/event/zombie_bonus_portrait_B.avif"
+  }
 
 
   common_china_portrait_1 = {
@@ -495,7 +504,8 @@ local nickFrames = {
   kongzhong_nickFrame_16 = @(n) $"├{n}┝"
   nickFrame_lunarNewyear24_event = @(n) $"┦{n}┧"
   nickFrame_preorder_iron_fury = @(n) $"┤{n}┥"
-  nickFrame_steam_pack = @(n) $"┠{n}┡"
+  nickFrame_steam_pack = @(n) $"┨{n}┩"
+  nickFrame_zombie_event = @(n) $"┪{n}┪"
 }
 
 local decoratorsPresentation = {
@@ -508,6 +518,9 @@ return {
   portraits
   nickFrames
   decoratorsPresentation
+
+  isPortrait = @(id) id in portraits
+  isFrameNick = @(frameId) frameId in nickFrames
 
   getPortrait = @(id) portraits?[id] ?? basePortrait
   frameNick = @(nick, frameId) nickFrames?[frameId](nick) ?? nick

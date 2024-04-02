@@ -10,16 +10,63 @@ require human_sounds.modules.human_steps_sound_common
 require DngHuman
 require game.utils.hero
 require game.utils.team
+require DagorMath
+require strings
+require DngNet
 
 
-def get_volume(is_watched_sound : bool; team : int; friend_volume : float)
-  return (!is_watched_sound && is_teams_friendly(team, (get_int(get_controlled_hero(), "team") ?? TEAM_UNASSIGNED))) ? friend_volume : 1.
+[es(tag=sound, after=(sound_landmesh_queries_update, start_async_phys_sim_es, sound_begin_update_es), before=(human_steps_sound_update, sound_end_update_es))]
+def human_steps_sound_states_from_human_net_phys(info : ParallelUpdateFrameDelayed;
+                                                 human_net_phys : HumanActor;
+                                                 animchar__animSpeed : float;
+                                                 var human_steps_sound__moveState : int&;
+                                                 var human_steps_sound__animSpeed : float&)
+
+  human_steps_sound__moveState = int(human_net_phys.phys.currentState.moveState)
+  human_steps_sound__animSpeed = animchar__animSpeed
 
 
-[es(tag=sound, REQUIRE=humanSound, REQUIRE_NOT=deadEntity)]
-def human_steps_sound_irq(evt : CmdSoundStepIrq;
-                          var human_steps_sound__irqObjIdx : int&)
-  human_steps_sound__irqObjIdx = evt.objIdx
+def human_steps_sound_states_from_human_navmesh_phys_impl(speed : float;
+                                                          navmesh_phys__walkSpeedModifier = 0.5;
+                                                          var human_steps_sound__moveState : int&;
+                                                          var human_steps_sound__animSpeed : float&)
+  // navmesh_move_anim es related
+  human_steps_sound__animSpeed = speed
+  if speed > navmesh_phys__walkSpeedModifier * 1.1
+    human_steps_sound__moveState = int(HUMoveState EMS_RUN)
+  elif speed > FLT_EPSILON
+    human_steps_sound__moveState = int(HUMoveState EMS_WALK)
+  else
+    human_steps_sound__moveState = int(HUMoveState EMS_STAND)
+
+
+[es(tag=sound, REQUIRE_NOT=(human_net_phys, human_net_phys, loc_snapshots__snapshotData), after=(start_async_phys_sim_es, sound_begin_update_es), before=human_steps_sound_update)]
+def human_steps_sound_states_from_human_navmesh_phys_offline(info : ParallelUpdateFrameDelayed;
+                                                             navmesh_phys__currentWalkVelocity : float3;
+                                                             navmesh_phys__walkSpeedModifier = 0.5;
+                                                             var human_steps_sound__moveState : int&;
+                                                             var human_steps_sound__animSpeed : float&)
+  // navmesh_move_anim es related
+  let speed = length(navmesh_phys__currentWalkVelocity)
+  human_steps_sound_states_from_human_navmesh_phys_impl(speed, navmesh_phys__walkSpeedModifier, human_steps_sound__moveState, human_steps_sound__animSpeed)
+
+
+[es(tag=sound, REQUIRE_NOT=human_net_phys, after=(start_async_phys_sim_es, sound_begin_update_es), before=human_steps_sound_update)]
+def human_steps_sound_states_from_human_navmesh_phys_online(info : ParallelUpdateFrameDelayed;
+                                                            loc_snapshots__snapshotData : LocSnapshotsList;
+                                                            navmesh_phys__walkSpeedModifier = 0.5;
+                                                            var human_steps_sound__moveState : int&;
+                                                            var human_steps_sound__animSpeed : float&)
+  // navmesh_move_anim es related
+  var speed = 0.
+  let n = length(loc_snapshots__snapshotData)
+  if n >= 2
+    let begin = loc_snapshots__snapshotData[0].pos
+    let end = loc_snapshots__snapshotData[n - 1].pos
+    let time = loc_snapshots__snapshotData[n - 1].atTime - loc_snapshots__snapshotData[0].atTime
+    let vel = (end - begin) / time
+    speed = length(vel)
+  human_steps_sound_states_from_human_navmesh_phys_impl(speed, navmesh_phys__walkSpeedModifier, human_steps_sound__moveState, human_steps_sound__animSpeed)
 
 
 [es(tag=sound, after=(sound_landmesh_queries_update, start_async_phys_sim_es, sound_begin_update_es), before=sound_end_update_es)] // after start_async_phys_sim_es to start phys sim job earlier
@@ -28,71 +75,126 @@ def human_steps_sound_update(info : ParallelUpdateFrameDelayed)
   let listenerPos = get_listener_pos()
 
   query() <| $ [es(REQUIRE_NOT=deadEntity)] (eid : EntityId;
+                                             sound_control__soundEnabled : bool = true;
+
                                              transform : float3x4;
-                                             team : int;
                                              is_watched_sound : bool;
-                                             [[shared_comp]] human_steps_sound__path : Object;
-                                             [[shared_comp]] human_steps_sound__irqs : Array;
-                                             var human_steps_sound__irqObjIdx : int&;
-                                             [[shared_comp]] human_steps_sound__runVoiceFx : Object;
-                                             [[shared_comp]] human_steps_sound__walkVoiceFx : Object;
-                                             sound_tags : Object;
-                                             var sound_event_group : SoundEventGroup&;
-                                             human_steps_sound__traceStepOffsetLen : float2;
-                                             human_steps_sound__friendVolume : float;
-                                             sound_landmesh_queries__biomePhysMatId : int;
-                                             sound_landmesh_queries__biomeOverridesWater : bool;
-                                             sound_landmesh_queries__puddleDepth : float;
-                                             var human_steps_sound__smid : float&;
-                                             var human_steps_sound__waterDepth : float&;
-                                             var human_steps_sound__isOddStep : bool&;
-                                             human_steps_sound__farawayThresholdSq : float;
+
                                              human_net_phys__states : int = int(StateFlag ST_ON_GROUND);
                                              human_net_phys__isClimbing : bool = false;
-                                             var human_net_phys : HumanActor;
+                                             var human_net_phys : HumanActor?;
 
                                              animchar__animSpeed : float;
                                              animchar__updatable : bool;
                                              animchar__visible : bool;
-                                             var human_steps_sound_generator__lastStepAt : float&;
-                                             var human_steps_sound_generator__cooldown : float&;
+
+                                             human_steps_sound__moveState : int;
+                                             human_steps_sound__animSpeed : float;
+                                             human_steps_sound__animSpeedMul : float;
+                                             human_steps_sound__farawayThresholdSq : float;
+                                             [[shared_comp]] human_steps_sound__irqs : Array;
+
+                                             var human_steps_sound__irqObjIdx : int&;
+                                             var human_steps_sound__physStates : int&;
+                                             var human_steps_sound__lastTimeOnGround : float&;
+
+                                             var sound_landmesh_queries_vars__speedSq : float&;
+                                             var sound_landmesh_queries_vars__isOnGround : bool&;
+
+                                             var human_steps_sound_generator__lastStepAt_cooldown : float2&;
                                              human_steps_sound_generator__walkRunSprint_stand_intervals : float3;
                                              human_steps_sound_generator__walkRunSprint_crouch_intervals : float3;
                                              human_steps_sound_generator__enableForVisible : bool;
-                                             human_steps_sound_generator__enableForInvisible : bool)
+                                             human_steps_sound_generator__enableForInvisible : bool;
+                                             human_steps_sound_generator__enableAlways : bool)
 
-    let irqObjIdx = human_steps_sound_generator(human_steps_sound__irqObjIdx,
-                                                info.curTime,
-                                                info.dt,
-                                                listenerPos,
-                                                transform[3],
-                                                is_watched_sound,
-                                                human_steps_sound__farawayThresholdSq,
-                                                read_state(StateFlag ST_ON_GROUND, human_net_phys__states),
-                                                human_net_phys__isClimbing,
-                                                human_net_phys,
-                                                animchar__animSpeed,
-                                                animchar__updatable,
-                                                animchar__visible,
-                                                human_steps_sound_generator__lastStepAt,
-                                                human_steps_sound_generator__cooldown,
-                                                human_steps_sound_generator__walkRunSprint_stand_intervals,
-                                                human_steps_sound_generator__walkRunSprint_crouch_intervals,
-                                                human_steps_sound_generator__enableForVisible,
-                                                human_steps_sound_generator__enableForInvisible,
-                                                human_steps_sound__irqs)
+    if !sound_control__soundEnabled || is_faraway_step(is_watched_sound, transform[3], human_steps_sound__farawayThresholdSq, listenerPos)
+      sound_landmesh_queries_vars__speedSq = 0.
+      sound_landmesh_queries_vars__isOnGround = true
+      human_steps_sound__physStates = human_net_phys__states
+      human_steps_sound__irqObjIdx = INVALID_IRQ_OBJ_IDX
+      return
+
+    var standState = HUStandState ESS_STAND
+    var moveState = human_steps_sound__moveState
+    var animSpeed = human_steps_sound__animSpeed
+    if human_net_phys != null
+      standState = human_net_phys.phys.currentState.standState
+      moveState = int(human_net_phys.phys.currentState.moveState)
+      animSpeed = animchar__animSpeed
+
+    let irqObjIdx = human_steps_sound_generate(human_steps_sound__irqObjIdx,
+                                               info.curTime,
+                                               info.dt,
+                                               read_state(StateFlag ST_ON_GROUND, human_net_phys__states),
+                                               human_net_phys__isClimbing,
+                                               moveState,
+                                               standState,
+                                               animSpeed * human_steps_sound__animSpeedMul,
+                                               animchar__updatable,
+                                               animchar__visible,
+                                               human_steps_sound_generator__lastStepAt_cooldown,
+                                               human_steps_sound_generator__walkRunSprint_stand_intervals,
+                                               human_steps_sound_generator__walkRunSprint_crouch_intervals,
+                                               human_steps_sound_generator__enableForVisible,
+                                               human_steps_sound_generator__enableForInvisible,
+                                               human_steps_sound_generator__enableAlways,
+                                               human_steps_sound__irqs)
+
     human_steps_sound__irqObjIdx = INVALID_IRQ_OBJ_IDX
+    sound_landmesh_queries_vars__speedSq = human_net_phys != null ? length_sq((*human_net_phys).phys.currentState.velocity.xz) : 0.
+    sound_landmesh_queries_vars__isOnGround = read_state(StateFlag ST_ON_GROUND, human_net_phys__states)
 
-    if irqObjIdx != INVALID_IRQ_OBJ_IDX
-      let desc = human_steps_sound__irqs?[irqObjIdx] ?as Object
+    let descId = human_steps_sound_update_states(info.curTime,
+                                                 human_net_phys__states,
+                                                 human_steps_sound__physStates,
+                                                 human_steps_sound__lastTimeOnGround)
+
+    if irqObjIdx == INVALID_IRQ_OBJ_IDX && empty(descId)
+      return
+
+    query(eid) <| $ [es] (sound_tags : Object;
+                          team : int;
+                          var sound_event_group : SoundEventGroup&;
+                          human_steps_sound__traceStepOffsetLen : float2;
+                          human_steps_sound__friendVolume : float;
+                          human_steps_sound__enemyVolume = 1.;
+
+                          [[shared_comp]] human_steps_sound__path : Object;
+                          [[shared_comp]] human_steps_sound__descs : Object;
+                          [[shared_comp]] human_steps_sound__irqs : Array;
+                          [[shared_comp]] human_steps_sound__runVoiceFx : Object;
+                          [[shared_comp]] human_steps_sound__walkVoiceFx : Object;
+
+                          var human_steps_sound__waterDepth : float&;
+                          var human_steps_sound__smid : float&;
+                          var human_steps_sound__stepIdx : uint&;
+
+                          sound_landmesh_queries__biomePhysMatId : int;
+                          sound_landmesh_queries__biomeOverridesWater : bool;
+                          sound_landmesh_queries__puddleDepth : float)
+
+      var desc : Object const? = null
+      var shouldTraceEnemy = false
+      if !empty(descId)
+        desc = sound_player_common::get_desc(human_steps_sound__descs, descId)
+        shouldTraceEnemy = false
+      elif irqObjIdx != INVALID_IRQ_OBJ_IDX
+        desc = human_steps_sound__irqs?[irqObjIdx] ?as Object
+        shouldTraceEnemy = (human_steps_sound__stepIdx & 1u) != 0u
+        ++human_steps_sound__stepIdx
+
+        if (human_steps_sound__stepIdx & 3u) == 0u
+          sound_player_common::play_path(((desc.name ?? "") == "sprint") ? human_steps_sound__runVoiceFx : human_steps_sound__walkVoiceFx, sound_tags, is_watched_sound, transform[3], sound_hash(""), sound_event_group)
+
       if desc != null
         play_footstep(*desc,
                       human_steps_sound__path,
                       sound_tags,
-                      get_volume(is_watched_sound, team, human_steps_sound__friendVolume),
+                      is_watched_sound ? 1. : is_teams_friendly(team, (get_int(get_controlled_hero(), "team") ?? TEAM_UNASSIGNED)) ? human_steps_sound__friendVolume : human_steps_sound__enemyVolume,
                       eid,
                       transform[3],
-                      human_steps_sound__isOddStep,
+                      shouldTraceEnemy,
                       is_watched_sound,
                       human_steps_sound__traceStepOffsetLen,
                       sound_landmesh_queries__biomePhysMatId,
@@ -101,61 +203,12 @@ def human_steps_sound_update(info : ParallelUpdateFrameDelayed)
                       human_steps_sound__smid,
                       human_steps_sound__waterDepth,
                       human_net_phys)
-        human_steps_sound__isOddStep = !human_steps_sound__isOddStep
-
-      let isRun = read_state(StateFlag ST_SPRINT, human_net_phys__states) && !read_state(StateFlag ST_WALK, human_net_phys__states)
-      sound_player_common::play_path(isRun ? human_steps_sound__runVoiceFx : human_steps_sound__walkVoiceFx, sound_tags, is_watched_sound, transform[3], sound_hash(""), sound_event_group)
 
 
-    query(eid) <| $ [es] ([[shared_comp]] sound_paths : Object;
-                          [[shared_comp]] human_steps_sound__descs : Object;
-                          [[shared_comp]] human_steps_sound__jumpFx : Object;
-                          human_steps_sound__fallSpeedCollThreshold : float;
-                          var sound_landmesh_queries_vars__speedSq : float&;
-                          var sound_landmesh_queries_vars__isOnGround : bool&;
-                          var human_steps_sound__physStates : int&;
-                          var human_steps_sound__lastTimeOnGround : float&)
-
-      sound_landmesh_queries_vars__speedSq = length_sq(human_net_phys.phys.currentState.velocity.xz)
-      sound_landmesh_queries_vars__isOnGround = read_state(StateFlag ST_ON_GROUND, human_net_phys__states)
-
-      let name = human_steps_sound_update_states(info.curTime,
-                                                 listenerPos,
-                                                 transform[3],
-                                                 is_watched_sound,
-                                                 human_steps_sound__farawayThresholdSq,
-                                                 human_net_phys__states,
-                                                 human_steps_sound__physStates,
-                                                 human_steps_sound__lastTimeOnGround)
-
-      if name == "jump"
-        play_path(human_steps_sound__jumpFx, sound_tags, is_watched_sound, transform[3])
-      elif name == "land"
-        if !human_net_phys__isClimbing && info.curTime > human_steps_sound__lastTimeOnGround + 1.
-          let speed = -min(human_net_phys.phys.currentState.velocity.y, human_net_phys.phys.previousState.velocity.y)
-          if speed >= human_steps_sound__fallSpeedCollThreshold
-            play_path("collision_fall", sound_paths, sound_tags, is_watched_sound, transform[3])
-            return
-
-      if !empty(name)
-        let desc = sound_player_common::get_desc(human_steps_sound__descs, name)
-        if desc != null
-          play_footstep(*desc,
-                        human_steps_sound__path,
-                        sound_tags,
-                        get_volume(is_watched_sound, team, human_steps_sound__friendVolume),
-                        eid,
-                        transform[3],
-                        false,
-                        is_watched_sound,
-                        human_steps_sound__traceStepOffsetLen,
-                        sound_landmesh_queries__biomePhysMatId,
-                        sound_landmesh_queries__biomeOverridesWater,
-                        sound_landmesh_queries__puddleDepth,
-                        human_steps_sound__smid,
-                        human_steps_sound__waterDepth,
-                        human_net_phys)
-
+[es(tag=sound, REQUIRE=humanSound, REQUIRE_NOT=deadEntity)]
+def human_steps_sound_irq(evt : CmdSoundStepIrq;
+                          var human_steps_sound__irqObjIdx : int&)
+  human_steps_sound__irqObjIdx = evt.objIdx
 
 
 [es(tag=sound, on_appear)]

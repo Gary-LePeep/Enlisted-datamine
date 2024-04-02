@@ -578,6 +578,14 @@ let soldierClasses = freeze({
     sClass = "engineer"
     kind = "engineer"
   }.__update(premiumCfg)
+  assault_premium_2_engineer_normandy = {
+    sClass = "engineer"
+    kind = "engineer"
+  }.__update(premiumCfg)
+  assault_premium_2_engineer_moscow = {
+    sClass = "engineer"
+    kind = "engineer"
+  }.__update(premiumCfg)
   assault_premium_3 = {
     sClass = "assault"
     kind = "assault"
@@ -795,6 +803,10 @@ let soldierClasses = freeze({
     kind = "tanker"
   }.__update(premiumCfg)
   tanker_3_premium_6 = {
+    sClass = "tanker"
+    kind = "tanker"
+  }.__update(premiumCfg)
+  tanker_2_premium_3 = {
     sClass = "tanker"
     kind = "tanker"
   }.__update(premiumCfg)

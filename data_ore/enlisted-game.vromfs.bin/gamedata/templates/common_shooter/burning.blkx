@@ -220,5 +220,23 @@
     {
       "node_attached__destroyWithParent:tag": []
     }
+  ],
+  "burning_entity_effect_regular_template": [
+    {
+      "_use": "node_attached_itm"
+    },
+    {
+      "_use": "standalone_burning_effect"
+    },
+    {
+      "_group": {
+        "_tags": "render",
+        "effect__name": "event_zombie_fire_regular_cmps_fx",
+        "effect__velocity": [0.0,0.0,0.0]
+      }
+    },
+    {
+      "node_attached__destroyWithParent:tag": []
+    }
   ]
 }

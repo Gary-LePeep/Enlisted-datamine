@@ -4,6 +4,7 @@ from "%enlSqGlob/ui/ui_library.nut" import *
 let { fontHeading2, fontBody, fontawesome } = require("%enlSqGlob/ui/fontsStyle.nut")
 let fa = require("%ui/components/fontawesome.map.nut")
 let style = require("%ui/hud/style.nut")
+let mkPointsUi = require("%ui/components/mkAnimatedPointsUi.nut")
 let { TEAM_UNASSIGNED } = require("team")
 let { abs } = require("%sqstd/math.nut")
 let {
@@ -14,10 +15,15 @@ let {
   myScore, enemyScore, myScoreBleed, myScoreBleedFast, enemyScoreBleed,
   enemyScoreBleedFast, failTimerShowTime, anyTeamFailTimer, myTeamFailTimer, enemyTeamFailTimer
 } = require("%ui/hud/state/team_scores.nut")
-let {localPlayerTeam} = require("%ui/hud/state/local_player.nut")
-let {secondsToStringLoc} = require("%ui/helpers/time.nut")
+let { localPlayerTeam, localPlayerEid } = require("%ui/hud/state/local_player.nut")
+let {
+  isZombieMode, zombieModeCurWave, zombieModeHeroPoints, zombiesNextWaveTime
+} = require("%ui/hud/state/zombie_mode.nut")
+let { secondsToStringLoc } = require("%ui/helpers/time.nut")
 let { isGunGameMode, GunGameModeUI } = require("gun_game.game_mode.ui.nut")
 let random = require("dagor.random")
+let { scoreNestGradientR, scoreNestGradientL } = require("%enlSqGlob/ui/designConst.nut")
+let scoringPlayers = require("%ui/hud/state/scoring_players.nut")
 
 
 const GAP_RATIO = 0.4 // magic number calculated as gap/icon = (1 / 1.5) / (1 + 1 / 1.5)
@@ -470,6 +476,75 @@ let modeDomination = @() {
   ]
 }
 
+
+let zombieWaveColor = 0xFFFF5577
+
+function modeZombieWaveUi() {
+  let hasTimer = zombiesNextWaveTime.value > 0
+  return {
+    watch = [ zombieModeCurWave, zombiesNextWaveTime ]
+    size = [hdpx(180), SIZE_TO_CONTENT]
+    valign = ALIGN_CENTER
+    padding = [fsh(1.1), fsh(2)]
+    margin = fsh(1.5)
+    rendObj = ROBJ_IMAGE
+    image = scoreNestGradientL
+    color = 0xFF000000
+    children = mkText(loc("zombieMod/curWave", {
+      count = zombieModeCurWave.value + (hasTimer ? 0 : 1)
+    }), { color = zombieWaveColor }.__merge(fontBody))
+  }
+}
+
+
+function modeZombieWaveTimerUi() {
+  let timerVal = zombiesNextWaveTime.value
+  let hasTimer = timerVal > 0
+  return {
+    watch = [zombiesNextWaveTime, scoringPlayers, localPlayerEid]
+    size = [SIZE_TO_CONTENT, hdpx(60)]
+    hplace = ALIGN_CENTER
+    valign = ALIGN_CENTER
+    children = hasTimer
+      ? mkText(loc("zombieMod/nextWaveTime", {
+          count = secondsToStringLoc(zombiesNextWaveTime.value)
+        }), fontBody)
+      : null
+  }
+}
+
+function mkModeZombie() {
+  let killCounter = Computed(@()
+    scoringPlayers.value?[localPlayerEid.value].scoring_player__zombieKills ?? 0)
+  return {
+    size = [sw(100), SIZE_TO_CONTENT]
+    padding = [0, fsh(2)]
+    children = [
+      modeZombieWaveUi
+      modeZombieWaveTimerUi
+      {
+        size = [hdpx(180), SIZE_TO_CONTENT]
+        flow = FLOW_VERTICAL
+        hplace = ALIGN_RIGHT
+        halign = ALIGN_RIGHT
+        valign = ALIGN_CENTER
+        padding = [fsh(1), fsh(2)]
+        margin = fsh(1.5)
+        rendObj = ROBJ_IMAGE
+        image = scoreNestGradientR
+        color = 0xFF000000
+        children = [
+          mkPointsUi("zombieModScore", "ui/skin#score.svg", Watched(true),
+            zombieModeHeroPoints)
+          mkPointsUi("killCounter", "ui/skin#statistics_kills_icon.svg",
+            Watched(true), killCounter)
+        ]
+      }
+    ]
+  }
+}
+
+
 let modeInvasion = {
   flow = FLOW_HORIZONTAL
   valign = ALIGN_TOP
@@ -520,9 +595,10 @@ console_register_command(function(steps) {
 }, "meta.addScoresAnim")
 
 let gameModeBlock = @() {
-  watch = [isDominationMode, isGunGameMode]
+  watch = [isDominationMode, isGunGameMode, isZombieMode]
   hplace = ALIGN_CENTER
   children = isGunGameMode.value ? GunGameModeUI
+           : isZombieMode.value ? mkModeZombie()
            : isEscortMode.value ? modeEscort
            : isDominationMode.value ? modeDomination
            : modeInvasion

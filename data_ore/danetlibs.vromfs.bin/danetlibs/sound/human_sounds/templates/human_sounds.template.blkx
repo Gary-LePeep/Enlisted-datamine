@@ -103,9 +103,13 @@
   "human_idle_sound": {
     "_group": {
       "_tags": "sound",
-      "human_idle_sound__paths:shared:object": [],
+      "human_idle_sound__stealableGroupIdx": -1,
+      "human_idle_sound__stealableGroupName": "",
+      "human_idle_sound__stealableTargetInstances": 4,
+      "human_idle_sound__stealableFadeInOutSpeed": 1.0,
       "human_idle_sound__event:SoundEvent": [],
-      "humanIdleSound:tag": []
+      "humanIdleSound:tag": [],
+      "human_idle_sound__paths:shared:object": []
     }
   },
   "human_idle_active_sound": {
@@ -116,7 +120,7 @@
       "human_idle_sound__isActive": false
     }
   },
-  "base_human_voice_effect": [
+  "human_voice_effects": [
     {
       "_tracked": "human_voice_effect__isActive"
     },
@@ -139,7 +143,8 @@
         "human_voice_effect__isActive": false,
         "human_voice_effect__activeEffects:object": [],
         "human_voice_effect__orderedEffects:shared:list<t>": [],
-        "human_voice_effect__event:SoundEvent": []
+        "human_voice_effect__event:SoundEvent": [],
+        "human_voice_effect__allOrderedEffects:shared:list<t>": []
       }
     }
   ],
@@ -242,12 +247,12 @@
   "base_human_steps_sound_generator": {
     "_group": {
       "_tags": "sound",
-      "human_steps_sound_generator__lastStepAt": -1.0,
-      "human_steps_sound_generator__cooldown": 0.0,
+      "human_steps_sound_generator__lastStepAt_cooldown": [-1.0,0.0],
       "human_steps_sound_generator__walkRunSprint_stand_intervals": [10.0,10.0,10.0],
       "human_steps_sound_generator__walkRunSprint_crouch_intervals": [10.0,10.0,10.0],
       "human_steps_sound_generator__enableForVisible": false,
-      "human_steps_sound_generator__enableForInvisible": false
+      "human_steps_sound_generator__enableForInvisible": false,
+      "human_steps_sound_generator__enableAlways": false
     }
   },
   "base_human_steps_sound": [
@@ -265,12 +270,17 @@
         "human_steps_sound__waterDepth": 0.0,
         "human_steps_sound__physStates": -1,
         "human_steps_sound__irqObjIdx": -1,
-        "human_steps_sound__isOddStep": false,
+        "human_steps_sound__moveState": 0,
+        "human_steps_sound__animSpeed": 0.0,
+        "human_steps_sound__animSpeedMul": 1.0,
         "human_steps_sound__traceStepOffsetLen": [1.0,2.0],
         "human_steps_sound__friendVolume": 0.4,
         "human_steps_sound__farawayThresholdSq": 900.0,
         "human_steps_sound__fallSpeedCollThreshold": 10.0,
         "human_steps_sound__tag": "",
+        "human_steps_sound__stepIdx:u32": {
+          "value": 0
+        },
         "human_steps_sound__path:shared:object": [],
         "human_steps_sound__descs:shared:object": [],
         "human_steps_sound__irqs:shared:array": [],

@@ -1069,6 +1069,8 @@ class FindPiercableEnemyVehicle : BehNodeAdapter
     maxTargetsProcessed = datablock_getInt(data, "maxTargetsProcessed", maxTargetsProcessed)
     maxPointsPerTarget = datablock_getInt(data, "maxPointsPerTarget", maxPointsPerTarget)
 
+    chanceToTargetHumanPlayer = datablock_getReal(data, "chanceToTargetHumanPlayer", chanceToTargetHumanPlayer)
+
   def override init() : void
     runStep = STEP_INIT_CHECK
     clear_targets()

@@ -6,5 +6,5 @@ struct CmdClientHumanSpeech
   phrase : string
 
 [event(unicast)]
-struct CmdHumanVoiceEffect
+struct CmdHumanVoiceEffectOneshot
   phrase : string

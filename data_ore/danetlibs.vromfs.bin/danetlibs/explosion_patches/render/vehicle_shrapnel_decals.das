@@ -132,6 +132,7 @@ def vehicle_damage_decals_on_explosion_event(evt : CmdShellExplodeClient)
               let decalPos = traceStart + shellDir * isect.intersectionT
               let collNodeId = int(isect.collisionNodeId)
               create_damage_decal_on_vehicle(decalPos, shellDir, isect.normal, caliber, collNodeId, damageType, vehicle_eid)
+              sendEvent(vehicle_eid, [[AddHitDecal collNodeId=collNodeId, pos=decalPos, dir=shellDir, normal=isect.normal, caliber=caliber, damageType=damageType]])
               return
 
 def random_direction_in_sphere(theta_cos_range : float2 = float2(-1.f, 1.f))
@@ -154,7 +155,8 @@ def make_cone_transform(cone_height_dir : float3)
   out_tm[2] = cone_height_dir
   return out_tm
 
-def perform_trace(expl_pos : float3;
+def perform_trace(vehicle_eid : EntityId;
+                  expl_pos : float3;
                   trace_dir : float3;
                   trace_len : float;
                   transform : float3x4;
@@ -208,13 +210,17 @@ def perform_trace(expl_pos : float3;
                                 damage_decals__projectileHitLocalPos,
                                 damage_decals__projectileHitCaliber)
     return
+  let localDir = rotate(nodeInvTm, trace_dir)
+  let localNormal = rotate(nodeInvTm, normal)
   push(damage_decals__shrapnelDecalPartId, partId)
   push(damage_decals__shrapnelDecalLocalPos, localPos)
-  push(damage_decals__shrapnelDecalLocalHitDirTemp, rotate(nodeInvTm, trace_dir))
-  push(damage_decals__shrapnelDecalLocalNormalTemp, rotate(nodeInvTm, normal))
+  push(damage_decals__shrapnelDecalLocalHitDirTemp, localDir)
+  push(damage_decals__shrapnelDecalLocalNormalTemp, localNormal)
+  sendEvent(vehicle_eid, [[AddShrapnelDecal collNodeId=collNodeId, localPos=localPos, localDir=localDir, localNormal=localNormal]])
 
 [es(tag=render)]
 def vehicle_shrapnel_decals_process_explosion(info : ParallelUpdateFrameDelayed;
+                                              eid : EntityId;
                                               animchar_bsph : vec4f;
                                               transform : float3x4;
                                               animchar : AnimcharBaseComponent;
@@ -248,7 +254,7 @@ def vehicle_shrapnel_decals_process_explosion(info : ParallelUpdateFrameDelayed;
       for _ in range(numTraces)
         let rayDir = random_direction_in_sphere()
         var insideVehicle = false
-        perform_trace(explPos, rayDir, traceLen, transform, animchar, collres, damage_model, insideVehicle,
+        perform_trace(eid, explPos, rayDir, traceLen, transform, animchar, collres, damage_model, insideVehicle,
                       damage_decals__maxShrapnelDecalsPerPart,
                       damage_decals__shrapnelDecalPartId,
                       damage_decals__shrapnelDecalLocalPos,
@@ -273,7 +279,7 @@ def vehicle_shrapnel_decals_process_explosion(info : ParallelUpdateFrameDelayed;
       for _ in range(coneTraces)
         let rayDir = random_direction_in_cone(coneTm, coneAngleCos)
         var insideVehicle = false
-        perform_trace(explPos, rayDir, traceLen, transform, animchar, collres, damage_model, insideVehicle,
+        perform_trace(eid, explPos, rayDir, traceLen, transform, animchar, collres, damage_model, insideVehicle,
                       damage_decals__maxShrapnelDecalsPerPart,
                       damage_decals__shrapnelDecalPartId,
                       damage_decals__shrapnelDecalLocalPos,
@@ -290,3 +296,27 @@ def vehicle_shrapnel_decals_process_explosion(info : ParallelUpdateFrameDelayed;
   damage_decals__explosionPos |> clear()
   damage_decals__explosionNumTraces |> clear()
   damage_decals__explosionMaxTraceLen |> clear()
+
+[es(tag=render, on_appear, REQUIRE=damage_model)]
+def vehicle_damage_decal_decor_shrapnel_init(evt : Event;
+                                             collres : CollisionResource;
+                                             damage_model : DamageModel;
+                                             damage_decals_decor__shrapnelDecalCollNodeName : StringList;
+                                             damage_decals_decor__shrapnelDecalLocalPos : Point3List;
+                                             damage_decals_decor__shrapnelDecalLocalDir : Point3List;
+                                             damage_decals_decor__shrapnelDecalLocalNormal : Point3List;
+                                             var damage_decals__shrapnelDecalPartId : IntList&;
+                                             var damage_decals__shrapnelDecalLocalPos : Point3List&;
+                                             var damage_decals__shrapnelDecalLocalHitDirTemp : Point3List&;
+                                             var damage_decals__shrapnelDecalLocalNormalTemp : Point3List&)
+  assume collNodeNames = damage_decals_decor__shrapnelDecalCollNodeName
+  assume localPoses = damage_decals_decor__shrapnelDecalLocalPos
+  assume localDirs = damage_decals_decor__shrapnelDecalLocalDir
+  assume localNormals = damage_decals_decor__shrapnelDecalLocalNormal
+  for collNodeName, localPos, localDir, localNormal in collNodeNames, localPoses, localDirs, localNormals
+    let collNodeId = collres_get_node_index_by_name(collres, string(collNodeName))
+    let partId = get_part_id_by_coll_node_id(damage_model.dmData, collNodeId)
+    push(damage_decals__shrapnelDecalPartId, partId)
+    push(damage_decals__shrapnelDecalLocalPos, localPos)
+    push(damage_decals__shrapnelDecalLocalHitDirTemp, localDir)
+    push(damage_decals__shrapnelDecalLocalNormalTemp, localNormal)

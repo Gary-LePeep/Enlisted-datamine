@@ -7,22 +7,31 @@
   },
   "battle_music": {
     "_use": "replicating",
+    "battle_music__intro": "music/battle_start",
+    "battle_music__outro": "music/battle",
+    "battle_music__shouldStartIntro": true,
     "_singleton": true,
     "_tracked": "battle_music__enabled",
     "_group": {
       "_tags": "sound",
       "battle_music__enabled": true,
-      "battle_music__intro": "music/battle_start",
-      "battle_music__outro": "music/battle",
-      "battle_music__shouldStartIntro": true,
+      "battle_music__stage": 0,
       "battle_music__event:SoundEvent": []
     }
   },
   "battle_music_without_intro": {
     "_use": "battle_music",
+    "battle_music__shouldStartIntro": false
+  },
+  "battle_music_with_spawn_waves": {
+    "_use": "battle_music",
+    "battle_music__waveStartPath": "music/wave_new",
+    "battle_music__waveEndPath": "music/wave_end",
+    "_tracked": "battle_music__waveId",
     "_group": {
       "_tags": "sound",
-      "battle_music__shouldStartIntro": false
+      "battle_music__waveId": -99,
+      "battle_music__waveInited": true
     }
   },
   "scene_net_sounds": [

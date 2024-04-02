@@ -5,62 +5,7 @@
       "human_speech__locale": "jp"
     }
   },
-  "jap_human_sound_paths": {
-    "human_voice_sound__path:shared:object": {
-      "_tags": "sound",
-      "options:array": [
-        {
-          "asphyxiation:object": {
-            "headIsUnderwater": true
-          }
-        },
-        {
-          "female:object": {
-            "femaleVoice": true,
-            "voice0": true,
-            "hero": "player/walker/ww2_female_soldier/voice_fx",
-            "enemy": "enemy/walker/ww2_female_soldier01/voice_fx"
-          }
-        },
-        {
-          "female:object": {
-            "femaleVoice": true,
-            "voice1": true,
-            "hero": "player/walker/ww2_female_soldier/voice_fx",
-            "enemy": "enemy/walker/ww2_female_soldier02/voice_fx"
-          }
-        },
-        {
-          "female:object": {
-            "femaleVoice": true,
-            "hero": "player/walker/ww2_female_soldier/voice_fx",
-            "enemy": "enemy/walker/ww2_female_soldier03/voice_fx"
-          }
-        },
-        {
-          "male:object": {
-            "voice0": true,
-            "hero": "player/walker/ww2_jp_soldier/voice_fx",
-            "enemy": "enemy/walker/ww2_jp_soldier01/voice_fx"
-          }
-        },
-        {
-          "male:object": {
-            "voice1": true,
-            "hero": "player/walker/ww2_jp_soldier/voice_fx",
-            "enemy": "enemy/walker/ww2_jp_soldier02/voice_fx"
-          }
-        },
-        {
-          "male:object": {
-            "hero": "player/walker/ww2_jp_soldier/voice_fx",
-            "enemy": "enemy/walker/ww2_jp_soldier03/voice_fx"
-          }
-        }
-      ]
-    }
-  },
-  "jap_soldier_speechless": [
+  "jap_soldier_no_sound": [
     {
       "engineer__isMenuOpen": false
     },
@@ -77,15 +22,6 @@
       "_use": "human_bush_collision_effects"
     },
     {
-      "_use": "human_sound"
-    },
-    {
-      "_use": "human_sound_paths"
-    },
-    {
-      "_use": "human_net_sound"
-    },
-    {
       "_use": "squad_member_ai"
     },
     {
@@ -95,27 +31,129 @@
       "_use": "base_human_actions"
     },
     {
+      "_use": "human_hide_slots_in_scope"
+    },
+    {
       "beh_tree__blackboard__enemyRadius": 90.0
     }
   ],
-  "jap_soldier": [
+  "jap_soldier_sound": [
     {
-      "_use": "jap_soldier_speechless"
+      "_use": "base_human_sound"
+    },
+    {
+      "_use": "possessable_human_sound"
+    },
+    {
+      "_use": "human_loot_sound"
+    },
+    {
+      "_use": "human_voice_effect_burning"
+    },
+    {
+      "_use": "human_voice_effect_coughing"
+    },
+    {
+      "_use": "human_voice_effect_drinking"
+    },
+    {
+      "_use": "human_voice_effect_hold_breath"
+    },
+    {
+      "_use": "human_voice_effect_fallcry"
+    },
+    {
+      "_use": "human_sound_paths"
+    },
+    {
+      "_use": "human_steps_sound_paths"
+    },
+    {
+      "_use": "human_intersected_with_projectile_sound_paths"
+    },
+    {
+      "_use": "human_hit_sound_paths"
+    },
+    {
+      "_use": "human_voice_sound_paths"
+    },
+    {
+      "_use": "human_melee_sound_paths"
+    },
+    {
+      "_use": "human_net_sound"
     },
     {
       "_use": "human_speech"
     },
     {
-      "_use": "human_hooray_speech"
-    },
-    {
-      "_use": "human_hide_slots_in_scope"
-    },
-    {
       "_use": "jap_human_voice"
     },
     {
-      "_use": "jap_human_sound_paths"
+      "_use": "human_hooray_speech"
+    },
+    {
+      "human_voice_sound__path:shared:object": {
+        "_tags": "sound",
+        "options:array": [
+          {
+            "asphyxiation:object": {
+              "headIsUnderwater": true
+            }
+          },
+          {
+            "female:object": {
+              "femaleVoice": true,
+              "voice0": true,
+              "hero": "player/walker/ww2_female_soldier/voice_fx",
+              "enemy": "enemy/walker/ww2_female_soldier01/voice_fx"
+            }
+          },
+          {
+            "female:object": {
+              "femaleVoice": true,
+              "voice1": true,
+              "hero": "player/walker/ww2_female_soldier/voice_fx",
+              "enemy": "enemy/walker/ww2_female_soldier02/voice_fx"
+            }
+          },
+          {
+            "female:object": {
+              "femaleVoice": true,
+              "hero": "player/walker/ww2_female_soldier/voice_fx",
+              "enemy": "enemy/walker/ww2_female_soldier03/voice_fx"
+            }
+          },
+          {
+            "male:object": {
+              "voice0": true,
+              "hero": "player/walker/ww2_jp_soldier/voice_fx",
+              "enemy": "enemy/walker/ww2_jp_soldier01/voice_fx"
+            }
+          },
+          {
+            "male:object": {
+              "voice1": true,
+              "hero": "player/walker/ww2_jp_soldier/voice_fx",
+              "enemy": "enemy/walker/ww2_jp_soldier02/voice_fx"
+            }
+          },
+          {
+            "male:object": {
+              "hero": "player/walker/ww2_jp_soldier/voice_fx",
+              "enemy": "enemy/walker/ww2_jp_soldier03/voice_fx"
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "jap_soldier": [
+    {
+      "_use": "jap_soldier_no_sound"
+    },
+    {
+      "_use": "jap_soldier_sound"
     }
   ],
   "jap_base_soldier": [

@@ -92,8 +92,8 @@ let mkLevelLockLine = @(level) shopBottomLine.__merge({
   ]
 })
 
-function mkShopItemPriceLine(shopItem, personalOffer = null, isNarrow = false) {
-  let children = mkShopItemPrice(shopItem, personalOffer, isNarrow)
+function mkShopItemPriceLine(shopItem, personalOffer = null, isNarrow = false, showInStock = true) {
+  let children = mkShopItemPrice(shopItem, personalOffer, isNarrow, showInStock)
   return !children ? null : shopBottomLine.__merge({ children })
 }
 

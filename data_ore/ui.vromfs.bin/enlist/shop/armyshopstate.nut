@@ -33,7 +33,7 @@ let { hasShopSection } = require("%enlist/mainMenu/disabledSections.nut")
 let { currencyPresentation } = require("currencyPresentation.nut")
 let checkPurchases = require("%enlist/shop/checkPurchases.nut")
 let isChineseVersion = require("%enlSqGlob/isChineseVersion.nut")
-let { shopItemsBase, shopItems, shopDiscountGen
+let { shopItemsBase, shopItems, shopDiscountGen, shopSquadsCompensations
 } = require("shopItems.nut")
 let { CAMPAIGN_NONE, isCampaignBought } = require("%enlist/campaigns/campaignConfig.nut")
 let qrWindow = require("%enlist/mainMenu/qrWindow.nut")
@@ -170,11 +170,13 @@ let isTemporaryVisible = @(itemId, shopItem, itemCount, itemsByTime)
   ((shopItem?.isVisibleIfCanBarter ?? false) && canBarterItem(shopItem, itemCount))
     || itemId in itemsByTime
 
-let isAvailableBySquads = function(shopItem, squadsByArmyV) {
+let isAvailableBySquads = function(shopItem, squadsByArmyV, squadsCompensations) {
+  let isExtShopItem = (shopItem?.purchaseGuid ?? "") != ""
   foreach (squadData in shopItem?.squads ?? []) {
     let { id, squadId = null, armyId = null } = squadData
     let squad = squadsByArmyV?[armyId][squadId ?? id]
-    if (squad != null && (squad?.expireTime ?? 0) == 0)
+    let compensation = isExtShopItem ? (squadsCompensations?[squadId ?? id] ?? 0) : 0
+    if (squad != null && (squad?.expireTime ?? 0) == 0 && compensation == 0)
       return false
   }
   return true
@@ -193,11 +195,13 @@ let getMinRequiredArmyLevel = @(goods) goods.reduce(function(res, sItem) {
     : min(level, res)
 }, 0)
 
-function isShopItemAvailable(shopItem, squads, purchases, permissions, notFreemium) {
+function isShopItemAvailable(
+  shopItem, squads, purchases, permissions, notFreemium, squadsCompensations = {}
+) {
   let { isHiddenOnChinese = false, requirements = {} } = shopItem
   let { campaignGroup = CAMPAIGN_NONE } = requirements
   return !(isChineseVersion && isHiddenOnChinese)
-    && isAvailableBySquads(shopItem, squads)
+    && isAvailableBySquads(shopItem, squads, squadsCompensations)
     && isAvailableByLimit(shopItem, purchases)
     && isAvailableByPermission(shopItem, permissions)
     && (notFreemium || campaignGroup == CAMPAIGN_NONE)
@@ -208,6 +212,7 @@ let curArmyItemsPrefiltered = Computed(function() {
   let itemCount = armyItemCountByTpl.value ?? {}
   let itemsByTime = shownByTimestamp.value
   let squadsById = armySquadsById.value
+  let squadsCompensations = shopSquadsCompensations.value
   let purchases = purchasesCount.value
   let notFreemium = isCampaignBought.value
   let debugPermission = isDebugShowPermission.value
@@ -215,7 +220,8 @@ let curArmyItemsPrefiltered = Computed(function() {
     let { armies = [], isHidden = false } = item
     return (armies.contains(armyId) || armies.len() == 0)
       && (!isHidden || isTemporaryVisible(id, item, itemCount, itemsByTime))
-      && isShopItemAvailable(item, squadsById, purchases, debugPermission, notFreemium)
+      && isShopItemAvailable(item, squadsById, purchases, debugPermission, notFreemium,
+          squadsCompensations)
   })
 })
 

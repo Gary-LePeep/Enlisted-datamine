@@ -162,6 +162,7 @@ def load
   ok = load_folder("%scripts/game/es/player") && ok
   ok = load_folder("%scripts/game/es/stat_bq") && ok
   ok = load_folder("%scripts/game/es/vehicle") && ok
+  ok = load_folder("%scripts/game/es/zombie") && ok
   ok = load_folder("%scripts/game/es/terraform") && ok
   ok = load_folder("%scripts/game/es/pve") && ok
   ok = load_folder("%scripts/game/es/train") && ok

@@ -7,7 +7,7 @@ let {
 let { kindIcon } = require("%enlSqGlob/ui/soldiersUiComps.nut")
 let { newSquadBlock, starterPerkBlock, primePerkBlock
 } = require("%enlist/soldiers/mkSquadPromo.nut")
-let { mkViewItemDetails } = require("%enlist/soldiers/components/itemDetailsComp.nut")
+let { mkViewDetailsBrief } = require("%enlist/soldiers/components/itemDetailsComp.nut")
 let { mkShopItem } = require("%enlist/soldiers/model/items_list_lib.nut")
 let { getClassCfg } = require("%enlSqGlob/ui/soldierClasses.nut")
 let { getItemName, iconByGameTemplate } = require("%enlSqGlob/ui/itemsInfo.nut")
@@ -135,7 +135,7 @@ function mkItemDetails(data, cb = @() null) {
         color = defSlotBgColor
         children = iconByGameTemplate(item.gametemplate, itemImgStyle)
       }
-      mkViewItemDetails(itemDetails, Watched(false), fsh(65))
+      mkViewDetailsBrief(itemDetails)
       Bordered(loc("btn/view"), function() {
         viewItemsScene(itemDetails)
         cb()

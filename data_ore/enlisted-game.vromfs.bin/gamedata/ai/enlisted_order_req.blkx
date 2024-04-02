@@ -1201,6 +1201,18 @@
             }
           },
           {
+            "setIntVar": {
+              "to": "regroupToPit",
+              "value": 0
+            }
+          },
+          {
+            "setIntVar": {
+              "to": "mortarAttack",
+              "value": 2
+            }
+          },
+          {
             "subTree": {
               "treeName": "sub.tryMoveToWishPosition"
             }
@@ -1221,12 +1233,6 @@
             "shootAtPointWithMortar": {
               "posParam": "mortarAttackToPos",
               "numShotsParam": "mortarAttackShots"
-            }
-          },
-          {
-            "setIntVar": {
-              "to": "mortarAttack",
-              "value": 2
             }
           }
         ]

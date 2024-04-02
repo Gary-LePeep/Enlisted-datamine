@@ -1,0 +1,6508 @@
+{
+  "zones_visitor": {
+    "zones_visitor__triggerTag": "humanTriggerable",
+    "_replicated": "zones_visitor__triggerTag",
+    "zones_visitor__disabled": false,
+    "zones_visitor__zonesIn:list<eid>": []
+  },
+  "zombie_vertical_run_mode": {
+    "random_animchar_vars__varNames:list<t>": [
+      {
+        "name": "spine1_rot_x"
+      },
+      {
+        "name": "spine_rot_x"
+      },
+      {
+        "name": "spine1_rot_z"
+      },
+      {
+        "name": "spine_rot_z"
+      },
+      {
+        "name": "run_anim_selecror"
+      }
+    ],
+    "random_animchar_vars__varLimits:list<p2>": [
+      {
+        "range": [-30.0,30.0]
+      },
+      {
+        "range": [-30.0,30.0]
+      },
+      {
+        "range": [-30.0,30.0]
+      },
+      {
+        "range": [-30.0,30.0]
+      },
+      {
+        "range": [-0.5,2.49]
+      }
+    ]
+  },
+  "zombie_crawl_mode": {
+    "random_animchar_vars__varNames:list<t>": [
+      {
+        "name": "spine1_rot_x"
+      },
+      {
+        "name": "spine_rot_x"
+      },
+      {
+        "name": "spine1_rot_z"
+      },
+      {
+        "name": "spine_rot_z"
+      },
+      {
+        "name": "run_anim_selecror"
+      }
+    ],
+    "random_animchar_vars__varLimits:list<p2>": [
+      {
+        "range": [-5.0,5.0]
+      },
+      {
+        "range": [-5.0,5.0]
+      },
+      {
+        "range": [-5.0,5.0]
+      },
+      {
+        "range": [-5.0,5.0]
+      },
+      {
+        "range": [2.9,3.1]
+      }
+    ]
+  },
+  "zombie_mode_soldier": [
+    {
+      "hitpoints__alwaysDowned": true
+    },
+    {
+      "_use": "heal_anim_item"
+    },
+    {
+      "_use": "human_loot_sound_paths"
+    },
+    {
+      "item__healTargetAnimEnumName": "first_aid_revive"
+    },
+    {
+      "item__targetUseVisEntityTemplateName": "germ_syringe_in_use"
+    },
+    {
+      "item__reviveAmount": 2.0
+    },
+    {
+      "item__useTimeToTarget": 5.0
+    },
+    {
+      "human_inventory__canSelfRevive": false
+    },
+    {
+      "still_obstacles__disable:tag": []
+    },
+    {
+      "canReviveWithoutItem:tag": []
+    },
+    {
+      "canBeUsedOutOfInventory:tag": []
+    }
+  ],
+  "human_loot_sound_paths": {
+    "human_loot_sound__paths:shared:object": {
+      "_tags": "sound",
+      "buyAmmo:object": {
+        "hero": "events/z/ui/buy_ammo"
+      },
+      "buyWeapon:object": {
+        "hero": "events/z/ui/buy_weapon"
+      }
+    }
+  },
+  "paid_loot_item": {
+    "paid_loot__cost": 10,
+    "paid_loot__ressuplyCost": 6,
+    "item__specialPickup:tag": [],
+    "paid_loot_item:tag": [],
+    "disableDropOnRiDestroyd:tag": []
+  },
+  "paid_loot_ressuply": {
+    "paid_loot__ressuplyCost": 50,
+    "item__alreadyLooted": false
+  },
+  "paid_ammo_box_ressuply": {
+    "paid_loot__ressuplyDefCost": 5,
+    "useful_box__uiPrice": -1,
+    "_tracked": "useful_box__uiPrice",
+    "paid_loot__checkCurrentWeap:tag": []
+  },
+  "paid_medkit_box_use": {
+    "paid_box__ressuplyCost": 10,
+    "useful_box__uiPrice": 10,
+    "_tracked": "useful_box__uiPrice",
+    "useful_box__noFillMode:tag": {
+      "_tags": "server"
+    }
+  },
+  "zombie_ik_hands": [
+    {
+      "_use": "replicating"
+    },
+    {
+      "_use": "animchar"
+    },
+    {
+      "transform": [
+        [1.0,0.0,0.0],
+        [0.0,1.0,0.0],
+        [0.0,0.0,1.0],
+        [0.0,0.0,0.0]
+      ]
+    },
+    {
+      "animchar__res": "bmw_r75_front_fork_char"
+    },
+    {
+      "_replicated": "anim__attachEntityTo"
+    },
+    {
+      "zombie__attachLHandNode": "Bip01 L Hand"
+    },
+    {
+      "zombie__attachRHandNode": "Bip01 R Hand"
+    },
+    {
+      "zombie__attachLHandNodeId": -1
+    },
+    {
+      "zombie__attachRHandNodeId": -1
+    },
+    {
+      "anim__attachEntityTo:eid": []
+    },
+    {
+      "net__inInitialScope:tag": []
+    }
+  ],
+  "zombie_moto_steer": [
+    {
+      "_use": "zombie_ik_hands"
+    },
+    {
+      "_use": "base_destroyable_item_with_hp"
+    },
+    {
+      "collres__res": "bmw_r75_front_fork_collision"
+    },
+    {
+      "hitpoints__hp": 10000.0
+    },
+    {
+      "hitpoints__maxHp": 10000.0
+    },
+    {
+      "material": "steel"
+    },
+    {
+      "animchar__res": "bmw_r75_front_fork_char"
+    },
+    {
+      "zombie__attachLHandNode": "Bip01 L Hand"
+    },
+    {
+      "zombie__attachRHandNode": "Bip01 R Hand"
+    },
+    {
+      "dm_parts__parts:object": {
+        "cls:object": {
+          "dmgMult": 1.0,
+          "armor": 0.0
+        }
+      }
+    }
+  ],
+  "zombie_moto_steer_big": [
+    {
+      "_use": "zombie_ik_hands"
+    },
+    {
+      "_use": "base_destroyable_item_with_hp"
+    },
+    {
+      "collres__res": "bmw_r75_front_fork_collision"
+    },
+    {
+      "nPhys__animcharScale": 1.7
+    },
+    {
+      "paid_loot__pointsPerDamage": 0.1
+    },
+    {
+      "hitpoints__hp": 10000.0
+    },
+    {
+      "hitpoints__maxHp": 10000.0
+    },
+    {
+      "material": "steel"
+    },
+    {
+      "animchar__res": "bmw_r75_front_fork_char"
+    },
+    {
+      "zombie__attachLHandNode": "Bip01 L Hand"
+    },
+    {
+      "zombie__attachRHandNode": "Bip01 R Hand"
+    },
+    {
+      "loc_snapshots__scaledTransform:tag": []
+    },
+    {
+      "dm_parts__parts:object": {
+        "cls:object": {
+          "dmgMult": 1.0,
+          "armor": 0.0
+        }
+      }
+    }
+  ],
+  "zombie_cart_wheeel": [
+    {
+      "_use": "zombie_ik_hands"
+    },
+    {
+      "_use": "base_destroyable_item_with_hp"
+    },
+    {
+      "collres__res": "cart_wheel_collision"
+    },
+    {
+      "hitpoints__hp": 100.0
+    },
+    {
+      "hitpoints__maxHp": 100.0
+    },
+    {
+      "material": "wood"
+    },
+    {
+      "animchar__res": "cart_wheel_char"
+    },
+    {
+      "zombie__attachLHandNode": "Bip01 L Hand"
+    },
+    {
+      "zombie__attachRHandNode": "Bip01 R Hand"
+    },
+    {
+      "dm_parts__parts:object": {
+        "cls:object": {
+          "dmgMult": 1.0,
+          "armor": 0.0
+        }
+      }
+    }
+  ],
+  "zombie_rush_cart_wheel": {
+    "_use": "base_zombie_with_item",
+    "zombie__attachHandsEntityTemplate": "zombie_cart_wheeel",
+    "anim__attachHandsLocalTm": [
+      [5.92033e-07,-0.702346,-0.702346],
+      [6.50346e-07,0.701385,-0.701385],
+      [0.993223,0.0,8.2881e-07],
+      [0.0,0.1,-0.5]
+    ],
+    "killLogName": "zombie/uber_melee"
+  },
+  "zombie_metal_bucket": [
+    {
+      "_use": "zombie_ik_hands"
+    },
+    {
+      "_use": "base_destroyable_item_with_hp"
+    },
+    {
+      "collres__res": "metal_bucket_collision"
+    },
+    {
+      "hitpoints__hp": 10000.0
+    },
+    {
+      "hitpoints__maxHp": 10000.0
+    },
+    {
+      "material": "steel"
+    },
+    {
+      "animchar__res": "metal_bucket_char"
+    },
+    {
+      "dm_parts__parts:object": {
+        "cls:object": {
+          "dmgMult": 1.0,
+          "armor": 0.0
+        }
+      }
+    }
+  ],
+  "zombie_rush_metal_bucket": {
+    "_use": "base_zombie_with_item",
+    "zombie__attachHandsEntityTemplate": "zombie_metal_bucket",
+    "anim__attachHandsLocalTm": [
+      [0.997352,-4.20768e-15,-4.29024e-09],
+      [-4.29659e-09,-0.0174338,-0.998829],
+      [-7.49964e-11,0.998922,-0.0174354],
+      [0.0,-0.0,0.17]
+    ],
+    "zombie__attachEntityNode": "n_head_A",
+    "killLogName": "zombie/uber_melee"
+  },
+  "zombie_bmw_wheeel": [
+    {
+      "_use": "zombie_ik_hands"
+    },
+    {
+      "_use": "base_destroyable_item_with_hp"
+    },
+    {
+      "collres__res": "bmw_wheel_collision"
+    },
+    {
+      "hitpoints__hp": 50.0
+    },
+    {
+      "hitpoints__maxHp": 50.0
+    },
+    {
+      "material": "steel"
+    },
+    {
+      "animchar__res": "bmw_wheel_char"
+    },
+    {
+      "zombie__attachLHandNode": "Bip01 L Hand"
+    },
+    {
+      "zombie__attachRHandNode": "Bip01 R Hand"
+    },
+    {
+      "dm_parts__parts:object": {
+        "cls:object": {
+          "dmgMult": 1.0,
+          "armor": 0.0
+        }
+      }
+    }
+  ],
+  "zombie_rush_bmw_wheel": {
+    "_use": "base_zombie_with_item",
+    "zombie__attachHandsEntityTemplate": "zombie_bmw_wheeel",
+    "anim__attachHandsLocalTm": [
+      [5.92033e-07,-0.702346,-0.702346],
+      [6.50346e-07,0.701385,-0.701385],
+      [0.993223,0.0,8.2881e-07],
+      [0.0,0.1,-0.5]
+    ],
+    "killLogName": "zombie/uber_melee"
+  },
+  "zombie_rush_bmw_wheel_fast": {
+    "_use": "base_zombie_with_item",
+    "zombie__attachHandsEntityTemplate": "zombie_bmw_wheeel",
+    "anim__attachHandsLocalTm": [
+      [5.92033e-07,-0.702346,-0.702346],
+      [6.50346e-07,0.701385,-0.701385],
+      [0.993223,0.0,8.2881e-07],
+      [0.0,0.1,-0.5]
+    ],
+    "killLogName": "zombie/uber_melee",
+    "navmesh_phys__maxWalkSpeed": 5.5
+  },
+  "zombie_train_door": [
+    {
+      "_use": "zombie_ik_hands"
+    },
+    {
+      "_use": "base_destroyable_item_with_hp"
+    },
+    {
+      "collres__res": "train_door_collision"
+    },
+    {
+      "killLogName": "zombie/uber_shield"
+    },
+    {
+      "hitpoints__hp": 100.0
+    },
+    {
+      "hitpoints__maxHp": 100.0
+    },
+    {
+      "material": "wood"
+    },
+    {
+      "animchar__res": "train_door_char"
+    },
+    {
+      "zombie__attachLHandNode": "Bip01 L Hand"
+    },
+    {
+      "zombie__attachRHandNode": "Bip01 R Hand"
+    },
+    {
+      "dm_parts__parts:object": {
+        "cls:object": {
+          "dmgMult": 1.0,
+          "armor": 0.0
+        }
+      }
+    }
+  ],
+  "zombie_rush_train_door": {
+    "_use": "base_zombie_with_item",
+    "zombie__attachHandsEntityTemplate": "zombie_train_door",
+    "anim__attachHandsLocalTm": [
+      [5.92033e-07,-0.702346,-0.702346],
+      [6.50346e-07,0.701385,-0.701385],
+      [0.993223,0.0,8.2881e-07],
+      [0.0,0.1,-0.5]
+    ]
+  },
+  "zombie_rush_train_door_fast": {
+    "_use": "base_zombie_with_item",
+    "zombie__attachHandsEntityTemplate": "zombie_train_door",
+    "anim__attachHandsLocalTm": [
+      [5.92033e-07,-0.702346,-0.702346],
+      [6.50346e-07,0.701385,-0.701385],
+      [0.993223,0.0,8.2881e-07],
+      [0.0,0.1,-0.5]
+    ],
+    "navmesh_phys__maxWalkSpeed": 5.5
+  },
+  "base_zombie_with_item_dead": [
+    {
+      "_use": "base_zombie_with_item"
+    },
+    {
+      "_use": "dead_entity"
+    },
+    {
+      "paid_loot__pointsForKill": 10
+    },
+    {
+      "animchar__physSymDependence:tag": []
+    }
+  ],
+  "base_zombie_with_item": {
+    "_use": "zombie_rush_zombie",
+    "entity__recreateToOnDeath": "base_zombie_with_item_dead",
+    "navmesh_phys__maxWalkSpeed": 4.0,
+    "zombie__attachEntityNodeId": -1,
+    "_tracked": "anim__attachHandsEntity",
+    "_replicated": "anim__attachHandsEntity",
+    "anim__attachNodePostfix": "",
+    "zombie__attachHandsEntityTemplate": "zombie_moto_steer",
+    "anim__attachHandsLocalTm": [
+      [1.0,0.0,0.0],
+      [0.0,1.0,0.0],
+      [0.0,0.0,1.0],
+      [0.0,0.0,0.0]
+    ],
+    "random_animchar_vars__varNames:list<t>": [
+      {
+        "name": "spine1_rot_x"
+      },
+      {
+        "name": "spine_rot_x"
+      },
+      {
+        "name": "spine1_rot_z"
+      },
+      {
+        "name": "spine_rot_z"
+      },
+      {
+        "name": "run_anim_selecror"
+      }
+    ],
+    "random_animchar_vars__varLimits:list<p2>": [
+      {
+        "range": [-5.0,5.0]
+      },
+      {
+        "range": [-5.0,-5.0]
+      },
+      {
+        "range": [-5.0,5.0]
+      },
+      {
+        "range": [-5.0,5.0]
+      },
+      {
+        "range": [-0.5,1.5]
+      }
+    ],
+    "copy_skeleton_nodes__idxFrom:list<i>": [],
+    "copy_skeleton_nodes__idxTo:list<i>": [],
+    "copy_skeleton_nodes__copyFromEid:eid": [],
+    "zombie__attachHandsEntity:eid": [],
+    "anim__attachHandsEntity:eid": [],
+    "anim__attachHandsEntityCached:eid": [],
+    "anim__attachRecursiveList:list<t>": [
+      {
+        "range": "Bip01 L Hand"
+      },
+      {
+        "range": "Bip01 R Hand"
+      }
+    ],
+    "animchar_effectors__effectorsList:array": [
+      {
+        "obj:object": {
+          "effectorName": "l.hand",
+          "effectorWtmName": "l.hand.m"
+        }
+      },
+      {
+        "obj:object": {
+          "effectorName": "r.hand",
+          "effectorWtmName": "r.hand.m"
+        }
+      },
+      {
+        "obj:object": {
+          "effectorName": "l.foot",
+          "effectorWtmName": "l.foot.m"
+        }
+      },
+      {
+        "obj:object": {
+          "effectorName": "r.foot",
+          "effectorWtmName": "r.foot.m"
+        }
+      }
+    ],
+    "animchar_effectors__effectorsState:object": []
+  },
+  "zombie_rush_moto": {
+    "_use": "base_zombie_with_item",
+    "zombie__attachHandsEntityTemplate": "zombie_moto_steer",
+    "anim__attachHandsLocalTm": [
+      [1.31118e-06,-0.499954,-0.865945],
+      [0.156421,0.85529,-0.493802],
+      [0.987692,-0.135476,0.0782185],
+      [-0.2,-0.5,0.3]
+    ],
+    "hitpoints__hp": 15.0,
+    "hitpoints__maxHp": 15.0,
+    "hitpoints__scaleHp": 15.0,
+    "hitpoints__hpThreshold": 15.0,
+    "hitpoints__hpRecoverySpd": 0.0,
+    "paid_loot__pointsForKill": 15,
+    "killLogName": "zombie/uber_moto",
+    "attach_effects__templateNames:list<t>": {
+      "name": "burning_entity_effect_regular_template"
+    },
+    "attach_effects__nodes:list<t>": {
+      "name": "n_head_A"
+    },
+    "attach_effects__scales:list<r>": {
+      "scale": 0.4
+    },
+    "actions__actions:array": {
+      "action:object": {
+        "name": "stand_melee",
+        "state": "attack",
+        "actionTime": 1.0,
+        "applyAt": 0.3,
+        "props": "content/enlisted/gamedata/actions_enlisted/zombie_middle_claw.blk",
+        "irq": "claw_attack",
+        "varName": "attack_progress"
+      }
+    },
+    "_group": {
+      "_tags": "sound",
+      "human_idle_sound__paths:shared:object": {
+        "idleState:object": {
+          "enemy": "events/z/enemy/walker/z_moto/voice_fx/idle"
+        }
+      }
+    }
+  },
+  "zombie_rush_moto_fast": {
+    "_use": "base_zombie_with_item",
+    "zombie__attachHandsEntityTemplate": "zombie_moto_steer",
+    "anim__attachHandsLocalTm": [
+      [1.31118e-06,-0.499954,-0.865945],
+      [0.156421,0.85529,-0.493802],
+      [0.987692,-0.135476,0.0782185],
+      [-0.2,-0.5,0.3]
+    ],
+    "hitpoints__hp": 15.0,
+    "hitpoints__maxHp": 15.0,
+    "hitpoints__scaleHp": 15.0,
+    "hitpoints__hpThreshold": 15.0,
+    "hitpoints__hpRecoverySpd": 0.0,
+    "paid_loot__pointsForKill": 15,
+    "navmesh_phys__maxWalkSpeed": 6.0,
+    "killLogName": "zombie/uber_moto",
+    "attach_effects__templateNames:list<t>": {
+      "name": "burning_entity_effect_regular_template"
+    },
+    "attach_effects__nodes:list<t>": {
+      "name": "n_head_A"
+    },
+    "attach_effects__scales:list<r>": {
+      "scale": 0.4
+    },
+    "actions__actions:array": {
+      "action:object": {
+        "name": "stand_melee",
+        "state": "attack",
+        "actionTime": 1.0,
+        "applyAt": 0.3,
+        "props": "content/enlisted/gamedata/actions_enlisted/zombie_middle_claw.blk",
+        "irq": "claw_attack",
+        "varName": "attack_progress"
+      }
+    },
+    "_group": {
+      "_tags": "sound",
+      "human_idle_sound__paths:shared:object": {
+        "idleState:object": {
+          "enemy": "events/z/enemy/walker/z_moto/voice_fx/idle"
+        }
+      }
+    }
+  },
+  "zombie_giant_moto": [
+    {
+      "_use": "base_zombie_with_item"
+    },
+    {
+      "zombie__attachHandsEntityTemplate": "zombie_moto_steer_big"
+    },
+    {
+      "anim__attachHandsLocalTm": [
+        [1.31118e-06,-0.499954,-0.865945],
+        [0.156421,0.85529,-0.493802],
+        [0.987692,-0.135476,0.0782185],
+        [-0.2,-0.5,0.3]
+      ]
+    },
+    {
+      "hitpoints__hp": 2000.0
+    },
+    {
+      "hitpoints__maxHp": 2000.0
+    },
+    {
+      "hitpoints__scaleHp": 2000.0
+    },
+    {
+      "hitpoints__hpThreshold": 15.0
+    },
+    {
+      "hitpoints__hpRecoverySpd": 0.0
+    },
+    {
+      "paid_loot__pointsForKill": 400
+    },
+    {
+      "nPhys__animcharScale": 1.7
+    },
+    {
+      "paid_loot__pointsPerDamage": 0.1
+    },
+    {
+      "animchar__res": "ger_zombie_solder_giant"
+    },
+    {
+      "collres__res": "ger_zombie_solder_giant_collision"
+    },
+    {
+      "killLogName": "zombie/uber_giant_moto"
+    },
+    {
+      "loc_snapshots__scaledTransform:tag": []
+    },
+    {
+      "actions__actions:array": {
+        "action:object": {
+          "name": "stand_melee",
+          "state": "attack",
+          "actionTime": 1.0,
+          "applyAt": 0.3,
+          "props": "content/enlisted/gamedata/actions_enlisted/zombie_big_claw.blk",
+          "irq": "claw_attack",
+          "varName": "attack_progress"
+        }
+      }
+    },
+    {
+      "attach_effects__templateNames:list<t>": {
+        "name": "burning_entity_effect_regular_template"
+      }
+    },
+    {
+      "attach_effects__nodes:list<t>": {
+        "name": "n_head_A"
+      }
+    },
+    {
+      "attach_effects__scales:list<r>": {
+        "scale": 0.4
+      }
+    },
+    {
+      "_group": {
+        "_tags": "sound",
+        "human_voice_sound__path:shared:object": {
+          "path": "events/z/enemy/walker/z_giant/voice_fx"
+        },
+        "human_voice_sound__descs:shared:object": {
+          "death:object": {
+            "name": "death"
+          },
+          "seeDanger:object": {
+            "name": "seedanger"
+          }
+        },
+        "human_voice_sound__irqs:shared:object": {
+          "zombie_attack_sound:object": {
+            "name": "melee/hands"
+          }
+        },
+        "human_voice_sound__oneshots:shared:object": {
+          "hitCry:object": {
+            "name": "hit"
+          }
+        }
+      }
+    },
+    {
+      "_group": {
+        "_tags": "sound",
+        "human_steps_sound__runVoiceFx:shared:object": {
+          "enemy": "events/z/enemy/walker/z_giant/voice_fx/run_to_player"
+        }
+      }
+    },
+    {
+      "_group": {
+        "_tags": "sound",
+        "human_idle_sound__paths:shared:object": {
+          "idleState:object": {
+            "enemy": "events/z/enemy/walker/z_moto/voice_fx/idle"
+          }
+        }
+      }
+    }
+  ],
+  "zombie_bomb": [
+    {
+      "_use": "zombie_ik_hands"
+    },
+    {
+      "_use": "base_zombie_bomb_item"
+    },
+    {
+      "zombie__attachLHandNode": "Bip01 L Hand"
+    },
+    {
+      "zombie__attachRHandNode": "Bip01 R Hand"
+    }
+  ],
+  "zombie_rush_bomb": {
+    "_use": "base_zombie_with_item",
+    "animchar__res": "zombie_cuisine",
+    "collres__res": "zombie_cuisine_collision",
+    "zombie__attachHandsEntityTemplate": "zombie_bomb",
+    "anim__attachHandsLocalTm": [
+      [0.497054,1.18507e-07,-0.860923],
+      [0.660615,0.640082,0.381406],
+      [0.553574,-0.761775,0.319605],
+      [0.0,0.05,-0.16]
+    ],
+    "navmesh_phys__maxWalkSpeed": 3.0,
+    "paid_loot__pointsForKill": 20,
+    "killLogName": "zombie/uber_explosive"
+  },
+  "zombie_rush_bomb_fast": {
+    "_use": "base_zombie_with_item",
+    "animchar__res": "zombie_cuisine",
+    "collres__res": "zombie_cuisine_collision",
+    "zombie__attachHandsEntityTemplate": "zombie_bomb",
+    "anim__attachHandsLocalTm": [
+      [0.497054,1.18507e-07,-0.860923],
+      [0.660615,0.640082,0.381406],
+      [0.553574,-0.761775,0.319605],
+      [0.0,0.05,-0.16]
+    ],
+    "navmesh_phys__maxWalkSpeed": 5.0,
+    "paid_loot__pointsForKill": 20,
+    "killLogName": "zombie/uber_explosive"
+  },
+  "base_destroyable_item_with_hp": [
+    {
+      "_use": "replicating"
+    },
+    {
+      "_use": "base_hitpoints"
+    },
+    {
+      "_use": "base_dm_parts"
+    },
+    {
+      "team": 3
+    },
+    {
+      "animchar_render__enabled": true
+    },
+    {
+      "material": "steel"
+    },
+    {
+      "needsBlood": false
+    },
+    {
+      "meleeSoundType": ""
+    },
+    {
+      "hitpoints__hp": 300.0
+    },
+    {
+      "hitpoints__maxHp": 300.0
+    },
+    {
+      "hitpoints__hpRecoverySpd": 0.0
+    },
+    {
+      "hitpoints__hpThreshold": 0.0
+    },
+    {
+      "hitpoints__stoppingPower": 0.0
+    },
+    {
+      "hitpoints__shellDmgMult": 0.075
+    },
+    {
+      "hitpoints__shellSplashDmgMult": 0.075
+    },
+    {
+      "reportKill": false
+    },
+    {
+      "grid_obj__gridType": "interactable"
+    },
+    {
+      "grid_obj__fixedTmScale": -1.0
+    },
+    {
+      "entity__recreateToOnDeath": "base_dead_destroyable_item_with_hp"
+    },
+    {
+      "grid_obj__updateAlways:tag": []
+    },
+    {
+      "disableDestroyWithRi:tag": []
+    },
+    {
+      "collres": []
+    },
+    {
+      "disableMelee:tag": []
+    },
+    {
+      "allow_friendly_damage:tag": []
+    },
+    {
+      "killer:eid": []
+    },
+    {
+      "dm_parts__parts:object": {
+        "volumeBox:object": {
+          "dmgMult": 1.0,
+          "armor": 0.0
+        }
+      }
+    },
+    {
+      "noHitMark:tag": []
+    },
+    {
+      "grid_obj": []
+    },
+    {
+      "net__inInitialScope:tag": []
+    }
+  ],
+  "base_dead_destroyable_item_with_hp": [
+    {
+      "_use": "dead_entity"
+    },
+    {
+      "_use": "zombie_ik_hands"
+    },
+    {
+      "_use": "ragdoll_common"
+    },
+    {
+      "_use": "replicating"
+    },
+    {
+      "team": 3
+    },
+    {
+      "animchar_render__enabled": true
+    },
+    {
+      "animchar__res": ""
+    },
+    {
+      "collres__res": ""
+    },
+    {
+      "ragdoll__use_ccd": true
+    },
+    {
+      "ragdoll__isSingleBody": true
+    },
+    {
+      "ragdoll__massMatrix": [30.0,3.8,6.8,3.8]
+    },
+    {
+      "collres": []
+    },
+    {
+      "disableMelee:tag": []
+    },
+    {
+      "allow_friendly_damage:tag": []
+    },
+    {
+      "killer:eid": []
+    },
+    {
+      "net__inInitialScope:tag": []
+    },
+    {
+      "stationary_gun:tag": []
+    },
+    {
+      "animchar__physSymDependence:tag": []
+    }
+  ],
+  "zombie_shield": [
+    {
+      "_use": "zombie_ik_hands"
+    },
+    {
+      "_use": "base_destroyable_item_with_hp"
+    },
+    {
+      "animchar__res": "wooden_shield_char"
+    },
+    {
+      "collres__res": "wooden_shield_collision"
+    },
+    {
+      "hitpoints__hp": 25.0
+    },
+    {
+      "hitpoints__maxHp": 25.0
+    },
+    {
+      "material": "wood"
+    },
+    {
+      "zombie__attachLHandNode": "Bip01 L Hand"
+    },
+    {
+      "zombie__attachRHandNode": "Bip01 R Hand"
+    },
+    {
+      "dm_parts__parts:object": {
+        "wood_door_a:object": {
+          "dmgMult": 1.0,
+          "armor": 0.0
+        }
+      }
+    }
+  ],
+  "zombie_shield_big": [
+    {
+      "_use": "zombie_ik_hands"
+    },
+    {
+      "_use": "base_destroyable_item_with_hp"
+    },
+    {
+      "animchar__res": "wooden_shield_char"
+    },
+    {
+      "collres__res": "wooden_shield_collision"
+    },
+    {
+      "hitpoints__hp": 1000.0
+    },
+    {
+      "hitpoints__maxHp": 1000.0
+    },
+    {
+      "material": "wood"
+    },
+    {
+      "zombie__attachLHandNode": "Bip01 L Hand"
+    },
+    {
+      "zombie__attachRHandNode": "Bip01 R Hand"
+    },
+    {
+      "dm_parts__parts:object": {
+        "wood_door_a:object": {
+          "dmgMult": 1.0,
+          "armor": 0.0
+        }
+      }
+    }
+  ],
+  "zombie_rush_shield": {
+    "_use": "base_zombie_with_item",
+    "zombie__attachHandsEntityTemplate": "zombie_shield",
+    "anim__attachHandsLocalTm": [
+      [5.92033e-07,-0.702346,-0.702346],
+      [6.50346e-07,0.701385,-0.701385],
+      [0.993223,0.0,8.2881e-07],
+      [0.0,0.1,-0.5]
+    ],
+    "hitpoints__hp": 15.0,
+    "hitpoints__maxHp": 15.0,
+    "hitpoints__scaleHp": 15.0,
+    "hitpoints__hpThreshold": 15.0,
+    "hitpoints__hpRecoverySpd": 0.0,
+    "paid_loot__pointsForKill": 15,
+    "killLogName": "zombie/uber_shield"
+  },
+  "zombie_giant_shield": [
+    {
+      "_use": "base_zombie_with_item"
+    },
+    {
+      "zombie__attachHandsEntityTemplate": "zombie_shield_big"
+    },
+    {
+      "anim__attachHandsLocalTm": [
+        [5.92033e-07,-0.702346,-0.702346],
+        [6.50346e-07,0.701385,-0.701385],
+        [0.993223,0.0,8.2881e-07],
+        [0.0,0.1,-0.5]
+      ]
+    },
+    {
+      "hitpoints__hp": 1500.0
+    },
+    {
+      "hitpoints__maxHp": 1500.0
+    },
+    {
+      "hitpoints__scaleHp": 1500.0
+    },
+    {
+      "hitpoints__hpThreshold": 15.0
+    },
+    {
+      "hitpoints__hpRecoverySpd": 0.0
+    },
+    {
+      "paid_loot__pointsForKill": 400
+    },
+    {
+      "nPhys__animcharScale": 1.7
+    },
+    {
+      "paid_loot__pointsPerDamage": 0.1
+    },
+    {
+      "animchar__res": "ger_zombie_solder_giant"
+    },
+    {
+      "collres__res": "ger_zombie_solder_giant_collision"
+    },
+    {
+      "navmesh_phys__maxWalkSpeed": 6.3
+    },
+    {
+      "killLogName": "zombie/uber_giant_shield"
+    },
+    {
+      "loc_snapshots__scaledTransform:tag": []
+    },
+    {
+      "random_animchar_vars__varNames:list<t>": [
+        {
+          "name": "spine1_rot_x"
+        },
+        {
+          "name": "spine_rot_x"
+        },
+        {
+          "name": "spine1_rot_z"
+        },
+        {
+          "name": "spine_rot_z"
+        },
+        {
+          "name": "run_anim_selecror"
+        }
+      ]
+    },
+    {
+      "actions__actions:array": {
+        "action:object": {
+          "name": "stand_melee",
+          "state": "attack",
+          "actionTime": 1.0,
+          "applyAt": 0.3,
+          "props": "content/enlisted/gamedata/actions_enlisted/zombie_big_claw.blk",
+          "irq": "claw_attack",
+          "varName": "attack_progress"
+        }
+      }
+    },
+    {
+      "random_animchar_vars__varLimits:list<p2>": [
+        {
+          "range": [-5.0,5.0]
+        },
+        {
+          "range": [-5.0,5.0]
+        },
+        {
+          "range": [-5.0,5.0]
+        },
+        {
+          "range": [-5.0,5.0]
+        },
+        {
+          "range": [1.6,2.4]
+        }
+      ]
+    },
+    {
+      "_group": {
+        "_tags": "sound",
+        "human_voice_sound__path:shared:object": {
+          "path": "events/z/enemy/walker/z_giant/voice_fx"
+        },
+        "human_voice_sound__descs:shared:object": {
+          "death:object": {
+            "name": "death"
+          },
+          "seeDanger:object": {
+            "name": "seedanger"
+          }
+        },
+        "human_voice_sound__irqs:shared:object": {
+          "zombie_attack_sound:object": {
+            "name": "melee/hands"
+          }
+        },
+        "human_voice_sound__oneshots:shared:object": {
+          "hitCry:object": {
+            "name": "hit"
+          }
+        }
+      }
+    },
+    {
+      "_group": {
+        "_tags": "sound",
+        "human_steps_sound__runVoiceFx:shared:object": {
+          "enemy": "events/z/enemy/walker/z_giant/voice_fx/run_to_player"
+        }
+      }
+    },
+    {
+      "_group": {
+        "_tags": "sound",
+        "human_idle_sound__paths:shared:object": {
+          "idleState:object": {
+            "enemy": "events/z/enemy/walker/z_giant/voice_fx/idle"
+          }
+        }
+      }
+    }
+  ],
+  "zombie_rush_shield_fun": {
+    "_use": "base_zombie_with_item",
+    "zombie__attachHandsEntityTemplate": "zombie_shield",
+    "anim__attachHandsLocalTm": [
+      [7.10585e-07,-0.172514,-0.978377],
+      [0.0173318,0.977985,-0.172444],
+      [0.99374,-0.0170798,0.00301238],
+      [0.0,0.06,-0.33]
+    ],
+    "hitpoints__hp": 15.0,
+    "hitpoints__maxHp": 15.0,
+    "hitpoints__scaleHp": 15.0,
+    "hitpoints__hpThreshold": 15.0,
+    "hitpoints__hpRecoverySpd": 0.0,
+    "paid_loot__pointsForKill": 15,
+    "killLogName": "zombie/uber_shield"
+  },
+  "zombie_shell_templ": {
+    "reportKill": false,
+    "noHitMark:tag": []
+  },
+  "zombie_mine_activator": {
+    "_use": "mine_activator_sound",
+    "on_create__spawnActivatedShellBlk": "content/enlisted/gamedata/weapons/zombie_bomb_shell.blk",
+    "transform": [
+      [1.0,0.0,0.0],
+      [0.0,1.0,0.0],
+      [0.0,0.0,1.0],
+      [0.0,0.0,0.0]
+    ],
+    "_group": {
+      "_tags": "server",
+      "activator__weaponEid:eid": []
+    },
+    "ownerEid:eid": []
+  },
+  "base_zombie_bomb_item": [
+    {
+      "_use": "replicating"
+    },
+    {
+      "_use": "base_mine_item_gun_sound"
+    },
+    {
+      "_use": "base_hitpoints"
+    },
+    {
+      "_use": "base_dm_parts"
+    },
+    {
+      "team": 3
+    },
+    {
+      "weap__sprintLerpFactor": 1.0
+    },
+    {
+      "animchar_render__enabled": true
+    },
+    {
+      "gun__locName": "zombie_bomb"
+    },
+    {
+      "mine_activator__offset": [0.0,0.15,0.0]
+    },
+    {
+      "mine__installBlockTime": 5.0
+    },
+    {
+      "mine__blockedToTime": -1.0
+    },
+    {
+      "mine__activated": false
+    },
+    {
+      "nextCheckTriggerAtTime": -1.0
+    },
+    {
+      "checkTriggerInterval": 0.1
+    },
+    {
+      "material": "steel"
+    },
+    {
+      "needsBlood": false
+    },
+    {
+      "meleeSoundType": ""
+    },
+    {
+      "hitpoints__hp": 10.0
+    },
+    {
+      "hitpoints__maxHp": 10.0
+    },
+    {
+      "hitpoints__hpRecoverySpd": 0.0
+    },
+    {
+      "hitpoints__hpThreshold": 0.0
+    },
+    {
+      "hitpoints__stoppingPower": 0.0
+    },
+    {
+      "hitpoints__shellDmgMult": 0.075
+    },
+    {
+      "hitpoints__shellSplashDmgMult": 0.075
+    },
+    {
+      "mineActivatorTemplate": "zombie_mine_activator"
+    },
+    {
+      "reportKill": false
+    },
+    {
+      "shell_explosion_fx__infoTemplate": "hit_effect_group_antitank_mine_explosion"
+    },
+    {
+      "shell__waterImpactFx": "hit_water_medium_effect"
+    },
+    {
+      "activationRadius": 3.5
+    },
+    {
+      "animchar__res": "it_50kg_t_hands_char"
+    },
+    {
+      "collres__res": "it_50kg_t_hands_collision"
+    },
+    {
+      "grid_obj__gridType": "interactable"
+    },
+    {
+      "grid_obj__fixedTmScale": -1.0
+    },
+    {
+      "grid_obj__updateAlways:tag": []
+    },
+    {
+      "placeable_item__ownerEid:eid": []
+    },
+    {
+      "disableDestroyWithRi:tag": []
+    },
+    {
+      "collres": []
+    },
+    {
+      "gun__owner:eid": []
+    },
+    {
+      "specialWeapItem:tag": []
+    },
+    {
+      "disableMelee:tag": []
+    },
+    {
+      "mine_activation_zone__initEids:list<eid>": []
+    },
+    {
+      "engeneer_mine:tag": []
+    },
+    {
+      "allow_friendly_damage:tag": []
+    },
+    {
+      "killer:eid": []
+    },
+    {
+      "mine__setShellOwnerFromKiller:tag": []
+    },
+    {
+      "noHitMark:tag": []
+    },
+    {
+      "ui__placeableItemMarker:tag": {
+        "_tags": "ui"
+      }
+    },
+    {
+      "mine_activation__delay:r": {
+        "_tags": "server",
+        "value": 0.1
+      }
+    },
+    {
+      "vehicleTriggerable:tag": []
+    },
+    {
+      "humanTriggerable:tag": []
+    },
+    {
+      "dm_parts__parts:object": {
+        "volumeBox:object": {
+          "dmgMult": 1.0,
+          "armor": 0.0
+        }
+      }
+    },
+    {
+      "grid_obj": []
+    },
+    {
+      "net__inInitialScope:tag": []
+    }
+  ],
+  "zombie_bomb_down": [
+    {
+      "_use": "zombie_ik_hands"
+    },
+    {
+      "_use": "base_zombie_bomb_item"
+    },
+    {
+      "zombie__attachLHandNode": "Bip01 L Hand_down"
+    },
+    {
+      "zombie__attachRHandNode": ""
+    }
+  ],
+  "zombie_rush_bomb_down": {
+    "_use": "base_zombie_with_item",
+    "animchar__res": "zombie_cuisine",
+    "collres__res": "zombie_cuisine_collision",
+    "zombie__attachEntityNode": "Bip01 Head",
+    "zombie__attachHandsEntityTemplate": "zombie_bomb_down",
+    "anim__attachNodePostfix": "_down",
+    "paid_loot__pointsForKill": 20,
+    "navmesh_phys__maxWalkSpeed": 3.0,
+    "killLogName": "zombie/uber_explosive",
+    "anim__attachHandsLocalTm": [
+      [-0.0171428,-0.994203,-0.00302284],
+      [-0.979437,0.0174133,-0.172708],
+      [0.172815,-1.48291e-08,-0.980041],
+      [0.05,0.0,0.2]
+    ],
+    "anim__attachRecursiveList:list<t>": {
+      "range": "Bip01 L Hand"
+    }
+  },
+  "zombie_rush_bomb_down_fast": {
+    "_use": "base_zombie_with_item",
+    "animchar__res": "zombie_cuisine",
+    "collres__res": "zombie_cuisine_collision",
+    "zombie__attachEntityNode": "Bip01 Head",
+    "zombie__attachHandsEntityTemplate": "zombie_bomb_down",
+    "anim__attachNodePostfix": "_down",
+    "paid_loot__pointsForKill": 20,
+    "navmesh_phys__maxWalkSpeed": 5.0,
+    "killLogName": "zombie/uber_explosive",
+    "anim__attachHandsLocalTm": [
+      [-0.0171428,-0.994203,-0.00302284],
+      [-0.979437,0.0174133,-0.172708],
+      [0.172815,-1.48291e-08,-0.980041],
+      [0.05,0.0,0.2]
+    ],
+    "anim__attachRecursiveList:list<t>": {
+      "range": "Bip01 L Hand"
+    }
+  },
+  "zombie_prop": {
+    "_use": "zombie_ik_hands",
+    "animchar__res": "spitfire_prop_char",
+    "zombie__attachLHandNode": "root",
+    "zombie__attachRHandNode": "root",
+    "zombie__attachLHandAdditiveTm": [
+      [1.0,0.0,0.0],
+      [0.0,1.0,0.0],
+      [0.0,0.0,1.0],
+      [-0.0,0.8,0.0]
+    ],
+    "zombie__attachRHandAdditiveTm": [
+      [1.0,0.0,0.0],
+      [0.0,1.0,0.0],
+      [0.0,0.0,1.0],
+      [-0.2,-0.8,0.0]
+    ],
+    "zombie__propellerCurValue": 0.0,
+    "zombie__propellerSpeed": 360.0,
+    "zombie__propellerVar": -1,
+    "phys_vars": [],
+    "anim_phys": []
+  },
+  "zombie_prop_big": {
+    "_use": "zombie_ik_hands",
+    "animchar__res": "spitfire_prop_char",
+    "zombie__attachLHandNode": "root",
+    "zombie__attachRHandNode": "root",
+    "nPhys__animcharScale": 1.7,
+    "paid_loot__pointsPerDamage": 0.1,
+    "zombie__attachLHandAdditiveTm": [
+      [1.0,0.0,0.0],
+      [0.0,1.0,0.0],
+      [0.0,0.0,1.0],
+      [-0.0,0.8,0.0]
+    ],
+    "zombie__attachRHandAdditiveTm": [
+      [1.0,0.0,0.0],
+      [0.0,1.0,0.0],
+      [0.0,0.0,1.0],
+      [-0.2,-0.8,0.0]
+    ],
+    "zombie__propellerCurValue": 0.0,
+    "zombie__propellerSpeed": 360.0,
+    "zombie__propellerVar": -1,
+    "loc_snapshots__scaledTransform:tag": [],
+    "phys_vars": [],
+    "anim_phys": []
+  },
+  "zombie_rush_spitfire_prop": {
+    "_use": "base_zombie_with_item",
+    "zombie__attachEntityNode": "n_body_back_A",
+    "zombie__attachHandsEntityTemplate": "zombie_prop",
+    "navmesh_phys__maxWalkSpeed": 7.0,
+    "nPhys__animcharScale": 1.0,
+    "paid_loot__pointsForKill": 15,
+    "hitpoints__hp": 15.0,
+    "hitpoints__maxHp": 15.0,
+    "hitpoints__scaleHp": 15.0,
+    "hitpoints__hpThreshold": 15.0,
+    "hitpoints__hpRecoverySpd": 0.0,
+    "anim__attachNodePostfix": "",
+    "anim__attachHandsLocalTm": [
+      [-5.95346e-08,-0.998825,-0.0],
+      [0.998822,-5.95344e-08,0.0],
+      [0.0,-0.0,0.997797],
+      [0.0,-0.12,0.0]
+    ],
+    "killLogName": "zombie/uber_spitfire_prop",
+    "anim__attachRecursiveList:list<t>": [],
+    "actions__actions:array": {
+      "action:object": {
+        "name": "stand_melee",
+        "state": "attack",
+        "actionTime": 1.0,
+        "applyAt": 0.3,
+        "props": "content/enlisted/gamedata/actions_enlisted/zombie_middle_claw.blk",
+        "irq": "claw_attack",
+        "varName": "attack_progress"
+      }
+    },
+    "_group": {
+      "_tags": "sound",
+      "human_idle_sound__paths:shared:object": {
+        "idleState:object": {
+          "enemy": "events/z/enemy/walker/z_spitfire/voice_fx/idle"
+        }
+      }
+    }
+  },
+  "zombie_giant_spitfire_prop": [
+    {
+      "_use": "base_zombie_with_item"
+    },
+    {
+      "zombie__attachEntityNode": "n_body_back_A"
+    },
+    {
+      "zombie__attachHandsEntityTemplate": "zombie_prop_big"
+    },
+    {
+      "navmesh_phys__maxWalkSpeed": 7.0
+    },
+    {
+      "paid_loot__pointsForKill": 15
+    },
+    {
+      "hitpoints__hp": 1500.0
+    },
+    {
+      "hitpoints__maxHp": 1500.0
+    },
+    {
+      "hitpoints__scaleHp": 1500.0
+    },
+    {
+      "hitpoints__hpThreshold": 15.0
+    },
+    {
+      "hitpoints__hpRecoverySpd": 0.0
+    },
+    {
+      "animchar__res": "ger_zombie_solder_giant"
+    },
+    {
+      "collres__res": "ger_zombie_solder_giant_collision"
+    },
+    {
+      "nPhys__animcharScale": 1.7
+    },
+    {
+      "paid_loot__pointsPerDamage": 0.1
+    },
+    {
+      "anim__attachNodePostfix": ""
+    },
+    {
+      "anim__attachHandsLocalTm": [
+        [-5.95346e-08,-0.998825,-0.0],
+        [0.998822,-5.95344e-08,0.0],
+        [0.0,-0.0,0.997797],
+        [0.0,-0.12,0.0]
+      ]
+    },
+    {
+      "killLogName": "zombie/uber_giant_spitfire_prop"
+    },
+    {
+      "anim__attachRecursiveList:list<t>": []
+    },
+    {
+      "loc_snapshots__scaledTransform:tag": []
+    },
+    {
+      "actions__actions:array": {
+        "action:object": {
+          "name": "stand_melee",
+          "state": "attack",
+          "actionTime": 1.0,
+          "applyAt": 0.3,
+          "props": "content/enlisted/gamedata/actions_enlisted/zombie_big_claw.blk",
+          "irq": "claw_attack",
+          "varName": "attack_progress"
+        }
+      }
+    },
+    {
+      "_group": {
+        "_tags": "sound",
+        "human_voice_sound__path:shared:object": {
+          "path": "events/z/enemy/walker/z_giant/voice_fx"
+        },
+        "human_voice_sound__descs:shared:object": {
+          "death:object": {
+            "name": "death"
+          },
+          "seeDanger:object": {
+            "name": "seedanger"
+          }
+        },
+        "human_voice_sound__irqs:shared:object": {
+          "zombie_attack_sound:object": {
+            "name": "melee/hands"
+          }
+        },
+        "human_voice_sound__oneshots:shared:object": {
+          "hitCry:object": {
+            "name": "hit"
+          }
+        }
+      }
+    },
+    {
+      "_group": {
+        "_tags": "sound",
+        "human_steps_sound__runVoiceFx:shared:object": {
+          "enemy": "events/z/enemy/walker/z_giant/voice_fx/run_to_player"
+        }
+      }
+    },
+    {
+      "_group": {
+        "_tags": "sound",
+        "human_idle_sound__paths:shared:object": {
+          "idleState:object": {
+            "enemy": "events/z/enemy/walker/z_spitfire/voice_fx/idle"
+          }
+        }
+      }
+    }
+  ],
+  "zombie_eclipse_controller": [
+    {
+      "_use": "replicating"
+    },
+    {
+      "_use": "eclipse_controller"
+    },
+    {
+      "eclipse__envi_attenuation_base": 0.01
+    },
+    {
+      "entity_spawner__removeOnWaveEnd:tag": []
+    }
+  ],
+  "zombie_ai_vehicle_tank_crew_member": {
+    "_use": "dev_soldier",
+    "zombie:tag": [],
+    "zombie_no_award:tag": []
+  },
+  "zombie_ai_vehicle_tank": [
+    {
+      "_use": "ai_vehicle_tank_no_objective"
+    },
+    {
+      "_use": "germ_pzkpfw_IV_ausf_J_zombie"
+    },
+    {
+      "paid_loot__pointsForKill": 100
+    },
+    {
+      "vehicle_seats__restrictToTeam": 3
+    },
+    {
+      "dontCreateNphysObstacle:tag": []
+    },
+    {
+      "zombie:tag": []
+    },
+    {
+      "_group": {
+        "_tags": "server",
+        "ai_vehicle_tank__pathFindingState": 1,
+        "zombie_ai_vehicle_tank__timeToDestroy": 900.0,
+        "zombie_ai_vehicle_tank__destroyAtTime": 0.0,
+        "ai_vehicle_tank__ignoreBattleArea": true
+      }
+    }
+  ],
+  "zombie_ai_vehicle_tank_spawner": {
+    "isAlive": true,
+    "_group": {
+      "_tags": "server",
+      "zombie_ai_vehicle_tank_spawner__template": "zombie_ai_vehicle_tank",
+      "zombie_ai_vehicle_tank_spawner__spawnCrewDelay": 2.0,
+      "zombie_ai_vehicle_tank_spawner__tankEid:eid": [],
+      "zombie_ai_vehicle_tank_spawner:tag": []
+    },
+    "zombie:tag": []
+  },
+  "briefing_zombie_mode": {
+    "_use": "briefing",
+    "mission_type": "zombie_mode",
+    "_group": {
+      "common": "zombie_mode/hints"
+    }
+  },
+  "zombie_spawn_mode": [
+    {
+      "_use": "replicating"
+    },
+    {
+      "_use": "team_bots_data"
+    },
+    {
+      "team__id": 3
+    },
+    {
+      "entity_spawner__aliveZombiesLimit": 100
+    },
+    {
+      "entity_spawner__aliveZombiesCount": 0
+    },
+    {
+      "_tracked": "entity_spawner__aliveZombiesCount"
+    },
+    {
+      "_tracked": "entity_spawner__counstSpawnInWave"
+    },
+    {
+      "_tracked": "entity_spawner__alreadySpawnInWave"
+    },
+    {
+      "_tracked": "entity_spawner__curWaveId"
+    },
+    {
+      "_tracked": "entity_spawner__nextWaveAtTime"
+    },
+    {
+      "_replicated": "entity_spawner__aliveZombiesCount"
+    },
+    {
+      "_replicated": "entity_spawner__counstSpawnInWave"
+    },
+    {
+      "_replicated": "entity_spawner__alreadySpawnInWave"
+    },
+    {
+      "_replicated": "entity_spawner__curWaveId"
+    },
+    {
+      "_replicated": "entity_spawner__nextWaveAtTime"
+    },
+    {
+      "zombie_mode__sessionFinished": false
+    },
+    {
+      "entity_spawner__curTankSpawnId": 0
+    },
+    {
+      "entity_spawner__counstSpawnInWave": -1
+    },
+    {
+      "entity_spawner__alreadySpawnInWave": -1
+    },
+    {
+      "entity_spawner__nextSpawnAtTime": -1.0
+    },
+    {
+      "entity_spawner__nextSpawnPeriod": 0.5
+    },
+    {
+      "entity_spawner__curWaveId": 0
+    },
+    {
+      "entity_spawner__lastWaveMul": 2.5
+    },
+    {
+      "entity_spawner__genericWavesRepeat": 40
+    },
+    {
+      "entity_spawner__nextWavePeriod": 30.0
+    },
+    {
+      "entity_spawner__maxWaveTimeAfterLastSpawned": 240.0
+    },
+    {
+      "entity_spawner__forceNextWaveAtTime": -1.0
+    },
+    {
+      "entity_spawner__briefing": ""
+    },
+    {
+      "entity_spawner__nextWaveAtTime": -1.0
+    },
+    {
+      "entity_spawner__nextWavePoints": 50
+    },
+    {
+      "entity_spawner__winOnWave": 420
+    },
+    {
+      "entity_spawner__winTeam": 1
+    },
+    {
+      "disableBombCrater:tag": []
+    },
+    {
+      "entity_spawner__waves:array": [
+        {
+          "wave:object": {
+            "wave_briefing": "wave_briefing/welcome",
+            "zombie_walk_zombie": 24
+          }
+        },
+        {
+          "wave:object": {
+            "zombie_walk_zombie": 18,
+            "zombie_rush_metal_bucket": 1,
+            "zombie_rush_zombie": 9
+          }
+        },
+        {
+          "wave:object": {
+            "zombie_walk_zombie": 8,
+            "zombie_rush_metal_bucket": 6,
+            "zombie_rush_zombie": 22
+          }
+        },
+        {
+          "wave:object": {
+            "wave_briefing": "wave_briefing/cavalary",
+            "zombie_walk_zombie": 8,
+            "zombie_rush_zombie": 24,
+            "zombie_rush_metal_bucket": 4,
+            "zombie_rush_moto": 4
+          }
+        },
+        {
+          "wave:object": {
+            "wave_briefing": "wave_briefing/spitfire_prop",
+            "zombie_rush_zombie": 34,
+            "zombie_rush_metal_bucket": 2,
+            "zombie_rush_cart_wheel": 1,
+            "zombie_rush_moto": 2,
+            "zombie_rush_shield": 2,
+            "zombie_rush_shield_fun": 1,
+            "zombie_rush_spitfire_prop": 4
+          }
+        },
+        {
+          "wave:object": {
+            "wave_briefing": "wave_briefing/armored",
+            "zombie_rush_zombie": 24,
+            "zombie_rush_metal_bucket": 4,
+            "zombie_rush_bmw_wheel": 2,
+            "zombie_rush_moto": 4,
+            "zombie_rush_shield": 2,
+            "zombie_rush_shield_fun": 2,
+            "zombie_rush_spitfire_prop": 4,
+            "zombie_luger_armored": 4
+          }
+        },
+        {
+          "wave:object": {
+            "wave_briefing": "wave_briefing/explosive",
+            "zombie_rush_zombie": 26,
+            "zombie_rush_metal_bucket": 2,
+            "zombie_rush_cart_wheel": 2,
+            "zombie_rush_bmw_wheel": 2,
+            "zombie_rush_moto": 6,
+            "zombie_rush_shield": 3,
+            "zombie_rush_shield_fun": 1,
+            "zombie_rush_spitfire_prop": 6,
+            "zombie_rush_zombie_phosphor": 2,
+            "zombie_rush_zombie_explosive": 2
+          }
+        },
+        {
+          "wave:object": {
+            "wave_briefing": "wave_briefing/bomb",
+            "zombie_rush_zombie": 26,
+            "zombie_rush_metal_bucket": 6,
+            "zombie_rush_cart_wheel": 1,
+            "zombie_rush_bmw_wheel": 2,
+            "zombie_rush_moto": 3,
+            "zombie_rush_shield": 5,
+            "zombie_rush_shield_fun": 3,
+            "zombie_rush_spitfire_prop": 6,
+            "zombie_rush_zombie_phosphor": 1,
+            "zombie_rush_zombie_explosive": 1,
+            "zombie_rush_bomb": 2,
+            "zombie_rush_bomb_down": 1,
+            "zombie_luger_armored": 2,
+            "zombie_mp_3008_armored": 2
+          }
+        },
+        {
+          "wave:object": {
+            "zombie_rush_zombie": 29,
+            "zombie_rush_metal_bucket": 3,
+            "zombie_rush_cart_wheel": 2,
+            "zombie_rush_bmw_wheel": 2,
+            "zombie_rush_moto": 6,
+            "zombie_rush_shield": 3,
+            "zombie_rush_shield_fun": 1,
+            "zombie_rush_train_door": 2,
+            "zombie_rush_spitfire_prop": 8,
+            "zombie_rush_zombie_phosphor": 2,
+            "zombie_rush_zombie_explosive": 2,
+            "zombie_rush_bomb": 1,
+            "zombie_rush_bomb_down": 1,
+            "zombie_luger_armored": 2,
+            "zombie_mp_3008_armored": 2,
+            "zombie_mp40_armored": 2
+          }
+        },
+        {
+          "wave:object": {
+            "wave_briefing": "wave_briefing/eclipse1",
+            "zombie_rush_zombie": 30,
+            "zombie_rush_metal_bucket": 6,
+            "zombie_rush_cart_wheel": 4,
+            "zombie_rush_bmw_wheel": 2,
+            "zombie_rush_moto": 4,
+            "zombie_rush_shield": 6,
+            "zombie_rush_shield_fun": 2,
+            "zombie_rush_spitfire_prop": 8,
+            "zombie_rush_zombie_phosphor": 3,
+            "zombie_rush_zombie_explosive": 2,
+            "zombie_rush_zombie_explosive_fast": 1,
+            "zombie_rush_bomb": 1,
+            "zombie_rush_bomb_down": 1,
+            "zombie_mp_3008_armored": 2,
+            "zombie_mp40_armored": 1,
+            "zombie_eclipse_controller": 1
+          }
+        },
+        {
+          "wave:object": {
+            "wave_briefing": "wave_briefing/sturmpistole",
+            "zombie_rush_zombie": 34,
+            "zombie_rush_metal_bucket": 6,
+            "zombie_rush_cart_wheel": 1,
+            "zombie_rush_bmw_wheel": 1,
+            "zombie_rush_moto": 10,
+            "zombie_rush_shield": 3,
+            "zombie_rush_shield_fun": 2,
+            "zombie_rush_train_door": 3,
+            "zombie_rush_spitfire_prop": 10,
+            "zombie_rush_zombie_phosphor": 4,
+            "zombie_rush_zombie_explosive": 1,
+            "zombie_rush_bomb": 2,
+            "zombie_rush_bomb_down": 1,
+            "zombie_mp_3008_armored": 3,
+            "zombie_mp40_armored": 3,
+            "zombie_flammenwerfer_armored": 2,
+            "zombie_sturmpistole_armored": 2
+          }
+        },
+        {
+          "wave:object": {
+            "zombie_rush_zombie": 25,
+            "zombie_rush_metal_bucket": 10,
+            "zombie_rush_cart_wheel": 3,
+            "zombie_rush_bmw_wheel_fast": 2,
+            "zombie_rush_moto": 7,
+            "zombie_rush_moto_fast": 2,
+            "zombie_rush_shield": 7,
+            "zombie_rush_shield_fun": 2,
+            "zombie_rush_train_door": 4,
+            "zombie_rush_spitfire_prop": 12,
+            "zombie_rush_zombie_phosphor": 3,
+            "zombie_rush_zombie_phosphor_fast": 1,
+            "zombie_rush_zombie_explosive": 3,
+            "zombie_rush_zombie_explosive_fast": 1,
+            "zombie_rush_bomb": 1,
+            "zombie_rush_bomb_down": 1,
+            "zombie_luger_armored": 2,
+            "zombie_mp_3008_armored": 6,
+            "zombie_mp40_armored": 2,
+            "zombie_sturmpistole_armored": 2
+          }
+        },
+        {
+          "wave:object": {
+            "wave_briefing": "wave_briefing/paratrooper",
+            "zombie_rush_paratrooper_five_spawner": 5
+          }
+        },
+        {
+          "wave:object": {
+            "zombie_rush_zombie": 22,
+            "zombie_rush_metal_bucket": 8,
+            "zombie_rush_cart_wheel": 3,
+            "zombie_rush_bmw_wheel": 2,
+            "zombie_rush_bmw_wheel_fast": 2,
+            "zombie_rush_moto": 10,
+            "zombie_rush_moto_fast": 3,
+            "zombie_rush_shield": 8,
+            "zombie_rush_shield_fun": 1,
+            "zombie_rush_train_door": 7,
+            "zombie_rush_spitfire_prop": 16,
+            "zombie_rush_zombie_phosphor": 2,
+            "zombie_rush_zombie_phosphor_fast": 2,
+            "zombie_rush_zombie_explosive": 2,
+            "zombie_rush_bomb": 2,
+            "zombie_rush_bomb_down": 2,
+            "zombie_luger_armored": 2,
+            "zombie_mp_3008_armored": 1,
+            "zombie_mp40_armored": 4,
+            "zombie_rush_paratrooper_spawner": 3,
+            "zombie_flammenwerfer_armored": 2
+          }
+        },
+        {
+          "wave:object": {
+            "wave_briefing": "wave_briefing/giant",
+            "zombie_rush_zombie": 15,
+            "zombie_rush_metal_bucket": 5,
+            "zombie_rush_cart_wheel": 2,
+            "zombie_rush_bmw_wheel_fast": 1,
+            "zombie_rush_moto_fast": 2,
+            "zombie_rush_shield": 2,
+            "zombie_rush_shield_fun": 1,
+            "zombie_rush_train_door": 2,
+            "zombie_rush_spitfire_prop": 4,
+            "zombie_rush_zombie_phosphor": 1,
+            "zombie_rush_zombie_explosive": 1,
+            "zombie_rush_bomb": 1,
+            "zombie_rush_bomb_down": 1,
+            "zombie_giant_zombie": 1
+          }
+        },
+        {
+          "wave:object": {
+            "zombie_rush_zombie": 25,
+            "zombie_rush_metal_bucket": 10,
+            "zombie_rush_cart_wheel": 4,
+            "zombie_rush_bmw_wheel_fast": 4,
+            "zombie_rush_moto": 7,
+            "zombie_rush_moto_fast": 3,
+            "zombie_rush_shield": 10,
+            "zombie_rush_shield_fun": 2,
+            "zombie_rush_train_door_fast": 2,
+            "zombie_rush_spitfire_prop": 16,
+            "zombie_rush_zombie_phosphor": 3,
+            "zombie_rush_zombie_phosphor_fast": 2,
+            "zombie_rush_zombie_explosive": 3,
+            "zombie_rush_zombie_explosive_fast": 1,
+            "zombie_rush_bomb": 2,
+            "zombie_rush_bomb_down": 1,
+            "zombie_mp_3008_armored": 6,
+            "zombie_mp40_armored": 5,
+            "zombie_rush_paratrooper_spawner": 3,
+            "zombie_panzerfaust_armored": 2
+          }
+        },
+        {
+          "wave:object": {
+            "zombie_rush_zombie": 20,
+            "zombie_rush_metal_bucket": 4,
+            "zombie_rush_cart_wheel": 7,
+            "zombie_rush_bmw_wheel_fast": 3,
+            "zombie_rush_moto": 10,
+            "zombie_rush_moto_fast": 6,
+            "zombie_rush_shield": 8,
+            "zombie_rush_shield_fun": 2,
+            "zombie_rush_train_door": 6,
+            "zombie_rush_train_door_fast": 4,
+            "zombie_rush_spitfire_prop": 16,
+            "zombie_rush_zombie_phosphor": 2,
+            "zombie_rush_zombie_phosphor_fast": 1,
+            "zombie_rush_zombie_explosive": 3,
+            "zombie_rush_zombie_explosive_fast": 2,
+            "zombie_rush_bomb": 2,
+            "zombie_rush_bomb_down": 2,
+            "zombie_mp_3008_armored": 2,
+            "zombie_mp40_armored": 5,
+            "zombie_stg_44_armored": 2,
+            "zombie_rush_paratrooper_spawner": 3,
+            "zombie_flammenwerfer_armored": 4,
+            "zombie_panzerfaust_armored": 2
+          }
+        },
+        {
+          "wave:object": {
+            "zombie_rush_zombie": 20,
+            "zombie_rush_metal_bucket": 10,
+            "zombie_rush_cart_wheel": 7,
+            "zombie_rush_bmw_wheel": 2,
+            "zombie_rush_bmw_wheel_fast": 1,
+            "zombie_rush_moto": 8,
+            "zombie_rush_moto_fast": 4,
+            "zombie_rush_shield": 10,
+            "zombie_rush_shield_fun": 2,
+            "zombie_rush_train_door": 6,
+            "zombie_rush_train_door_fast": 4,
+            "zombie_rush_spitfire_prop": 18,
+            "zombie_rush_zombie_phosphor": 1,
+            "zombie_rush_zombie_phosphor_fast": 2,
+            "zombie_rush_zombie_explosive": 3,
+            "zombie_rush_zombie_explosive_fast": 4,
+            "zombie_rush_bomb": 1,
+            "zombie_rush_bomb_down": 1,
+            "zombie_mp_3008_armored": 2,
+            "zombie_mp40_armored": 5,
+            "zombie_rush_paratrooper_spawner": 5,
+            "zombie_flammenwerfer_armored": 2,
+            "zombie_sturmpistole_armored": 2,
+            "zombie_panzerfaust_armored": 2
+          }
+        },
+        {
+          "wave:object": {
+            "zombie_rush_zombie": 18,
+            "zombie_rush_metal_bucket": 7,
+            "zombie_rush_cart_wheel": 7,
+            "zombie_rush_bmw_wheel": 5,
+            "zombie_rush_bmw_wheel_fast": 3,
+            "zombie_rush_moto": 10,
+            "zombie_rush_moto_fast": 7,
+            "zombie_rush_shield": 9,
+            "zombie_rush_shield_fun": 1,
+            "zombie_rush_train_door": 4,
+            "zombie_rush_train_door_fast": 5,
+            "zombie_rush_spitfire_prop": 20,
+            "zombie_rush_zombie_phosphor": 2,
+            "zombie_rush_zombie_phosphor_fast": 2,
+            "zombie_rush_zombie_explosive": 3,
+            "zombie_rush_zombie_explosive_fast": 3,
+            "zombie_rush_bomb": 2,
+            "zombie_rush_bomb_down": 2,
+            "zombie_mp_3008_armored": 2,
+            "zombie_mp40_armored": 7,
+            "zombie_rush_paratrooper_spawner": 3,
+            "zombie_flammenwerfer_armored": 2,
+            "zombie_panzerfaust_armored": 2
+          }
+        },
+        {
+          "wave:object": {
+            "wave_briefing": "wave_briefing/eclipse2",
+            "zombie_rush_zombie": 10,
+            "zombie_rush_metal_bucket": 10,
+            "zombie_rush_cart_wheel": 7,
+            "zombie_rush_bmw_wheel": 5,
+            "zombie_rush_bmw_wheel_fast": 3,
+            "zombie_rush_moto": 10,
+            "zombie_rush_moto_fast": 7,
+            "zombie_rush_shield": 10,
+            "zombie_rush_shield_fun": 2,
+            "zombie_rush_train_door": 8,
+            "zombie_rush_train_door_fast": 6,
+            "zombie_rush_spitfire_prop": 16,
+            "zombie_rush_zombie_phosphor": 3,
+            "zombie_rush_zombie_phosphor_fast": 4,
+            "zombie_rush_zombie_explosive": 2,
+            "zombie_rush_zombie_explosive_fast": 2,
+            "zombie_rush_bomb": 2,
+            "zombie_rush_bomb_down": 1,
+            "zombie_mp40_armored": 3,
+            "zombie_rush_paratrooper_spawner": 3,
+            "zombie_flammenwerfer_armored": 4,
+            "zombie_panzerfaust_armored": 2,
+            "zombie_eclipse_controller": 1
+          }
+        },
+        {
+          "wave:object": {
+            "zombie_rush_zombie": 10,
+            "zombie_rush_metal_bucket": 10,
+            "zombie_rush_cart_wheel": 7,
+            "zombie_rush_bmw_wheel": 3,
+            "zombie_rush_bmw_wheel_fast": 10,
+            "zombie_rush_moto": 6,
+            "zombie_rush_moto_fast": 10,
+            "zombie_rush_shield": 12,
+            "zombie_rush_shield_fun": 2,
+            "zombie_rush_train_door": 4,
+            "zombie_rush_train_door_fast": 10,
+            "zombie_rush_spitfire_prop": 22,
+            "zombie_rush_zombie_phosphor_fast": 8,
+            "zombie_rush_zombie_explosive_fast": 5,
+            "zombie_rush_bomb": 2,
+            "zombie_rush_bomb_down": 1,
+            "zombie_mp_3008_armored": 3,
+            "zombie_mp40_armored": 4,
+            "zombie_stg_44_armored": 3,
+            "zombie_rush_paratrooper_spawner": 2,
+            "zombie_flammenwerfer_armored": 4,
+            "zombie_sturmpistole_armored": 2,
+            "zombie_panzerfaust_armored": 2
+          }
+        },
+        {
+          "wave:object": {
+            "zombie_rush_zombie": 4,
+            "zombie_rush_metal_bucket": 10,
+            "zombie_rush_cart_wheel": 12,
+            "zombie_rush_bmw_wheel": 5,
+            "zombie_rush_bmw_wheel_fast": 5,
+            "zombie_rush_moto": 7,
+            "zombie_rush_moto_fast": 10,
+            "zombie_rush_shield": 12,
+            "zombie_rush_shield_fun": 2,
+            "zombie_rush_train_door": 6,
+            "zombie_rush_train_door_fast": 10,
+            "zombie_rush_spitfire_prop": 26,
+            "zombie_rush_zombie_phosphor_fast": 8,
+            "zombie_rush_zombie_explosive_fast": 5,
+            "zombie_rush_bomb": 2,
+            "zombie_rush_bomb_down": 1,
+            "zombie_mp_3008_armored": 2,
+            "zombie_mp40_armored": 4,
+            "zombie_rush_paratrooper_spawner": 6,
+            "zombie_flammenwerfer_armored": 4,
+            "zombie_sturmpistole_armored": 2,
+            "zombie_panzerfaust_armored": 2
+          }
+        },
+        {
+          "wave:object": {
+            "zombie_rush_zombie": 4,
+            "zombie_rush_metal_bucket": 10,
+            "zombie_rush_cart_wheel": 7,
+            "zombie_rush_bmw_wheel_fast": 13,
+            "zombie_rush_moto": 6,
+            "zombie_rush_moto_fast": 16,
+            "zombie_rush_shield": 12,
+            "zombie_rush_shield_fun": 4,
+            "zombie_rush_train_door": 6,
+            "zombie_rush_train_door_fast": 10,
+            "zombie_rush_spitfire_prop": 24,
+            "zombie_rush_zombie_phosphor_fast": 6,
+            "zombie_rush_zombie_phosphor_very_fast": 2,
+            "zombie_rush_zombie_explosive_fast": 3,
+            "zombie_rush_zombie_explosive_very_fast": 2,
+            "zombie_rush_bomb_fast": 2,
+            "zombie_rush_bomb_down_fast": 1,
+            "zombie_mp40_armored": 5,
+            "zombie_stg_44_armored": 4,
+            "zombie_rush_paratrooper_spawner": 5,
+            "zombie_sturmpistole_armored": 4
+          }
+        },
+        {
+          "wave:object": {
+            "zombie_rush_zombie": 4,
+            "zombie_rush_metal_bucket": 10,
+            "zombie_rush_cart_wheel": 7,
+            "zombie_rush_bmw_wheel_fast": 3,
+            "zombie_rush_moto": 6,
+            "zombie_rush_moto_fast": 16,
+            "zombie_rush_shield": 22,
+            "zombie_rush_shield_fun": 4,
+            "zombie_rush_train_door": 4,
+            "zombie_rush_train_door_fast": 12,
+            "zombie_rush_spitfire_prop": 26,
+            "zombie_rush_zombie_phosphor_fast": 4,
+            "zombie_rush_zombie_phosphor_very_fast": 4,
+            "zombie_rush_zombie_explosive_fast": 3,
+            "zombie_rush_zombie_explosive_very_fast": 2,
+            "zombie_rush_bomb_fast": 2,
+            "zombie_rush_bomb_down_fast": 1,
+            "zombie_ppd_armored": 3,
+            "zombie_mp40_armored": 3,
+            "zombie_stg_44_armored": 2,
+            "zombie_rush_paratrooper_spawner": 5,
+            "zombie_flammenwerfer_armored": 4,
+            "zombie_sturmpistole_armored": 2,
+            "zombie_panzerfaust_armored": 2
+          }
+        },
+        {
+          "wave:object": {
+            "wave_briefing": "wave_briefing/tank",
+            "zombie_rush_metal_bucket": 6,
+            "zombie_rush_cart_wheel": 5,
+            "zombie_rush_bmw_wheel_fast": 4,
+            "zombie_rush_moto_fast": 10,
+            "zombie_rush_shield": 4,
+            "zombie_rush_shield_fun": 5,
+            "zombie_rush_train_door_fast": 1,
+            "zombie_rush_spitfire_prop": 2,
+            "zombie_rush_zombie_phosphor_fast": 1,
+            "zombie_rush_zombie_explosive_fast": 1,
+            "zombie_rush_bomb_down_fast": 1,
+            "zombie_mp40_armored": 3,
+            "zombie_stg_44_armored": 2,
+            "zombie_flammenwerfer_armored": 1,
+            "zombie_sturmpistole_armored": 1,
+            "zombie_ai_vehicle_tank_spawner": 2
+          }
+        },
+        {
+          "wave:object": {
+            "zombie_rush_zombie": 4,
+            "zombie_rush_metal_bucket": 8,
+            "zombie_rush_cart_wheel": 7,
+            "zombie_rush_bmw_wheel_fast": 3,
+            "zombie_rush_moto_fast": 20,
+            "zombie_rush_shield": 22,
+            "zombie_rush_shield_fun": 4,
+            "zombie_rush_train_door_fast": 14,
+            "zombie_rush_spitfire_prop": 24,
+            "zombie_rush_zombie_phosphor_very_fast": 8,
+            "zombie_rush_zombie_explosive_very_fast": 5,
+            "zombie_rush_bomb_fast": 2,
+            "zombie_rush_bomb_down_fast": 1,
+            "zombie_ppd_armored": 3,
+            "zombie_mp40_armored": 4,
+            "zombie_stg_44_armored": 2,
+            "zombie_rush_paratrooper_spawner": 5,
+            "zombie_flammenwerfer_armored": 4,
+            "zombie_sturmpistole_armored": 2,
+            "zombie_panzerfaust_armored": 4
+          }
+        },
+        {
+          "wave:object": {
+            "zombie_rush_zombie": 4,
+            "zombie_rush_metal_bucket": 10,
+            "zombie_rush_cart_wheel": 8,
+            "zombie_rush_bmw_wheel_fast": 14,
+            "zombie_rush_moto_fast": 22,
+            "zombie_rush_shield": 12,
+            "zombie_rush_shield_fun": 4,
+            "zombie_rush_train_door_fast": 16,
+            "zombie_rush_spitfire_prop": 26,
+            "zombie_rush_zombie_phosphor_very_fast": 7,
+            "zombie_rush_zombie_explosive_very_fast": 5,
+            "zombie_rush_bomb_fast": 2,
+            "zombie_rush_bomb_down_fast": 2,
+            "zombie_ppd_armored": 3,
+            "zombie_mp40_armored": 3,
+            "zombie_stg_44_armored": 4,
+            "zombie_rush_paratrooper_spawner": 4,
+            "zombie_flammenwerfer_armored": 4,
+            "zombie_panzerfaust_armored": 2
+          }
+        },
+        {
+          "wave:object": {
+            "zombie_rush_zombie": 4,
+            "zombie_rush_metal_bucket": 15,
+            "zombie_rush_cart_wheel": 13,
+            "zombie_rush_bmw_wheel_fast": 7,
+            "zombie_rush_moto_fast": 17,
+            "zombie_rush_shield": 12,
+            "zombie_rush_shield_fun": 4,
+            "zombie_rush_train_door_fast": 16,
+            "zombie_rush_spitfire_prop": 26,
+            "zombie_rush_zombie_phosphor_very_fast": 7,
+            "zombie_rush_zombie_explosive_very_fast": 5,
+            "zombie_rush_bomb_fast": 2,
+            "zombie_rush_bomb_down_fast": 2,
+            "zombie_ppd_armored": 1,
+            "zombie_mp40_armored": 5,
+            "zombie_stg_44_armored": 4,
+            "zombie_flammenwerfer_armored": 2,
+            "zombie_rush_paratrooper_spawner": 6,
+            "zombie_panzerfaust_armored": 4
+          }
+        },
+        {
+          "wave:object": {
+            "zombie_rush_zombie": 4,
+            "zombie_rush_metal_bucket": 10,
+            "zombie_rush_cart_wheel": 8,
+            "zombie_rush_bmw_wheel_fast": 14,
+            "zombie_rush_moto_fast": 22,
+            "zombie_rush_shield": 12,
+            "zombie_rush_shield_fun": 6,
+            "zombie_rush_train_door_fast": 16,
+            "zombie_rush_spitfire_prop": 26,
+            "zombie_rush_zombie_phosphor_very_fast": 7,
+            "zombie_rush_zombie_explosive_very_fast": 5,
+            "zombie_rush_bomb_fast": 2,
+            "zombie_rush_bomb_down_fast": 2,
+            "zombie_ppd_armored": 1,
+            "zombie_mp40_armored": 3,
+            "zombie_stg_44_armored": 7,
+            "zombie_rush_paratrooper_spawner": 3,
+            "zombie_flammenwerfer_armored": 2,
+            "zombie_sturmpistole_armored": 2,
+            "zombie_panzerfaust_armored": 2
+          }
+        },
+        {
+          "wave:object": {
+            "wave_briefing": "wave_briefing/eclipse3",
+            "zombie_rush_zombie": 4,
+            "zombie_rush_metal_bucket": 6,
+            "zombie_rush_cart_wheel": 9,
+            "zombie_rush_bmw_wheel_fast": 14,
+            "zombie_rush_moto_fast": 17,
+            "zombie_rush_shield": 19,
+            "zombie_rush_shield_fun": 4,
+            "zombie_rush_train_door_fast": 17,
+            "zombie_rush_spitfire_prop": 22,
+            "zombie_rush_zombie_phosphor_very_fast": 7,
+            "zombie_rush_zombie_explosive_very_fast": 5,
+            "zombie_rush_bomb_fast": 2,
+            "zombie_rush_bomb_down_fast": 2,
+            "zombie_ppd_armored": 3,
+            "zombie_stg_44_armored": 6,
+            "zombie_rush_paratrooper_spawner": 4,
+            "zombie_flammenwerfer_armored": 2,
+            "zombie_panzerfaust_armored": 2,
+            "zombie_eclipse_controller": 1
+          }
+        },
+        {
+          "wave:object": {
+            "zombie_rush_zombie": 4,
+            "zombie_rush_metal_bucket": 16,
+            "zombie_rush_cart_wheel": 9,
+            "zombie_rush_bmw_wheel_fast": 4,
+            "zombie_rush_moto_fast": 12,
+            "zombie_rush_shield": 24,
+            "zombie_rush_shield_fun": 4,
+            "zombie_rush_train_door_fast": 17,
+            "zombie_rush_spitfire_prop": 30,
+            "zombie_rush_zombie_phosphor_very_fast": 7,
+            "zombie_rush_zombie_explosive_very_fast": 7,
+            "zombie_rush_bomb_fast": 2,
+            "zombie_rush_bomb_down_fast": 2,
+            "zombie_ppd_armored": 3,
+            "zombie_stg_44_armored": 5,
+            "zombie_rush_paratrooper_spawner": 4,
+            "zombie_flammenwerfer_armored": 4,
+            "zombie_sturmpistole_armored": 2,
+            "zombie_panzerfaust_armored": 2
+          }
+        },
+        {
+          "wave:object": {
+            "zombie_rush_zombie": 4,
+            "zombie_rush_metal_bucket": 6,
+            "zombie_rush_cart_wheel": 9,
+            "zombie_rush_bmw_wheel_fast": 16,
+            "zombie_rush_moto_fast": 12,
+            "zombie_rush_shield": 24,
+            "zombie_rush_shield_fun": 4,
+            "zombie_rush_train_door_fast": 17,
+            "zombie_rush_spitfire_prop": 30,
+            "zombie_rush_zombie_phosphor_very_fast": 5,
+            "zombie_rush_zombie_explosive_very_fast": 7,
+            "zombie_rush_bomb_fast": 2,
+            "zombie_rush_bomb_down_fast": 2,
+            "zombie_ppd_armored": 3,
+            "zombie_stg_44_armored": 5,
+            "zombie_rush_paratrooper_spawner": 6,
+            "zombie_flammenwerfer_armored": 4,
+            "zombie_sturmpistole_armored": 2,
+            "zombie_panzerfaust_armored": 2
+          }
+        },
+        {
+          "wave:object": {
+            "zombie_rush_zombie": 4,
+            "zombie_rush_metal_bucket": 10,
+            "zombie_rush_cart_wheel": 9,
+            "zombie_rush_bmw_wheel_fast": 6,
+            "zombie_rush_moto_fast": 20,
+            "zombie_rush_shield": 24,
+            "zombie_rush_shield_fun": 4,
+            "zombie_rush_train_door_fast": 17,
+            "zombie_rush_spitfire_prop": 32,
+            "zombie_rush_zombie_phosphor_very_fast": 5,
+            "zombie_rush_zombie_explosive_very_fast": 7,
+            "zombie_rush_bomb_fast": 2,
+            "zombie_rush_bomb_down_fast": 2,
+            "zombie_ppd_armored": 3,
+            "zombie_stg_44_armored": 7,
+            "zombie_rush_paratrooper_spawner": 4,
+            "zombie_flammenwerfer_armored": 2,
+            "zombie_sturmpistole_armored": 2,
+            "zombie_panzerfaust_armored": 4
+          }
+        },
+        {
+          "wave:object": {
+            "zombie_rush_zombie": 4,
+            "zombie_rush_metal_bucket": 10,
+            "zombie_rush_cart_wheel": 9,
+            "zombie_rush_bmw_wheel_fast": 16,
+            "zombie_rush_moto_fast": 20,
+            "zombie_rush_shield": 16,
+            "zombie_rush_shield_fun": 4,
+            "zombie_rush_train_door_fast": 17,
+            "zombie_rush_spitfire_prop": 32,
+            "zombie_rush_zombie_phosphor_very_fast": 5,
+            "zombie_rush_zombie_explosive_very_fast": 7,
+            "zombie_rush_bomb_fast": 3,
+            "zombie_rush_bomb_down_fast": 3,
+            "zombie_stg_44_armored": 8,
+            "zombie_rush_paratrooper_spawner": 7,
+            "zombie_flammenwerfer_armored": 4,
+            "zombie_panzerfaust_armored": 4
+          }
+        },
+        {
+          "wave:object": {
+            "wave_briefing": "wave_briefing/giant_shield",
+            "zombie_rush_metal_bucket": 5,
+            "zombie_rush_cart_wheel": 4,
+            "zombie_rush_bmw_wheel_fast": 5,
+            "zombie_rush_moto_fast": 7,
+            "zombie_rush_shield": 4,
+            "zombie_rush_shield_fun": 1,
+            "zombie_rush_train_door_fast": 5,
+            "zombie_rush_spitfire_prop": 4,
+            "zombie_rush_bomb_fast": 1,
+            "zombie_rush_bomb_down_fast": 1,
+            "zombie_ppd_armored": 4,
+            "zombie_giant_shield": 2
+          }
+        },
+        {
+          "wave:object": {
+            "zombie_rush_zombie": 4,
+            "zombie_rush_metal_bucket": 6,
+            "zombie_rush_cart_wheel": 9,
+            "zombie_rush_bmw_wheel_fast": 16,
+            "zombie_rush_moto_fast": 22,
+            "zombie_rush_shield": 14,
+            "zombie_rush_shield_fun": 4,
+            "zombie_rush_train_door_fast": 17,
+            "zombie_rush_spitfire_prop": 30,
+            "zombie_rush_zombie_phosphor_very_fast": 5,
+            "zombie_rush_zombie_explosive_very_fast": 7,
+            "zombie_rush_bomb_fast": 2,
+            "zombie_rush_bomb_down_fast": 2,
+            "zombie_ppd_armored": 3,
+            "zombie_stg_44_armored": 6,
+            "zombie_rush_paratrooper_spawner": 5,
+            "zombie_flammenwerfer_armored": 4,
+            "zombie_sturmpistole_armored": 2,
+            "zombie_panzerfaust_armored": 2
+          }
+        },
+        {
+          "wave:object": {
+            "zombie_rush_zombie": 4,
+            "zombie_rush_metal_bucket": 10,
+            "zombie_rush_cart_wheel": 9,
+            "zombie_rush_bmw_wheel_fast": 6,
+            "zombie_rush_moto_fast": 20,
+            "zombie_rush_shield": 24,
+            "zombie_rush_shield_fun": 4,
+            "zombie_rush_train_door_fast": 17,
+            "zombie_rush_spitfire_prop": 32,
+            "zombie_rush_zombie_phosphor_very_fast": 5,
+            "zombie_rush_zombie_explosive_very_fast": 7,
+            "zombie_rush_bomb_fast": 2,
+            "zombie_rush_bomb_down_fast": 2,
+            "zombie_stg_44_armored": 10,
+            "zombie_rush_paratrooper_spawner": 6,
+            "zombie_flammenwerfer_armored": 2,
+            "zombie_sturmpistole_armored": 2,
+            "zombie_panzerfaust_armored": 4
+          }
+        },
+        {
+          "wave:object": {
+            "zombie_rush_zombie": 4,
+            "zombie_rush_metal_bucket": 10,
+            "zombie_rush_cart_wheel": 9,
+            "zombie_rush_bmw_wheel_fast": 11,
+            "zombie_rush_moto_fast": 20,
+            "zombie_rush_shield": 16,
+            "zombie_rush_shield_fun": 4,
+            "zombie_rush_train_door_fast": 22,
+            "zombie_rush_spitfire_prop": 32,
+            "zombie_rush_zombie_phosphor_very_fast": 5,
+            "zombie_rush_zombie_explosive_very_fast": 7,
+            "zombie_rush_bomb_fast": 3,
+            "zombie_rush_bomb_down_fast": 3,
+            "zombie_stg_44_armored": 6,
+            "zombie_rush_paratrooper_spawner": 8,
+            "zombie_flammenwerfer_armored": 4,
+            "zombie_panzerfaust_armored": 4
+          }
+        },
+        {
+          "wave:object": {
+            "zombie_rush_zombie": 4,
+            "zombie_rush_metal_bucket": 10,
+            "zombie_rush_cart_wheel": 10,
+            "zombie_rush_bmw_wheel_fast": 6,
+            "zombie_rush_moto_fast": 20,
+            "zombie_rush_shield": 16,
+            "zombie_rush_shield_fun": 5,
+            "zombie_rush_train_door_fast": 27,
+            "zombie_rush_spitfire_prop": 34,
+            "zombie_rush_zombie_phosphor_very_fast": 5,
+            "zombie_rush_zombie_explosive_very_fast": 7,
+            "zombie_rush_bomb_fast": 3,
+            "zombie_rush_bomb_down_fast": 3,
+            "zombie_stg_44_armored": 10,
+            "zombie_rush_paratrooper_spawner": 4,
+            "zombie_flammenwerfer_armored": 4,
+            "zombie_sturmpistole_armored": 2,
+            "zombie_panzerfaust_armored": 2
+          }
+        },
+        {
+          "wave:object": {
+            "wave_briefing": "wave_briefing/eclipse4",
+            "zombie_rush_zombie": 4,
+            "zombie_rush_metal_bucket": 10,
+            "zombie_rush_cart_wheel": 10,
+            "zombie_rush_bmw_wheel_fast": 16,
+            "zombie_rush_moto_fast": 20,
+            "zombie_rush_shield": 16,
+            "zombie_rush_shield_fun": 5,
+            "zombie_rush_train_door_fast": 17,
+            "zombie_rush_spitfire_prop": 28,
+            "zombie_rush_zombie_phosphor_very_fast": 7,
+            "zombie_rush_zombie_explosive_very_fast": 7,
+            "zombie_rush_bomb_fast": 3,
+            "zombie_rush_bomb_down_fast": 3,
+            "zombie_stg_44_armored": 6,
+            "zombie_rush_paratrooper_spawner": 6,
+            "zombie_flammenwerfer_armored": 4,
+            "zombie_panzerfaust_armored": 3,
+            "zombie_eclipse_controller": 1
+          }
+        },
+        {
+          "wave:object": {
+            "zombie_rush_zombie": 8,
+            "zombie_rush_metal_bucket": 10,
+            "zombie_rush_cart_wheel": 10,
+            "zombie_rush_bmw_wheel_fast": 6,
+            "zombie_rush_moto_fast": 20,
+            "zombie_rush_shield": 26,
+            "zombie_rush_shield_fun": 5,
+            "zombie_rush_train_door_fast": 17,
+            "zombie_rush_spitfire_prop": 34,
+            "zombie_rush_zombie_phosphor_very_fast": 7,
+            "zombie_rush_zombie_explosive_very_fast": 7,
+            "zombie_rush_bomb_fast": 3,
+            "zombie_rush_bomb_down_fast": 3,
+            "zombie_ppd_armored": 5,
+            "zombie_stg_44_armored": 6,
+            "zombie_flammenwerfer_armored": 2,
+            "zombie_rush_paratrooper_spawner": 6,
+            "zombie_sturmpistole_armored": 2,
+            "zombie_panzerfaust_armored": 4
+          }
+        },
+        {
+          "wave:object": {
+            "zombie_rush_zombie": 8,
+            "zombie_rush_metal_bucket": 10,
+            "zombie_rush_cart_wheel": 10,
+            "zombie_rush_bmw_wheel_fast": 16,
+            "zombie_rush_moto_fast": 12,
+            "zombie_rush_shield": 16,
+            "zombie_rush_shield_fun": 5,
+            "zombie_rush_train_door_fast": 27,
+            "zombie_rush_spitfire_prop": 36,
+            "zombie_rush_zombie_phosphor_very_fast": 7,
+            "zombie_rush_zombie_explosive_very_fast": 7,
+            "zombie_rush_bomb_fast": 3,
+            "zombie_rush_bomb_down_fast": 3,
+            "zombie_stg_44_armored": 8,
+            "zombie_rush_paratrooper_spawner": 6,
+            "zombie_flammenwerfer_armored": 4,
+            "zombie_sturmpistole_armored": 2,
+            "zombie_panzerfaust_armored": 4
+          }
+        },
+        {
+          "wave:object": {
+            "zombie_rush_zombie": 8,
+            "zombie_rush_metal_bucket": 12,
+            "zombie_rush_cart_wheel": 10,
+            "zombie_rush_bmw_wheel_fast": 6,
+            "zombie_rush_moto_fast": 22,
+            "zombie_rush_shield": 18,
+            "zombie_rush_shield_fun": 5,
+            "zombie_rush_train_door_fast": 27,
+            "zombie_rush_spitfire_prop": 36,
+            "zombie_rush_zombie_phosphor_very_fast": 7,
+            "zombie_rush_zombie_explosive_very_fast": 7,
+            "zombie_rush_bomb_fast": 3,
+            "zombie_rush_bomb_down_fast": 3,
+            "zombie_ppd_armored": 1,
+            "zombie_stg_44_armored": 5,
+            "zombie_rush_paratrooper_spawner": 8,
+            "zombie_flammenwerfer_armored": 4,
+            "zombie_panzerfaust_armored": 4
+          }
+        },
+        {
+          "wave:object": {
+            "zombie_rush_zombie": 8,
+            "zombie_rush_metal_bucket": 12,
+            "zombie_rush_cart_wheel": 10,
+            "zombie_rush_bmw_wheel_fast": 6,
+            "zombie_rush_moto_fast": 22,
+            "zombie_rush_shield": 18,
+            "zombie_rush_shield_fun": 6,
+            "zombie_rush_train_door_fast": 28,
+            "zombie_rush_spitfire_prop": 36,
+            "zombie_rush_zombie_phosphor_very_fast": 7,
+            "zombie_rush_zombie_explosive_very_fast": 7,
+            "zombie_rush_bomb_fast": 4,
+            "zombie_rush_bomb_down_fast": 4,
+            "zombie_ppd_armored": 1,
+            "zombie_stg_44_armored": 10,
+            "zombie_rush_paratrooper_spawner": 4,
+            "zombie_flammenwerfer_armored": 4,
+            "zombie_sturmpistole_armored": 2,
+            "zombie_panzerfaust_armored": 4
+          }
+        },
+        {
+          "wave:object": {
+            "wave_briefing": "wave_briefing/giant_moto",
+            "zombie_rush_zombie": 5,
+            "zombie_rush_metal_bucket": 10,
+            "zombie_rush_cart_wheel": 2,
+            "zombie_rush_bmw_wheel_fast": 7,
+            "zombie_rush_moto_fast": 2,
+            "zombie_rush_shield": 4,
+            "zombie_rush_shield_fun": 1,
+            "zombie_rush_train_door_fast": 6,
+            "zombie_rush_spitfire_prop": 4,
+            "zombie_rush_zombie_phosphor_very_fast": 1,
+            "zombie_rush_bomb_fast": 1,
+            "zombie_ppd_armored": 4,
+            "zombie_giant_moto": 3
+          }
+        },
+        {
+          "wave:object": {
+            "zombie_rush_zombie": 8,
+            "zombie_rush_metal_bucket": 10,
+            "zombie_rush_cart_wheel": 10,
+            "zombie_rush_bmw_wheel_fast": 6,
+            "zombie_rush_moto_fast": 22,
+            "zombie_rush_shield": 16,
+            "zombie_rush_shield_fun": 5,
+            "zombie_rush_train_door_fast": 27,
+            "zombie_rush_spitfire_prop": 36,
+            "zombie_rush_zombie_phosphor_very_fast": 7,
+            "zombie_rush_zombie_explosive_very_fast": 7,
+            "zombie_rush_bomb_fast": 3,
+            "zombie_rush_bomb_down_fast": 3,
+            "zombie_ppd_armored": 5,
+            "zombie_stg_44_armored": 6,
+            "zombie_rush_paratrooper_spawner": 6,
+            "zombie_flammenwerfer_armored": 4,
+            "zombie_sturmpistole_armored": 2,
+            "zombie_panzerfaust_armored": 4
+          }
+        },
+        {
+          "wave:object": {
+            "zombie_rush_zombie": 8,
+            "zombie_rush_metal_bucket": 12,
+            "zombie_rush_cart_wheel": 10,
+            "zombie_rush_bmw_wheel_fast": 16,
+            "zombie_rush_moto_fast": 12,
+            "zombie_rush_shield": 18,
+            "zombie_rush_shield_fun": 5,
+            "zombie_rush_train_door_fast": 27,
+            "zombie_rush_spitfire_prop": 36,
+            "zombie_rush_zombie_phosphor_very_fast": 7,
+            "zombie_rush_zombie_explosive_very_fast": 7,
+            "zombie_rush_bomb_fast": 3,
+            "zombie_rush_bomb_down_fast": 3,
+            "zombie_stg_44_armored": 6,
+            "zombie_rush_paratrooper_spawner": 8,
+            "zombie_flammenwerfer_armored": 4,
+            "zombie_panzerfaust_armored": 4
+          }
+        },
+        {
+          "wave:object": {
+            "zombie_rush_zombie": 8,
+            "zombie_rush_metal_bucket": 12,
+            "zombie_rush_cart_wheel": 10,
+            "zombie_rush_bmw_wheel_fast": 6,
+            "zombie_rush_moto_fast": 22,
+            "zombie_rush_shield": 18,
+            "zombie_rush_shield_fun": 6,
+            "zombie_rush_train_door_fast": 28,
+            "zombie_rush_spitfire_prop": 36,
+            "zombie_rush_zombie_phosphor_very_fast": 7,
+            "zombie_rush_zombie_explosive_very_fast": 7,
+            "zombie_rush_bomb_fast": 4,
+            "zombie_rush_bomb_down_fast": 4,
+            "zombie_stg_44_armored": 5,
+            "zombie_rush_paratrooper_spawner": 5,
+            "zombie_flammenwerfer_armored": 4,
+            "zombie_sturmpistole_armored": 2,
+            "zombie_panzerfaust_armored": 4
+          }
+        },
+        {
+          "wave:object": {
+            "zombie_rush_zombie": 8,
+            "zombie_rush_metal_bucket": 12,
+            "zombie_rush_cart_wheel": 10,
+            "zombie_rush_bmw_wheel_fast": 16,
+            "zombie_rush_moto_fast": 14,
+            "zombie_rush_shield": 18,
+            "zombie_rush_shield_fun": 6,
+            "zombie_rush_train_door_fast": 28,
+            "zombie_rush_spitfire_prop": 38,
+            "zombie_rush_zombie_phosphor_very_fast": 7,
+            "zombie_rush_zombie_explosive_very_fast": 7,
+            "zombie_rush_bomb_fast": 4,
+            "zombie_rush_bomb_down_fast": 4,
+            "zombie_ppd_armored": 3,
+            "zombie_stg_44_armored": 8,
+            "zombie_rush_paratrooper_spawner": 6,
+            "zombie_flammenwerfer_armored": 4,
+            "zombie_sturmpistole_armored": 2,
+            "zombie_panzerfaust_armored": 4
+          }
+        },
+        {
+          "wave:object": {
+            "zombie_rush_zombie": 8,
+            "zombie_rush_metal_bucket": 12,
+            "zombie_rush_cart_wheel": 10,
+            "zombie_rush_bmw_wheel_fast": 8,
+            "zombie_rush_moto_fast": 24,
+            "zombie_rush_shield": 18,
+            "zombie_rush_shield_fun": 6,
+            "zombie_rush_train_door_fast": 28,
+            "zombie_rush_spitfire_prop": 30,
+            "zombie_rush_zombie_phosphor_very_fast": 8,
+            "zombie_rush_zombie_explosive_very_fast": 8,
+            "zombie_rush_bomb_fast": 4,
+            "zombie_rush_bomb_down_fast": 4,
+            "zombie_stg_44_armored": 10,
+            "zombie_rush_paratrooper_spawner": 4,
+            "zombie_flammenwerfer_armored": 4,
+            "zombie_panzerfaust_armored": 2,
+            "zombie_eclipse_controller": 1
+          }
+        },
+        {
+          "wave:object": {
+            "zombie_rush_zombie": 6,
+            "zombie_rush_metal_bucket": 14,
+            "zombie_rush_cart_wheel": 12,
+            "zombie_rush_bmw_wheel_fast": 8,
+            "zombie_rush_moto_fast": 24,
+            "zombie_rush_shield": 20,
+            "zombie_rush_shield_fun": 6,
+            "zombie_rush_train_door_fast": 28,
+            "zombie_rush_spitfire_prop": 38,
+            "zombie_rush_zombie_phosphor_very_fast": 8,
+            "zombie_rush_zombie_explosive_very_fast": 8,
+            "zombie_rush_bomb_fast": 4,
+            "zombie_rush_bomb_down_fast": 4,
+            "zombie_stg_44_armored": 8,
+            "zombie_rush_paratrooper_spawner": 6,
+            "zombie_flammenwerfer_armored": 4,
+            "zombie_panzerfaust_armored": 4
+          }
+        },
+        {
+          "wave:object": {
+            "zombie_rush_zombie": 6,
+            "zombie_rush_metal_bucket": 14,
+            "zombie_rush_cart_wheel": 12,
+            "zombie_rush_bmw_wheel_fast": 18,
+            "zombie_rush_moto_fast": 14,
+            "zombie_rush_shield": 20,
+            "zombie_rush_shield_fun": 6,
+            "zombie_rush_train_door_fast": 28,
+            "zombie_rush_spitfire_prop": 38,
+            "zombie_rush_zombie_phosphor_very_fast": 8,
+            "zombie_rush_zombie_explosive_very_fast": 8,
+            "zombie_rush_bomb_fast": 4,
+            "zombie_rush_bomb_down_fast": 4,
+            "zombie_stg_44_armored": 10,
+            "zombie_rush_paratrooper_spawner": 8,
+            "zombie_flammenwerfer_armored": 4,
+            "zombie_sturmpistole_armored": 2,
+            "zombie_panzerfaust_armored": 2
+          }
+        },
+        {
+          "wave:object": {
+            "zombie_rush_zombie": 6,
+            "zombie_rush_metal_bucket": 14,
+            "zombie_rush_cart_wheel": 12,
+            "zombie_rush_bmw_wheel_fast": 8,
+            "zombie_rush_moto_fast": 24,
+            "zombie_rush_shield": 20,
+            "zombie_rush_shield_fun": 6,
+            "zombie_rush_train_door_fast": 28,
+            "zombie_rush_spitfire_prop": 38,
+            "zombie_rush_zombie_phosphor_very_fast": 8,
+            "zombie_rush_zombie_explosive_very_fast": 8,
+            "zombie_rush_bomb_fast": 4,
+            "zombie_rush_bomb_down_fast": 4,
+            "zombie_ppd_armored": 5,
+            "zombie_stg_44_armored": 10,
+            "zombie_flammenwerfer_armored": 4,
+            "zombie_rush_paratrooper_spawner": 6,
+            "zombie_sturmpistole_armored": 2,
+            "zombie_panzerfaust_armored": 2
+          }
+        },
+        {
+          "wave:object": {
+            "zombie_rush_zombie": 6,
+            "zombie_rush_metal_bucket": 14,
+            "zombie_rush_cart_wheel": 12,
+            "zombie_rush_bmw_wheel_fast": 8,
+            "zombie_rush_moto_fast": 24,
+            "zombie_rush_shield": 20,
+            "zombie_rush_shield_fun": 6,
+            "zombie_rush_train_door_fast": 30,
+            "zombie_rush_spitfire_prop": 38,
+            "zombie_rush_zombie_phosphor_very_fast": 10,
+            "zombie_rush_zombie_explosive_very_fast": 8,
+            "zombie_rush_bomb_fast": 4,
+            "zombie_rush_bomb_down_fast": 4,
+            "zombie_ppd_armored": 5,
+            "zombie_stg_44_armored": 6,
+            "zombie_rush_paratrooper_spawner": 8,
+            "zombie_flammenwerfer_armored": 6,
+            "zombie_sturmpistole_armored": 2,
+            "zombie_panzerfaust_armored": 2
+          }
+        },
+        {
+          "wave:object": {
+            "wave_briefing": "wave_briefing/giant_spitfire_prop",
+            "zombie_rush_zombie": 2,
+            "zombie_rush_metal_bucket": 5,
+            "zombie_rush_cart_wheel": 3,
+            "zombie_rush_bmw_wheel_fast": 2,
+            "zombie_rush_moto_fast": 6,
+            "zombie_rush_shield": 4,
+            "zombie_rush_shield_fun": 2,
+            "zombie_rush_train_door_fast": 6,
+            "zombie_giant_spitfire_prop": 4
+          }
+        }
+      ]
+    },
+    {
+      "entity_spawner__aliveHumans:list<eid>": []
+    },
+    {
+      "entity_spawner__spawns:list<eid>": []
+    },
+    {
+      "entity_spawner__tankSpawns:list<eid>": []
+    },
+    {
+      "entity_spawner__wavesTemplates:list<t>": []
+    },
+    {
+      "entity_spawner__count:list<i>": []
+    },
+    {
+      "zombieSpawnMode:tag": []
+    },
+    {
+      "fire_obstacle__disabler:tag": []
+    }
+  ],
+  "zombie_spawn_zone": {
+    "transform": [
+      [0.0,0.0,-1.0],
+      [0.0,1.0,0.0],
+      [1.0,0.0,0.0],
+      [0.0,0.0,0.0]
+    ],
+    "zombieSpawn:tag": []
+  },
+  "zombie_tank_spawn_zone": {
+    "transform": [
+      [0.0,0.0,-1.0],
+      [0.0,1.0,0.0],
+      [1.0,0.0,0.0],
+      [0.0,0.0,0.0]
+    ],
+    "zombie_tank_spawn_zone__objectiveId": -1,
+    "zombie_tank_spawn_zone__curPositionIdx": 0,
+    "zombieTankSpawn:tag": []
+  },
+  "zombie_tank_objective": {
+    "_use": "custom_ai_tank_objective",
+    "zombie_tank_objective__id": -1
+  },
+  "nzombie_base": [
+    {
+      "_use": "navmesh_creature_base"
+    },
+    {
+      "_use": "navmesh_phys_locomotion"
+    },
+    {
+      "_use": "navmesh_phys_move_anim"
+    },
+    {
+      "_use": "navmesh_phys_attack_anim"
+    },
+    {
+      "_use": "capturer"
+    },
+    {
+      "_use": "human_backstab"
+    },
+    {
+      "_use": "base_dm_parts"
+    },
+    {
+      "_use": "nphys_pair_collision"
+    },
+    {
+      "_use": "nphys_homo_erectus"
+    },
+    {
+      "_use": "nphys_pushable"
+    },
+    {
+      "_use": "teammate_outline"
+    },
+    {
+      "_use": "killer_outline"
+    },
+    {
+      "_use": "zombie_vertical_run_mode"
+    },
+    {
+      "paid_loot__pointsForKill": 10
+    },
+    {
+      "team": 3
+    },
+    {
+      "hitpoints__penetrationStopPower": 15.0
+    },
+    {
+      "navmesh_phys__maxWalkSpeed": 5.0
+    },
+    {
+      "attract_point__checkPath": false
+    },
+    {
+      "nphys_coll__capsuleRadius": 0.5
+    },
+    {
+      "nphys_coll__capsuleHeight": 1.5
+    },
+    {
+      "nphys__mass": 60.0
+    },
+    {
+      "nphys__ccdOffset": [0.0,0.5,0.0]
+    },
+    {
+      "collision_damage__threshold": 5.0
+    },
+    {
+      "collision_damage__velDeltaMult": 10.0
+    },
+    {
+      "collision_damage__velDeltaPower": 2.0
+    },
+    {
+      "collision_damage__pushThreshold": 5.0
+    },
+    {
+      "collision_damage__pushVelDeltaMult": 1.0
+    },
+    {
+      "collision_damage__pushVelDeltaPower": 2.0
+    },
+    {
+      "collision_damage__friendDamageMult": 0.1
+    },
+    {
+      "collision_damage__lastVehicleImmunity": 1.0
+    },
+    {
+      "collision_damage__inVehicleDamageMult": 0.3
+    },
+    {
+      "collision_damage__crawlMult": 3.0
+    },
+    {
+      "collision_damage__downedMult": 3.0
+    },
+    {
+      "zones_visitor__triggerTag": "zombieTriggerable"
+    },
+    {
+      "_skipInitialReplication": "dm_parts__parts"
+    },
+    {
+      "spawn_immunity__initialPos": [0.0,0.0,0.0]
+    },
+    {
+      "spawn_immunity__immuneDistance": 0.0
+    },
+    {
+      "spawn_immunity__timer": 0.0
+    },
+    {
+      "spawnedInRegion": ""
+    },
+    {
+      "animchar__res": "ger_zombie_solder"
+    },
+    {
+      "collres__res": "ger_zombie_solder_collision"
+    },
+    {
+      "collres__centerNode": "Bip01 Pelvis"
+    },
+    {
+      "hitpoints__hp": 15.0
+    },
+    {
+      "hitpoints__maxHp": 15.0
+    },
+    {
+      "hitpoints__scaleHp": 15.0
+    },
+    {
+      "hitpoints__hpThreshold": 15.0
+    },
+    {
+      "hitpoints__hpRecoverySpd": 0.0
+    },
+    {
+      "hitpoints__stoppingPowerThreshold": 20.0
+    },
+    {
+      "agent_dangers__tag": "human"
+    },
+    {
+      "aim_assist__nodeName": "Bip01 Spine1"
+    },
+    {
+      "aim_assist__nodeIdx": -1
+    },
+    {
+      "mainAttackIsMelee": true
+    },
+    {
+      "action__running": false
+    },
+    {
+      "_replicated": "actions__actions_enabled"
+    },
+    {
+      "_replicated": "actions__enabled"
+    },
+    {
+      "entity_mods__zoneDamageMult": 0.001
+    },
+    {
+      "visual_entity_offset__visNodeId": -1
+    },
+    {
+      "visual_entity_offset__posNodeId": -1
+    },
+    {
+      "countAsAlive": false
+    },
+    {
+      "killLogName": "Uber"
+    },
+    {
+      "killing_sun__damageStacks": 0
+    },
+    {
+      "kill_reward__exp": 2.0
+    },
+    {
+      "kill_reward__expHint": "kill_zombie"
+    },
+    {
+      "ai_target__invisibleTimeTo": 0.0
+    },
+    {
+      "ai_target__bulletInvisibleDist": 40.0
+    },
+    {
+      "ai_target_node__node": "Bip01 Spine1"
+    },
+    {
+      "actions__enabled": true
+    },
+    {
+      "visual_entity_offset__radius": 0.15
+    },
+    {
+      "visual_entity_offset__nodeName": "reye"
+    },
+    {
+      "visual_entity_offset__crawlFactor": 0.0
+    },
+    {
+      "visual_entity_offset__crawlFactorSpeed": 8.0
+    },
+    {
+      "visual_entity_offset__crawlRadius": 0.9
+    },
+    {
+      "ai_target__noiseLevel": 0.0
+    },
+    {
+      "meleeHitThroughRi": true
+    },
+    {
+      "agent_dangers__targetAirplanePilots": false
+    },
+    {
+      "agent_dangers__targetParachuterMaxHeight": 15.0
+    },
+    {
+      "zombie__findTargetCooldown": 2.0
+    },
+    {
+      "zombie__findClosestTargetDist": 15.0
+    },
+    {
+      "zombie__findTargetTime": -1.0
+    },
+    {
+      "collidableToHuman:tag": []
+    },
+    {
+      "override__riextraDamage:tag": []
+    },
+    {
+      "allow_friendly_damage:tag": []
+    },
+    {
+      "_group": {
+        "_replicate": true,
+        "human_hit_tagging__tagStart": -1.0,
+        "human_hit_tagging__tagEnd": -1.0,
+        "human_hit_tagging__currentTagPower": 1.0,
+        "human_hit_tagging__tagPower": 0.7
+      }
+    },
+    {
+      "grid_obj__updateAlways:tag": []
+    },
+    {
+      "anim_state__standStateName:list<t>": [
+        {
+          "i": "lower_stand"
+        },
+        {
+          "i": "lower_stand"
+        }
+      ]
+    },
+    {
+      "anim_state__walkStateName:list<t>": [
+        {
+          "i": "lower_walk"
+        },
+        {
+          "i": "lower_walk"
+        }
+      ]
+    },
+    {
+      "anim_state__runStateName:list<t>": [
+        {
+          "i": "lower_run"
+        },
+        {
+          "i": "lower_run"
+        }
+      ]
+    },
+    {
+      "anim_state__animChannels:list<t>": [
+        {
+          "channel": "upper"
+        },
+        {
+          "channel": "lower"
+        }
+      ]
+    },
+    {
+      "zombie:tag": []
+    },
+    {
+      "human:tag": []
+    },
+    {
+      "aliveCreature:tag": []
+    },
+    {
+      "dm_parts__parts:object": {
+        "Bip01 Head:object": {
+          "dmgMult": 5.0,
+          "armor": 0.0,
+          "type": "head"
+        },
+        "Bip01 Neck:object": {
+          "dmgMult": 5.5,
+          "armor": 0.0,
+          "type": "head"
+        },
+        "Bip01 L Thigh:object": {
+          "dmgMult": 0.6,
+          "armor": 0.0
+        },
+        "Bip01 R Thigh:object": {
+          "dmgMult": 0.6,
+          "armor": 0.0
+        },
+        "Bip01 L Calf:object": {
+          "dmgMult": 0.6,
+          "armor": 0.0
+        },
+        "Bip01 R Calf:object": {
+          "dmgMult": 0.6,
+          "armor": 0.0
+        },
+        "Bip01 Pelvis:object": {
+          "dmgMult": 1.0,
+          "armor": 0.0
+        },
+        "Bip01 Spine:object": {
+          "dmgMult": 1.0,
+          "armor": 0.0
+        },
+        "Bip01 Spine1:object": {
+          "dmgMult": 1.0,
+          "armor": 0.0
+        },
+        "Bip01 R Clavicle:object": {
+          "dmgMult": 1.0,
+          "armor": 0.0
+        },
+        "Bip01 L Clavicle:object": {
+          "dmgMult": 1.0,
+          "armor": 0.0
+        },
+        "Bip01 R UpperArm:object": {
+          "dmgMult": 1.0,
+          "armor": 0.0
+        },
+        "Bip01 L UpperArm:object": {
+          "dmgMult": 1.0,
+          "armor": 0.0
+        },
+        "Bip01 R Forearm:object": {
+          "dmgMult": 1.0,
+          "armor": 0.0
+        },
+        "Bip01 L Forearm:object": {
+          "dmgMult": 1.0,
+          "armor": 0.0
+        }
+      }
+    },
+    {
+      "capsule_approximation__nodeNames:array": [
+        {
+          "node": "Bip01 L Calf"
+        },
+        {
+          "node": "Bip01 L Thigh"
+        },
+        {
+          "node": "Bip01 L UpperArm"
+        },
+        {
+          "node": "Bip01 L Forearm"
+        },
+        {
+          "node": "Bip01 R Calf"
+        },
+        {
+          "node": "Bip01 R Thigh"
+        },
+        {
+          "node": "Bip01 R UpperArm"
+        },
+        {
+          "node": "Bip01 R Forearm"
+        },
+        {
+          "node": "Bip01 Head"
+        }
+      ]
+    },
+    {
+      "capsule_approximation__complexNodeNames:array": {
+        "node:array": [
+          {
+            "node": "Bip01 Spine"
+          },
+          {
+            "node": "Bip01 Spine1"
+          }
+        ]
+      }
+    },
+    {
+      "ai_target": {
+        "_tags": "server"
+      }
+    },
+    {
+      "ai_target_node__nodeId:i": {
+        "value": -1,
+        "_tags": "server"
+      }
+    },
+    {
+      "anim_phys": []
+    },
+    {
+      "possessedByPlr:eid": []
+    },
+    {
+      "actions": []
+    },
+    {
+      "animchar__animStateNames:object": {
+        "upper": "arise",
+        "lower": "arise"
+      }
+    },
+    {
+      "animchar_attaches_bbox": {
+        "_tags": "render"
+      }
+    },
+    {
+      "animchar_attaches_bbox_precalculated": {
+        "_tags": "render"
+      }
+    },
+    {
+      "actions__actions:array": {
+        "action:object": {
+          "name": "stand_melee",
+          "state": "attack",
+          "actionTime": 1.0,
+          "applyAt": 0.6,
+          "props": "content/enlisted/gamedata/actions_enlisted/zombie_claw.blk",
+          "irq": "claw_attack",
+          "varName": "attack_progress"
+        }
+      }
+    },
+    {
+      "actions__actions_enabled:array": {
+        "enabled": true
+      }
+    }
+  ],
+  "zombie_activated_grenade": {
+    "transform": [
+      [1.0,0.0,0.0],
+      [0.0,1.0,0.0],
+      [0.0,0.0,1.0],
+      [0.0,0.0,0.0]
+    ],
+    "on_create__spawnActivatedShellBlk": "content/enlisted/gamedata/weapons/grenades/srcm_mod_35_impact_grenade.blk",
+    "on_create__spawnShellTimer": 0.2,
+    "ownerEid:eid": []
+  },
+  "zombie_activated_molotov": {
+    "transform": [
+      [1.0,0.0,0.0],
+      [0.0,1.0,0.0],
+      [0.0,0.0,1.0],
+      [0.0,0.0,0.0]
+    ],
+    "on_create__spawnActivatedShellBlk": "content/enlisted/gamedata/weapons/shells/ampula_shell.blk",
+    "on_create__spawnShellTimer": 0.2,
+    "ownerEid:eid": []
+  },
+  "zombie_activated_phosphor": {
+    "transform": [
+      [1.0,0.0,0.0],
+      [0.0,1.0,0.0],
+      [0.0,0.0,1.0],
+      [0.0,0.0,0.0]
+    ],
+    "on_create__spawnActivatedShellBlk": "content/enlisted/gamedata/weapons/grenades/uk_no_77_incendiary_grenade_zombie.blk",
+    "on_create__spawnShellTimer": 0.2,
+    "ownerEid:eid": []
+  },
+  "zombie_rush_zombie_explosive": [
+    {
+      "_use": "zombie_rush_zombie"
+    },
+    {
+      "_use": "zombie_crawl_mode"
+    },
+    {
+      "animchar__res": "zombie_cuisine"
+    },
+    {
+      "collres__res": "zombie_cuisine_collision"
+    },
+    {
+      "paid_loot__pointsForKill": 15
+    },
+    {
+      "zombie__grenadeTemplate": "zombie_activated_grenade"
+    },
+    {
+      "navmesh_phys__maxWalkSpeed": 4.0
+    },
+    {
+      "killLogName": "zombie/uber_explosive"
+    },
+    {
+      "_group": {
+        "_tags": "render",
+        "effect__name": "event_zombie_fire_zombie_cmps_fx",
+        "effect": []
+      }
+    }
+  ],
+  "zombie_rush_zombie_explosive_fast": [
+    {
+      "_use": "zombie_rush_zombie"
+    },
+    {
+      "_use": "zombie_crawl_mode"
+    },
+    {
+      "animchar__res": "zombie_cuisine"
+    },
+    {
+      "collres__res": "zombie_cuisine_collision"
+    },
+    {
+      "paid_loot__pointsForKill": 15
+    },
+    {
+      "zombie__grenadeTemplate": "zombie_activated_grenade"
+    },
+    {
+      "navmesh_phys__maxWalkSpeed": 5.0
+    },
+    {
+      "killLogName": "zombie/uber_explosive"
+    },
+    {
+      "_group": {
+        "_tags": "render",
+        "effect__name": "event_zombie_fire_zombie_cmps_fx",
+        "effect": []
+      }
+    }
+  ],
+  "zombie_rush_zombie_explosive_very_fast": [
+    {
+      "_use": "zombie_rush_zombie"
+    },
+    {
+      "_use": "zombie_crawl_mode"
+    },
+    {
+      "animchar__res": "zombie_cuisine"
+    },
+    {
+      "collres__res": "zombie_cuisine_collision"
+    },
+    {
+      "paid_loot__pointsForKill": 15
+    },
+    {
+      "zombie__grenadeTemplate": "zombie_activated_grenade"
+    },
+    {
+      "navmesh_phys__maxWalkSpeed": 6.0
+    },
+    {
+      "killLogName": "zombie/uber_explosive"
+    },
+    {
+      "_group": {
+        "_tags": "render",
+        "effect__name": "event_zombie_fire_zombie_cmps_fx",
+        "effect": []
+      }
+    }
+  ],
+  "zombie_rush_paratrooper_spawner": {
+    "simple_spawner__nextSpawnPeriod": 3.0,
+    "simple_spawner__nextSpawnAtTime": -1.0,
+    "simple_spawner__spawnsCount": 1,
+    "simple_spawner__additionalHeight": 400.0,
+    "simple_spawner__useTeamSpawns": 1,
+    "simple_spawner__randomRadius": 20.0,
+    "simple_spawner__template": "zombie_rush_zombie_paratrooper",
+    "isAlive": true,
+    "simple_spawner__zonesPos:list<p3>": [],
+    "zombie:tag": []
+  },
+  "zombie_rush_paratrooper_five_spawner": {
+    "_use": "zombie_rush_paratrooper_spawner",
+    "simple_spawner__spawnsCount": 5,
+    "killLogName": "zombie/uber_paratrooper"
+  },
+  "zombie_rush_zombie_paratrooper": [
+    {
+      "_use": "zombie_mp40_armored"
+    },
+    {
+      "_use": "supply_box_parachute"
+    },
+    {
+      "zombie__paratrooperHeight": 300.0
+    },
+    {
+      "parachute__autoDeployHeight": 300.0
+    },
+    {
+      "killLogName": "zombie/uber_paratrooper"
+    }
+  ],
+  "zombie_rush_zombie_phosphor": [
+    {
+      "_use": "zombie_rush_zombie"
+    },
+    {
+      "_use": "zombie_crawl_mode"
+    },
+    {
+      "animchar__res": "zombie_cuisine"
+    },
+    {
+      "collres__res": "zombie_cuisine_collision"
+    },
+    {
+      "paid_loot__pointsForKill": 15
+    },
+    {
+      "killLogName": "zombie/uber_explosive"
+    },
+    {
+      "zombie__grenadeTemplate": "zombie_activated_phosphor"
+    },
+    {
+      "navmesh_phys__maxWalkSpeed": 4.0
+    },
+    {
+      "_group": {
+        "_tags": "render",
+        "effect__name": "event_zombie_fire_zombie_cmps_fx",
+        "effect": []
+      }
+    }
+  ],
+  "zombie_rush_zombie_phosphor_fast": [
+    {
+      "_use": "zombie_rush_zombie"
+    },
+    {
+      "_use": "zombie_crawl_mode"
+    },
+    {
+      "animchar__res": "zombie_cuisine"
+    },
+    {
+      "collres__res": "zombie_cuisine_collision"
+    },
+    {
+      "paid_loot__pointsForKill": 15
+    },
+    {
+      "killLogName": "zombie/uber_explosive"
+    },
+    {
+      "zombie__grenadeTemplate": "zombie_activated_phosphor"
+    },
+    {
+      "navmesh_phys__maxWalkSpeed": 5.0
+    },
+    {
+      "_group": {
+        "_tags": "render",
+        "effect__name": "event_zombie_fire_zombie_cmps_fx",
+        "effect": []
+      }
+    }
+  ],
+  "zombie_rush_zombie_phosphor_very_fast": [
+    {
+      "_use": "zombie_rush_zombie"
+    },
+    {
+      "_use": "zombie_crawl_mode"
+    },
+    {
+      "animchar__res": "zombie_cuisine"
+    },
+    {
+      "collres__res": "zombie_cuisine_collision"
+    },
+    {
+      "paid_loot__pointsForKill": 15
+    },
+    {
+      "killLogName": "zombie/uber_explosive"
+    },
+    {
+      "zombie__grenadeTemplate": "zombie_activated_phosphor"
+    },
+    {
+      "navmesh_phys__maxWalkSpeed": 6.0
+    },
+    {
+      "_group": {
+        "_tags": "render",
+        "effect__name": "event_zombie_fire_zombie_cmps_fx",
+        "effect": []
+      }
+    }
+  ],
+  "zombie_rush_zombie_fire": {
+    "_use": "zombie_rush_zombie",
+    "animchar__res": "zombie_cuisine",
+    "collres__res": "zombie_cuisine_collision",
+    "paid_loot__pointsForKill": 15,
+    "killLogName": "zombie/uber_explosive",
+    "zombie__grenadeTemplate": "zombie_activated_molotov",
+    "navmesh_phys__maxWalkSpeed": 4.0,
+    "_group": {
+      "_tags": "render",
+      "effect__name": "fire_character_p_fire_2_fx",
+      "effect": []
+    }
+  },
+  "zombie_rush_zombie_dead": [
+    {
+      "_use": "zombie_rush_zombie"
+    },
+    {
+      "_use": "dead_entity"
+    },
+    {
+      "paid_loot__pointsForKill": 10
+    },
+    {
+      "animchar__physSymDependence:tag": []
+    }
+  ],
+  "affected_by_attract_position": {
+    "attract_position__eid:eid": []
+  },
+  "nzombie_ai_without_bullet_reaction": [
+    {
+      "_use": "beh_tree_regular_check"
+    },
+    {
+      "_use": "agent_dangers_hit_reaction"
+    },
+    {
+      "_use": "get_reaction_offender_ai"
+    },
+    {
+      "_use": "corridor_walker"
+    },
+    {
+      "_use": "walker_agent_danger_calc"
+    },
+    {
+      "_use": "affected_by_attract_position"
+    },
+    {
+      "_use": "obstacle_avoider"
+    },
+    {
+      "_use": "door_obstacle_handler"
+    },
+    {
+      "_use": "destructable_obstacle_handler"
+    },
+    {
+      "_use": "stuck_detector"
+    },
+    {
+      "stuck_detector_debug__enabled": false
+    },
+    {
+      "walker_agent__velViscosity": 0.3
+    },
+    {
+      "walker_agent__velFactor": 1.0
+    },
+    {
+      "walker_agent__aimViscosity": 0.5
+    },
+    {
+      "walker_agent__aimSpeed": 1050.0
+    },
+    {
+      "_tracked": "walker_agent__targetEid"
+    },
+    {
+      "walker_agent__targetPos": [0.0,0.0,0.0]
+    },
+    {
+      "walker_agent__standShootLocalPos": [0.0,1.2,0.0]
+    },
+    {
+      "agent_dangers__blindDistance": 30.0
+    },
+    {
+      "agent_dangers_calc__dangerMeterMult": 1.0
+    },
+    {
+      "beh_tree__node": "nzombie_attacker"
+    },
+    {
+      "beh_tree__refs__wander": "sub.nAttackPriorityTarget"
+    },
+    {
+      "beh_tree__refs__attack": "sub.attackPlayerOpportunistic"
+    },
+    {
+      "beh_tree__debug": false
+    },
+    {
+      "beh_tree__enabled": true
+    },
+    {
+      "beh_tree__blackboard__enemyRadius": 150.0
+    },
+    {
+      "obstacle_avoider__avoidsDamageZones": false
+    },
+    {
+      "agent_dangers__maxDangerDist": 30.0
+    },
+    {
+      "agent_dangers__frustumAngle": 40.0
+    },
+    {
+      "agent_dangers__projectileDist": 4.0
+    },
+    {
+      "agent_dangers__decrease": 5.0
+    },
+    {
+      "agent_dangers__timeFromDetection": 3.0
+    },
+    {
+      "agent_dangers__hmapTraceOffset": [0.0,-0.1,0.0]
+    },
+    {
+      "agent_dangers__nextDangersCheckTime": 0.0
+    },
+    {
+      "agent_dangers__nextDangersTraceTime": 0.0
+    },
+    {
+      "agent_dangers__dangerIncrease": 5.0
+    },
+    {
+      "agent_dangers__dangerOutIncrease": 0.0
+    },
+    {
+      "agent_dangers__maxDangerDistMult": 0.3
+    },
+    {
+      "agent_dangers__standShootPos": [0.0,0.0,0.0]
+    },
+    {
+      "agent_dangers__standShootDir": [0.0,0.0,0.0]
+    },
+    {
+      "agent_dangers__rayMatId": -1
+    },
+    {
+      "agent_dangers__rayMat": "aimRay"
+    },
+    {
+      "walker_agent__targetEid:eid": []
+    },
+    {
+      "beh_tree__debugState:t": {
+        "_tags": "dev",
+        "value": ""
+      }
+    },
+    {
+      "beh_tree:BehaviourTree": {
+        "_tags": "server"
+      }
+    },
+    {
+      "agent_dangers": {
+        "_tags": "server"
+      }
+    }
+  ],
+  "nzombie_ai": [
+    {
+      "_use": "nzombie_ai_without_bullet_reaction"
+    },
+    {
+      "_use": "agent_dangers_bullet_reaction"
+    }
+  ],
+  "base_nzombie_sound": [
+    {
+      "_use": "common_human_sound_components"
+    },
+    {
+      "_use": "manageable_sound_control"
+    },
+    {
+      "_use": "human_voice_effects"
+    },
+    {
+      "_use": "base_human_steps_sound"
+    },
+    {
+      "_use": "human_steps_sound_paths"
+    },
+    {
+      "_use": "base_human_voice_sound"
+    },
+    {
+      "_use": "human_hit_cry_sound"
+    },
+    {
+      "_use": "human_death_sound"
+    },
+    {
+      "_use": "base_human_hit_sound"
+    },
+    {
+      "_use": "human_hit_sound_paths"
+    },
+    {
+      "_use": "human_intersected_with_projectile_sound_paths"
+    },
+    {
+      "_use": "human_idle_sound"
+    },
+    {
+      "_group": {
+        "_tags": "sound",
+        "sound_control__range": 75.0
+      }
+    },
+    {
+      "_group": {
+        "_tags": "sound",
+        "human_idle_sound__stealableGroupName": "zombieIdle",
+        "human_idle_sound__stealableTargetInstances": 2
+      }
+    },
+    {
+      "human_voice_effect__allOrderedEffects:shared:list<t>": {
+        "_tags": "sound",
+        "id": "dead"
+      }
+    }
+  ],
+  "zombie_rush_zombie_sound": [
+    {
+      "_use": "base_nzombie_sound"
+    },
+    {
+      "_use": "base_human_melee_action_sound"
+    },
+    {
+      "_group": {
+        "_tags": "sound",
+        "human_steps_sound__animSpeedMul": 8.0,
+        "human_steps_sound__enemyVolume": 3.0,
+        "human_steps_sound_generator__enableAlways": true
+      }
+    },
+    {
+      "_group": {
+        "_tags": "sound",
+        "human_voice_sound__path:shared:object": {
+          "path": "events/z/enemy/walker/z/voice_fx"
+        },
+        "human_voice_sound__descs:shared:object": {
+          "death:object": {
+            "name": "death"
+          },
+          "seeDanger:object": {
+            "name": "seedanger"
+          }
+        },
+        "human_voice_sound__irqs:shared:object": {
+          "zombie_attack_sound:object": {
+            "name": "melee/hands"
+          }
+        },
+        "human_voice_sound__oneshots:shared:object": {
+          "hitCry:object": {
+            "name": "hit"
+          }
+        }
+      }
+    },
+    {
+      "_group": {
+        "_tags": "sound",
+        "human_steps_sound__runVoiceFx:shared:object": {
+          "enemy": "events/z/enemy/walker/z/voice_fx/run_to_player"
+        }
+      }
+    },
+    {
+      "_group": {
+        "_tags": "sound",
+        "human_idle_sound__paths:shared:object": {
+          "idleState:object": {
+            "enemy": "events/z/enemy/walker/z/voice_fx/idle"
+          }
+        }
+      }
+    }
+  ],
+  "base_zombie_armored_soldier_sound": [
+    {
+      "_use": "base_nzombie_sound"
+    },
+    {
+      "_group": {
+        "_tags": "sound",
+        "human_steps_sound__animSpeedMul": 8.0,
+        "human_steps_sound__enemyVolume": 2.0,
+        "human_steps_sound_generator__enableAlways": true
+      }
+    },
+    {
+      "_group": {
+        "_tags": "sound",
+        "human_voice_sound__path:shared:object": {
+          "path": "events/z/enemy/walker/z_soldier/voice_fx"
+        },
+        "human_voice_sound__descs:shared:object": {
+          "death:object": {
+            "name": "death"
+          },
+          "seeDanger:object": {
+            "name": "sprint/scream"
+          }
+        },
+        "human_voice_sound__oneshots:shared:object": {
+          "hitCry:object": {
+            "name": "hit"
+          }
+        }
+      }
+    },
+    {
+      "_group": {
+        "_tags": "sound",
+        "human_idle_sound__paths:shared:object": {
+          "idleState:object": {
+            "enemy": "events/z/enemy/walker/z_soldier/voice_fx/idle"
+          }
+        }
+      }
+    }
+  ],
+  "zombie_rush_zombie": [
+    {
+      "_use": "nzombie_base"
+    },
+    {
+      "_use": "nzombie_ai_without_bullet_reaction"
+    },
+    {
+      "_use": "zombie_rush_zombie_sound"
+    },
+    {
+      "entity__recreateToOnDeath": "zombie_rush_zombie_dead"
+    },
+    {
+      "team": 3
+    },
+    {
+      "rush_zombie__switchToPriorityTargetChance": 0.1
+    },
+    {
+      "rush_zombie__attackChance": 0.025
+    },
+    {
+      "beh_tree__node": "nzombie_attacker"
+    },
+    {
+      "beh_tree__refs__wander": "sub.nAttackPriorityTarget"
+    },
+    {
+      "effect__effectOnCreation": "invisibility_in_smoke"
+    },
+    {
+      "paid_loot__pointsForKill": 10
+    },
+    {
+      "killLogName": "zombie/uber_melee"
+    },
+    {
+      "beh_tree__blackboard__enemyRadius": 200.0
+    },
+    {
+      "nphys__no_obstacle_navigation:tag": []
+    },
+    {
+      "deathDrop:array": []
+    },
+    {
+      "walker_agent__priorityTarget:eid": []
+    },
+    {
+      "_group": {
+        "projectile_impulse__cinematicArtistryMult": 0.1,
+        "projectile_impulse__cinematicArtistryMultDead": 0.0,
+        "projectile_impulse__maxVelocity": 2.0,
+        "projectile_impulse__maxOmega": 3.0,
+        "_tags": "gameClient"
+      }
+    }
+  ],
+  "zombie_walk_zombie": [
+    {
+      "_use": "nzombie_base"
+    },
+    {
+      "_use": "nzombie_ai_without_bullet_reaction"
+    },
+    {
+      "_use": "zombie_rush_zombie_sound"
+    },
+    {
+      "entity__recreateToOnDeath": "zombie_rush_zombie_dead"
+    },
+    {
+      "team": 3
+    },
+    {
+      "rush_zombie__switchToPriorityTargetChance": 0.1
+    },
+    {
+      "rush_zombie__attackChance": 0.025
+    },
+    {
+      "beh_tree__node": "nzombie_attacker"
+    },
+    {
+      "beh_tree__refs__wander": "sub.nAttackPriorityTarget"
+    },
+    {
+      "effect__effectOnCreation": "invisibility_in_smoke"
+    },
+    {
+      "navmesh_phys__maxWalkSpeed": 3.5
+    },
+    {
+      "paid_loot__pointsForKill": 10
+    },
+    {
+      "killLogName": "zombie/uber_melee"
+    },
+    {
+      "beh_tree__blackboard__enemyRadius": 200.0
+    },
+    {
+      "nphys__no_obstacle_navigation:tag": []
+    },
+    {
+      "deathDrop:array": []
+    },
+    {
+      "walker_agent__priorityTarget:eid": []
+    },
+    {
+      "_group": {
+        "projectile_impulse__cinematicArtistryMult": 0.1,
+        "projectile_impulse__cinematicArtistryMultDead": 0.0,
+        "projectile_impulse__maxVelocity": 2.0,
+        "projectile_impulse__maxOmega": 3.0,
+        "_tags": "gameClient"
+      }
+    }
+  ],
+  "zombie_giant_zombie": [
+    {
+      "_use": "nzombie_base"
+    },
+    {
+      "_use": "nzombie_ai_without_bullet_reaction"
+    },
+    {
+      "_use": "zombie_rush_zombie_sound"
+    },
+    {
+      "animchar__res": "ger_zombie_solder_giant"
+    },
+    {
+      "collres__res": "ger_zombie_solder_giant_collision"
+    },
+    {
+      "entity__recreateToOnDeath": "zombie_rush_zombie_dead"
+    },
+    {
+      "team": 3
+    },
+    {
+      "rush_zombie__switchToPriorityTargetChance": 0.1
+    },
+    {
+      "rush_zombie__attackChance": 0.025
+    },
+    {
+      "beh_tree__node": "nzombie_attacker"
+    },
+    {
+      "beh_tree__refs__wander": "sub.nAttackPriorityTarget"
+    },
+    {
+      "effect__effectOnCreation": "invisibility_in_smoke"
+    },
+    {
+      "paid_loot__pointsForKill": 400
+    },
+    {
+      "nPhys__animcharScale": 1.7
+    },
+    {
+      "paid_loot__pointsPerDamage": 0.1
+    },
+    {
+      "hitpoints__hp": 2500.0
+    },
+    {
+      "hitpoints__maxHp": 2500.0
+    },
+    {
+      "hitpoints__scaleHp": 2500.0
+    },
+    {
+      "hitpoints__hpThreshold": 15.0
+    },
+    {
+      "hitpoints__hpRecoverySpd": 0.0
+    },
+    {
+      "hitpoints__stoppingPowerThreshold": 20.0
+    },
+    {
+      "navmesh_phys__maxWalkSpeed": 5.5
+    },
+    {
+      "beh_tree__blackboard__enemyRadius": 200.0
+    },
+    {
+      "killLogName": "zombie/uber_giant"
+    },
+    {
+      "nphys__no_obstacle_navigation:tag": []
+    },
+    {
+      "random_animchar_vars__varNames:list<t>": [
+        {
+          "name": "spine1_rot_x"
+        },
+        {
+          "name": "spine_rot_x"
+        },
+        {
+          "name": "spine1_rot_z"
+        },
+        {
+          "name": "spine_rot_z"
+        },
+        {
+          "name": "run_anim_selecror"
+        }
+      ]
+    },
+    {
+      "random_animchar_vars__varLimits:list<p2>": [
+        {
+          "range": [-5.0,5.0]
+        },
+        {
+          "range": [-5.0,5.0]
+        },
+        {
+          "range": [-5.0,5.0]
+        },
+        {
+          "range": [-5.0,5.0]
+        },
+        {
+          "range": [1.6,2.4]
+        }
+      ]
+    },
+    {
+      "actions__actions:array": {
+        "action:object": {
+          "name": "stand_melee",
+          "state": "attack",
+          "actionTime": 1.0,
+          "applyAt": 0.3,
+          "props": "content/enlisted/gamedata/actions_enlisted/zombie_big_claw.blk",
+          "irq": "claw_attack",
+          "varName": "attack_progress"
+        }
+      }
+    },
+    {
+      "loc_snapshots__scaledTransform:tag": []
+    },
+    {
+      "deathDrop:array": []
+    },
+    {
+      "walker_agent__priorityTarget:eid": []
+    },
+    {
+      "_group": {
+        "projectile_impulse__cinematicArtistryMult": 0.1,
+        "projectile_impulse__cinematicArtistryMultDead": 0.0,
+        "projectile_impulse__maxVelocity": 2.0,
+        "projectile_impulse__maxOmega": 3.0,
+        "_tags": "gameClient"
+      }
+    },
+    {
+      "_group": {
+        "_tags": "sound",
+        "human_steps_sound__animSpeedMul": 8.0,
+        "human_steps_sound__enemyVolume": 3.0,
+        "human_steps_sound_generator__enableAlways": true
+      }
+    },
+    {
+      "_group": {
+        "_tags": "sound",
+        "human_voice_sound__path:shared:object": {
+          "path": "events/z/enemy/walker/z_giant/voice_fx"
+        },
+        "human_voice_sound__descs:shared:object": {
+          "death:object": {
+            "name": "death"
+          },
+          "seeDanger:object": {
+            "name": "seedanger"
+          }
+        },
+        "human_voice_sound__irqs:shared:object": {
+          "zombie_attack_sound:object": {
+            "name": "melee/hands"
+          }
+        },
+        "human_voice_sound__oneshots:shared:object": {
+          "hitCry:object": {
+            "name": "hit"
+          }
+        }
+      }
+    },
+    {
+      "_group": {
+        "_tags": "sound",
+        "human_steps_sound__runVoiceFx:shared:object": {
+          "enemy": "events/z/enemy/walker/z_giant/voice_fx/run_to_player"
+        }
+      }
+    },
+    {
+      "_group": {
+        "_tags": "sound",
+        "human_idle_sound__paths:shared:object": {
+          "idleState:object": {
+            "enemy": "events/z/enemy/walker/z_giant/voice_fx/idle"
+          }
+        }
+      }
+    }
+  ],
+  "zombie_luger_armored": {
+    "_use": "base_zombie_armored_soldier",
+    "killLogName": "zombie/uber_armored",
+    "human_weap__weapTemplates:object": {
+      "primary": "p08_luger_zombie_gun"
+    },
+    "human_weap__weapInfo:array": [
+      {
+        "human_weap__weapInfo:object": {
+          "reserveAmmoTemplate": "p08_luger_magazine",
+          "numReserveAmmo": 100
+        }
+      },
+      {
+        "human_weap__weapInfo:object": []
+      },
+      {
+        "human_weap__weapInfo:object": []
+      },
+      {
+        "human_weap__weapInfo:object": []
+      },
+      {
+        "human_weap__weapInfo:object": []
+      }
+    ],
+    "_group": {
+      "_tags": "server",
+      "human_weap__template_deps_list:list<t>": [
+        {
+          "item": "p08_luger_magazine"
+        },
+        {
+          "item": "p08_luger_zombie_gun"
+        }
+      ]
+    }
+  },
+  "zombie_mp40_armored": {
+    "_use": "base_zombie_armored_soldier",
+    "killLogName": "zombie/uber_armored",
+    "human_weap__weapTemplates:object": {
+      "primary": "mp40_zombie_gun"
+    },
+    "human_weap__weapInfo:array": [
+      {
+        "human_weap__weapInfo:object": {
+          "reserveAmmoTemplate": "mp40_magazine",
+          "numReserveAmmo": 100
+        }
+      },
+      {
+        "human_weap__weapInfo:object": []
+      },
+      {
+        "human_weap__weapInfo:object": []
+      },
+      {
+        "human_weap__weapInfo:object": []
+      },
+      {
+        "human_weap__weapInfo:object": []
+      }
+    ],
+    "_group": {
+      "_tags": "server",
+      "human_weap__template_deps_list:list<t>": [
+        {
+          "item": "mp40_magazine"
+        },
+        {
+          "item": "mp40_zombie_gun"
+        }
+      ]
+    },
+    "walker_agent__distanceToShootError:shared:array": [
+      {
+        "error:object": {
+          "distance": 0.0,
+          "min": [0.0,0.0],
+          "max": [0.5,1.0],
+          "maxEnd": [0.0,0.0]
+        }
+      },
+      {
+        "error:object": {
+          "distance": 25.0,
+          "min": [0.5,0.8],
+          "max": [0.5,1.2],
+          "maxEnd": [0.3,0.5]
+        }
+      },
+      {
+        "error:object": {
+          "distance": 50.0,
+          "min": [0.7,1.3],
+          "max": [2.0,2.0],
+          "maxEnd": [1.3,1.4]
+        }
+      },
+      {
+        "error:object": {
+          "distance": 100.0,
+          "min": [0.6,1.4],
+          "max": [2.0,2.0],
+          "maxEnd": [2.0,2.0]
+        }
+      }
+    ]
+  },
+  "zombie_stg_44_armored": {
+    "_use": "base_zombie_armored_soldier",
+    "killLogName": "zombie/uber_armored",
+    "human_weap__weapTemplates:object": {
+      "primary": "stg_44_zombie_gun"
+    },
+    "human_weap__weapInfo:array": [
+      {
+        "human_weap__weapInfo:object": {
+          "reserveAmmoTemplate": "stg_44_magazine",
+          "numReserveAmmo": 100
+        }
+      },
+      {
+        "human_weap__weapInfo:object": []
+      },
+      {
+        "human_weap__weapInfo:object": []
+      },
+      {
+        "human_weap__weapInfo:object": []
+      },
+      {
+        "human_weap__weapInfo:object": []
+      }
+    ],
+    "_group": {
+      "_tags": "server",
+      "human_weap__template_deps_list:list<t>": [
+        {
+          "item": "stg_44_magazine"
+        },
+        {
+          "item": "stg_44_zombie_gun"
+        }
+      ]
+    },
+    "walker_agent__distanceToShootError:shared:array": [
+      {
+        "error:object": {
+          "distance": 0.0,
+          "min": [0.0,0.0],
+          "max": [0.5,0.9],
+          "maxEnd": [0.0,0.0]
+        }
+      },
+      {
+        "error:object": {
+          "distance": 25.0,
+          "min": [0.3,0.7],
+          "max": [0.6,1.1],
+          "maxEnd": [0.3,0.6]
+        }
+      },
+      {
+        "error:object": {
+          "distance": 50.0,
+          "min": [0.6,1.3],
+          "max": [2.0,2.0],
+          "maxEnd": [1.3,1.1]
+        }
+      },
+      {
+        "error:object": {
+          "distance": 100.0,
+          "min": [0.6,1.3],
+          "max": [2.0,2.0],
+          "maxEnd": [2.0,2.0]
+        }
+      }
+    ]
+  },
+  "zombie_mp_3008_armored": {
+    "_use": "base_zombie_armored_soldier",
+    "killLogName": "zombie/uber_armored",
+    "human_weap__weapTemplates:object": {
+      "primary": "mp_3008_zombie_gun"
+    },
+    "human_weap__weapInfo:array": [
+      {
+        "human_weap__weapInfo:object": {
+          "reserveAmmoTemplate": "mp40_magazine",
+          "numReserveAmmo": 100
+        }
+      },
+      {
+        "human_weap__weapInfo:object": []
+      },
+      {
+        "human_weap__weapInfo:object": []
+      },
+      {
+        "human_weap__weapInfo:object": []
+      },
+      {
+        "human_weap__weapInfo:object": []
+      }
+    ],
+    "_group": {
+      "_tags": "server",
+      "human_weap__template_deps_list:list<t>": [
+        {
+          "item": "mp40_magazine"
+        },
+        {
+          "item": "mp_3008_zombie_gun"
+        }
+      ]
+    }
+  },
+  "zombie_ppd_armored": {
+    "_use": "base_zombie_armored_soldier",
+    "killLogName": "zombie/uber_armored",
+    "human_weap__weapTemplates:object": {
+      "primary": "ppd_40_zombie_gun"
+    },
+    "human_weap__weapInfo:array": [
+      {
+        "human_weap__weapInfo:object": {
+          "reserveAmmoTemplate": "ppsh_drum",
+          "numReserveAmmo": 100
+        }
+      },
+      {
+        "human_weap__weapInfo:object": []
+      },
+      {
+        "human_weap__weapInfo:object": []
+      },
+      {
+        "human_weap__weapInfo:object": []
+      },
+      {
+        "human_weap__weapInfo:object": []
+      }
+    ],
+    "_group": {
+      "_tags": "server",
+      "human_weap__template_deps_list:list<t>": [
+        {
+          "item": "ppsh_drum"
+        },
+        {
+          "item": "ppd_40_gun"
+        }
+      ]
+    },
+    "walker_agent__distanceToShootError:shared:array": [
+      {
+        "error:object": {
+          "distance": 0.0,
+          "min": [0.0,0.0],
+          "max": [0.5,1.0],
+          "maxEnd": [0.0,0.0]
+        }
+      },
+      {
+        "error:object": {
+          "distance": 25.0,
+          "min": [0.5,0.8],
+          "max": [0.5,1.2],
+          "maxEnd": [0.3,0.5]
+        }
+      },
+      {
+        "error:object": {
+          "distance": 50.0,
+          "min": [0.7,1.3],
+          "max": [2.0,2.0],
+          "maxEnd": [1.3,1.4]
+        }
+      },
+      {
+        "error:object": {
+          "distance": 100.0,
+          "min": [0.6,1.4],
+          "max": [2.0,2.0],
+          "maxEnd": [2.0,2.0]
+        }
+      }
+    ]
+  },
+  "zombie_flammenwerfer_armored": {
+    "_use": "base_zombie_armored_soldier",
+    "zombie__grenadeTemplate": "zombie_activated_molotov",
+    "navmesh_phys__maxWalkSpeed": 4.0,
+    "killLogName": "zombie/uber_flammenwerfer",
+    "human_weap__weapTemplates:object": {
+      "primary": "flammenwerfer_35_zombie_gun"
+    },
+    "human_weap__weapInfo:array": [
+      {
+        "human_weap__weapInfo:object": {
+          "reserveAmmoTemplate": "flamethrower_fuel_tank",
+          "numReserveAmmo": 100
+        }
+      },
+      {
+        "human_weap__weapInfo:object": []
+      },
+      {
+        "human_weap__weapInfo:object": []
+      },
+      {
+        "human_weap__weapInfo:object": []
+      },
+      {
+        "human_weap__weapInfo:object": []
+      }
+    ],
+    "_group": {
+      "_tags": "server",
+      "human_weap__template_deps_list:list<t>": [
+        {
+          "item": "flamethrower_fuel_tank"
+        },
+        {
+          "item": "flammenwerfer_35_zombie_gun"
+        }
+      ]
+    }
+  },
+  "zombie_sturmpistole_armored": {
+    "_use": "base_zombie_armored_soldier",
+    "killLogName": "zombie/uber_launcher",
+    "human_weap__weapTemplates:object": {
+      "primary": "sturmpistole_zombie_gun"
+    },
+    "human_weap__weapInfo:array": [
+      {
+        "human_weap__weapInfo:object": {
+          "reserveAmmoTemplate": "panzerwurfkorper_42_item",
+          "numReserveAmmo": 100
+        }
+      },
+      {
+        "human_weap__weapInfo:object": []
+      },
+      {
+        "human_weap__weapInfo:object": []
+      },
+      {
+        "human_weap__weapInfo:object": []
+      },
+      {
+        "human_weap__weapInfo:object": []
+      }
+    ],
+    "_group": {
+      "_tags": "server",
+      "human_weap__template_deps_list:list<t>": [
+        {
+          "item": "panzerwurfkorper_42_item"
+        },
+        {
+          "item": "sturmpistole_zombie_gun"
+        }
+      ]
+    }
+  },
+  "zombie_panzerfaust_armored": {
+    "_use": "base_zombie_armored_soldier",
+    "killLogName": "zombie/uber_launcher",
+    "human_weap__weapTemplates:object": {
+      "primary": "panzerfaust_60_zombie_gun"
+    },
+    "human_weap__weapInfo:array": [
+      {
+        "human_weap__weapInfo:object": {
+          "reserveAmmoTemplate": "panzerfaust_60_shell_item",
+          "numReserveAmmo": 100
+        }
+      },
+      {
+        "human_weap__weapInfo:object": []
+      },
+      {
+        "human_weap__weapInfo:object": []
+      },
+      {
+        "human_weap__weapInfo:object": []
+      },
+      {
+        "human_weap__weapInfo:object": []
+      }
+    ],
+    "_group": {
+      "_tags": "server",
+      "human_weap__template_deps_list:list<t>": [
+        {
+          "item": "panzerfaust_60_shell_item"
+        },
+        {
+          "item": "panzerfaust_60_zombie_gun"
+        }
+      ]
+    }
+  },
+  "zombie_gewehr_armored": {
+    "_use": "base_zombie_armored_soldier"
+  },
+  "base_zombie_armored_soldier": [
+    {
+      "_use": "usa_soldier_no_sound"
+    },
+    {
+      "_use": "enlisted_visible_base_soldier"
+    },
+    {
+      "_use": "dev_soldier_tag"
+    },
+    {
+      "_use": "stats_count_as_kill"
+    },
+    {
+      "_use": "base_zombie_armored_soldier_sound"
+    },
+    {
+      "walker_agent__targetPos": [0.0,0.0,0.0]
+    },
+    {
+      "beh_tree__data__aggressiveBeh": "sub.zombieAggressiveBeh"
+    },
+    {
+      "beh_tree__refs__behaviour": "sub.zombieAggressiveBeh"
+    },
+    {
+      "spawn_immunity__immuneDistance": 0.0
+    },
+    {
+      "spawn_immunity__timer": 0.0
+    },
+    {
+      "beh_tree__node": "squad_member"
+    },
+    {
+      "animchar__res": "zombie_ger_summer_01"
+    },
+    {
+      "collres__res": "zombie_ger_summer_01_collision"
+    },
+    {
+      "team": 3
+    },
+    {
+      "entity__recreateToOnDeath": "dead_enlisted_zombie_soldier"
+    },
+    {
+      "paid_loot__pointsForKill": 20
+    },
+    {
+      "zombie__findTargetCooldown": 2.0
+    },
+    {
+      "zombie__findClosestTargetDist": 15.0
+    },
+    {
+      "zombie__findTargetTime": -1.0
+    },
+    {
+      "allow_friendly_damage:tag": []
+    },
+    {
+      "walker_agent__targetEid:eid": []
+    },
+    {
+      "walker_agent__priorityTarget:eid": []
+    },
+    {
+      "human_weap__weapTemplates:object": {
+        "primary": "gewehr_43_gun"
+      }
+    },
+    {
+      "human_weap__weapInfo:array": [
+        {
+          "human_weap__weapInfo:object": {
+            "reserveAmmoTemplate": "gewehr_43_magazine",
+            "numReserveAmmo": 100
+          }
+        },
+        {
+          "human_weap__weapInfo:object": []
+        },
+        {
+          "human_weap__weapInfo:object": []
+        },
+        {
+          "human_weap__weapInfo:object": []
+        },
+        {
+          "human_weap__weapInfo:object": []
+        }
+      ]
+    },
+    {
+      "_group": {
+        "_tags": "server",
+        "human_weap__template_deps_list:list<t>": {
+          "item": "gewehr_43_magazine",
+          "iten": "gewehr_43_gun"
+        }
+      }
+    },
+    {
+      "devSoldier:tag": []
+    },
+    {
+      "zombie:tag": []
+    },
+    {
+      "walker_agent__distanceToShootError:shared:array": [
+        {
+          "error:object": {
+            "distance": 0.0,
+            "min": [0.0,0.0],
+            "max": [0.7,1.4],
+            "maxEnd": [0.0,0.0]
+          }
+        },
+        {
+          "error:object": {
+            "distance": 25.0,
+            "min": [0.7,1.1],
+            "max": [1.0,1.5],
+            "maxEnd": [0.4,0.7]
+          }
+        },
+        {
+          "error:object": {
+            "distance": 50.0,
+            "min": [1.1,1.6],
+            "max": [2.0,2.0],
+            "maxEnd": [1.7,2.0]
+          }
+        },
+        {
+          "error:object": {
+            "distance": 100.0,
+            "min": [1.0,1.6],
+            "max": [2.0,2.0],
+            "maxEnd": [3.0,3.0]
+          }
+        }
+      ]
+    }
+  ],
+  "dead_enlisted_zombie_soldier": [
+    {
+      "_use": "dead_entity"
+    },
+    {
+      "_use": "base_zombie_armored_soldier"
+    },
+    {
+      "_use": "ragdoll_common"
+    },
+    {
+      "animchar__physSymDependence:tag": []
+    }
+  ],
+  "p08_luger_zombie_gun": {
+    "_use": "p08_luger_gun",
+    "gun_spread__maxDeltaAngle": 9.0,
+    "gun_deviation__omegaDevInc": [1.0,5.0],
+    "gun_deviation__movementDevInc": [0.0,45.0]
+  },
+  "mp_3008_zombie_gun": {
+    "_use": "mp_3008_gun",
+    "gun_spread__maxDeltaAngle": 9.0,
+    "gun_deviation__omegaDevInc": [0.5,3.0],
+    "gun_deviation__movementDevInc": [0.0,45.0]
+  },
+  "mp40_zombie_gun": {
+    "_use": "mp40_gun",
+    "gun_spread__maxDeltaAngle": 9.0,
+    "gun_deviation__omegaDevInc": [0.5,3.0],
+    "gun_deviation__movementDevInc": [0.0,45.0]
+  },
+  "ppd_40_zombie_gun": {
+    "_use": "ppd_40_gun",
+    "gun_spread__maxDeltaAngle": 9.0,
+    "gun_deviation__omegaDevInc": [0.5,3.0],
+    "gun_deviation__movementDevInc": [0.0,45.0]
+  },
+  "flammenwerfer_35_zombie_gun": {
+    "_use": "flammenwerfer_35_gun",
+    "gun_spread__maxDeltaAngle": 9.0,
+    "gun_deviation__omegaDevInc": [0.5,3.0],
+    "gun_deviation__movementDevInc": [0.0,45.0]
+  },
+  "sturmpistole_zombie_gun": {
+    "_use": "sturmpistole_gun",
+    "gun_spread__maxDeltaAngle": 9.0,
+    "gun_deviation__omegaDevInc": [0.35,2.5],
+    "gun_deviation__movementDevInc": [0.0,45.0]
+  },
+  "panzerfaust_60_zombie_gun": {
+    "_use": "panzerfaust_60_gun",
+    "gun_spread__maxDeltaAngle": 9.0,
+    "gun_deviation__omegaDevInc": [0.35,2.5],
+    "gun_deviation__movementDevInc": [0.0,45.0],
+    "combatFiringRange": [5.0,45.0]
+  },
+  "blaster_zombie_gun": [
+    {
+      "_use": "equipable_gun"
+    },
+    {
+      "_use": "pistol_ww2_preset"
+    },
+    {
+      "_use": "mauser_c96"
+    },
+    {
+      "_use": "space_blaster_muzzle_preset"
+    },
+    {
+      "_use": "hit_effect_group_14_20mm"
+    },
+    {
+      "_use": "gun_overheat"
+    },
+    {
+      "_use": "gun_overheat_visual"
+    },
+    {
+      "_use": "rifle_gun_aim_sound"
+    },
+    {
+      "_use": "gun_with_initial_ammo"
+    },
+    {
+      "_use": "paid_loot_ressuply"
+    },
+    {
+      "paid_loot__ressuplyCost": 250
+    },
+    {
+      "animchar__res": "blaster_zombie_char"
+    },
+    {
+      "item__name": "items/blaster_pistol_germany"
+    },
+    {
+      "item__template": "blaster_zombie_gun_item"
+    },
+    {
+      "item__weapTemplate": "blaster_zombie_gun"
+    },
+    {
+      "gun__blk": "content/enlisted/gamedata/templates/zombie/blaster_zombie.blk"
+    },
+    {
+      "item__proto": "content/enlisted/gamedata/templates/zombie/blaster_zombie.blk"
+    },
+    {
+      "item__weapType": "pistol"
+    },
+    {
+      "item__weight": 1.2
+    },
+    {
+      "weap__sprintLerpFactor": 1.0
+    },
+    {
+      "gun__adsSpeedMult": 0.8
+    },
+    {
+      "gun__overheatReduce": 0.05
+    },
+    {
+      "gun__overheatReduceOnOverheat": 0.5
+    },
+    {
+      "gun__overheatPerShot": 1.0
+    },
+    {
+      "gun__ignoreWeaponVelocity": true
+    },
+    {
+      "gun__shotFreq": 8.0
+    },
+    {
+      "gun__recoilAmount": 0.35
+    },
+    {
+      "gun__recoilControlMult": 0.0
+    },
+    {
+      "gun__recoilDirAmount": 0.6
+    },
+    {
+      "gun__recoilDir": 0.0
+    },
+    {
+      "gun__visualRecoilMult": 1.0
+    },
+    {
+      "gun_spread__maxDeltaAngle": 0.8
+    },
+    {
+      "gun_deviation__omegaRange": [30.0,90.0]
+    },
+    {
+      "gun_deviation__omegaDevInc": [0.1,0.7]
+    },
+    {
+      "gun_deviation__movementRange": [2.1,4.0]
+    },
+    {
+      "gun_deviation__movementDevInc": [0.0,15.0]
+    },
+    {
+      "gun_deviation__onShotDeviationChange": 0.0
+    },
+    {
+      "gun_deviation__shotTau": 0.1
+    },
+    {
+      "gun_deviation__extraDeviationTau": 0.15
+    },
+    {
+      "gun_deviation__maxDeviation": 15.0
+    },
+    {
+      "gun__reloadTime": 2.0
+    },
+    {
+      "gun__canPierceHPEntity:tag": []
+    },
+    {
+      "gun__ammoHolders:array": {
+        "ammoHolders": "blaster_zombie_magazine"
+      }
+    },
+    {
+      "gun__shells:array": {
+        "shells": "content/enlisted/gamedata/weapons/bullets/14.5x114_bs41.blk"
+      }
+    },
+    {
+      "gun__firingModes:array": {
+        "mode:object": {
+          "modeType": "burst",
+          "burstSize": 1
+        }
+      }
+    },
+    {
+      "gun__firingModeNames:array": {
+        "mode": "semi_auto"
+      }
+    },
+    {
+      "_group": {
+        "_tags": "sound",
+        "gun_sound__forceOneshot": true
+      }
+    },
+    {
+      "gun_sound__shotPath:shared:object": {
+        "_tags": "sound",
+        "hero": "events/moonbase/player/weapon/laser_mg",
+        "enemy": "events/moonbase/enemy/weapon/laser_mg"
+      }
+    },
+    {
+      "sound_irqs:shared:object": {
+        "_tags": "sound",
+        "reload1:object": {
+          "hero": "events/moonbase/player/weapon/laser_rifle/reload1/change_ammo",
+          "enemy": "enemy/weapon/rifle/svt40/reload1/change_ammo"
+        },
+        "reload2:object": {
+          "hero": "events/moonbase/player/weapon/laser_rifle/reload2/change_ammo",
+          "enemy": "enemy/weapon/rifle/svt40/reload2/change_ammo"
+        },
+        "reload3:object": {
+          "hero": "events/moonbase/player/weapon/laser_rifle/reload3/change_ammo",
+          "enemy": "enemy/weapon/rifle/svt40/reload3/change_ammo"
+        },
+        "reload4:object": {
+          "hero": "events/moonbase/player/weapon/laser_rifle/reload4/change_ammo",
+          "enemy": "enemy/weapon/rifle/svt40/reload4/change_ammo"
+        },
+        "boltAction:object": {
+          "hero": "events/moonbase/player/weapon/laser_rifle/bolt_action",
+          "enemy": "enemy/weapon/rifle/svt40/bolt_action"
+        }
+      }
+    }
+  ],
+  "blaster_zombie_gun_item": [
+    {
+      "_use": "item_gun"
+    },
+    {
+      "_use": "blaster_zombie_gun"
+    },
+    {
+      "collres__res": "blaster_zombie_collision"
+    },
+    {
+      "_group": {
+        "_tags": "server",
+        "gun__initialAmmoHoldersCount:list<i>": {
+          "item": 1
+        }
+      }
+    }
+  ],
+  "blaster_zombie_magazine": {
+    "_use": "item_magazine",
+    "animchar__res": "p08_luger_ammo_char",
+    "item__template": "blaster_zombie_magazine",
+    "item__proto": "blaster_zombie_magazine",
+    "item__locDetails": "",
+    "ammo_holder__templateName": "blaster_zombie_magazine",
+    "ammo_holder__ammoCount": 30,
+    "item__weight": 0.2,
+    "item__volume": 0.1,
+    "item__name": "items/blaster_zombie_magazine",
+    "collres__res": "p08_luger_ammo_collision"
+  },
+  "random_weapon_box": [
+    {
+      "_use": "item"
+    },
+    {
+      "_use": "animchar"
+    },
+    {
+      "_use": "item_in_world"
+    },
+    {
+      "_use": "ui_visible"
+    },
+    {
+      "_use": "disable_update"
+    },
+    {
+      "_use": "main_weap_slots"
+    },
+    {
+      "paid_loot__cost": 250
+    },
+    {
+      "item__iconYaw": -90.0
+    },
+    {
+      "item__ui_priority": 2
+    },
+    {
+      "item__lootType": "gun"
+    },
+    {
+      "item__lootSoundType": "weapon"
+    },
+    {
+      "gun__propsId": -1
+    },
+    {
+      "gun__maxAmmo": 0
+    },
+    {
+      "dropTm": [
+        [0.0,1.0,0.0],
+        [0.0,0.0,-1.0],
+        [-1.0,0.0,0.0],
+        [0.0,0.03,0.0]
+      ]
+    },
+    {
+      "gun__customSkin": ""
+    },
+    {
+      "item__weapTemplate": "random_weapon_box"
+    },
+    {
+      "item__name": "items/random_weapon_box"
+    },
+    {
+      "item__weapType": "random_weapon_box"
+    },
+    {
+      "item__weight": 4.7
+    },
+    {
+      "gun__locName": "Weapon Box"
+    },
+    {
+      "item__template": "random_weapon_box"
+    },
+    {
+      "item__proto": "content/tanks/gamedata/weapons/empty.blk"
+    },
+    {
+      "gun__blk": "content/tanks/gamedata/weapons/empty.blk"
+    },
+    {
+      "item__locDetails": "6.5x52 Carcano"
+    },
+    {
+      "animchar__res": "jap_toolbox_char"
+    },
+    {
+      "collres__res": "jap_toolbox_collision"
+    },
+    {
+      "item__specialPickup:tag": []
+    },
+    {
+      "paid_loot_item:tag": []
+    },
+    {
+      "paid_loot__weapTemplates:list<t>": [
+        {
+          "item": "medkit_item+item_in_world+ui_visible+disable_update"
+        },
+        {
+          "item": "explosion_pack_item+item_in_world+ui_visible+disable_update"
+        },
+        {
+          "item": "m1_garand_zombie_gun_item+item_in_world+ui_visible+disable_update"
+        },
+        {
+          "item": "stl_mp_40_zombie_gun_item+item_in_world+ui_visible+disable_update"
+        },
+        {
+          "item": "nagant_m1895_zombie_gun_item+item_in_world+ui_visible+disable_update"
+        },
+        {
+          "item": "winchester_model_1912_zombie_gun_item+item_in_world+ui_visible+disable_update"
+        },
+        {
+          "item": "stg_44_zombie_gun_item+item_in_world+ui_visible+disable_update"
+        },
+        {
+          "item": "dp_27_zombie_gun_item+item_in_world+ui_visible+disable_update"
+        },
+        {
+          "item": "nambu_type_a_sword_pistol_zombie_gun_item+item_in_world+ui_visible+disable_update"
+        },
+        {
+          "item": "colt_swartz_zombie_gun_item+item_in_world+ui_visible+disable_update"
+        },
+        {
+          "item": "pps_42_zombie_gun_item+item_in_world+ui_visible+disable_update"
+        },
+        {
+          "item": "fg_42_zombie_gun_item+item_in_world+ui_visible+disable_update"
+        },
+        {
+          "item": "nambu_type_2_1934_smg_zombie_gun_item+item_in_world+ui_visible+disable_update"
+        },
+        {
+          "item": "mondragon_m1908_zombie_gun_item+item_in_world+ui_visible+disable_update"
+        },
+        {
+          "item": "srcm_mod_35_impact_grenade_item+item_in_world+ui_visible+disable_update"
+        },
+        {
+          "item": "ppsh_41_zombie_gun_item+item_in_world+ui_visible+disable_update"
+        },
+        {
+          "item": "browning_m1919a6_zombie_gun_item+item_in_world+ui_visible+disable_update"
+        },
+        {
+          "item": "thompson_m1928a1_50_drum_gold_zombie_gun_item+item_in_world+ui_visible+disable_update"
+        },
+        {
+          "item": "german_officer_sword_item+item_in_world+ui_visible+disable_update"
+        },
+        {
+          "item": "m2_flamethrower_zombie_gun_item+item_in_world+ui_visible+disable_update"
+        },
+        {
+          "item": "ptrs_41_zombie_gun_item+item_in_world+ui_visible+disable_update"
+        },
+        {
+          "item": "blaster_zombie_gun_item+item_in_world+ui_visible+disable_update"
+        },
+        {
+          "item": "neiman_minethrower_zombie_gun_item+item_in_world+ui_visible+disable_update"
+        },
+        {
+          "item": "akm_47_zombie_gun_item+item_in_world+ui_visible+disable_update"
+        },
+        {
+          "item": "stg_44_gold_zombie_gun_item+item_in_world+ui_visible+disable_update"
+        }
+      ]
+    },
+    {
+      "paid_loot__weapRandomizeWeight:list<r>": [
+        {
+          "item": 20.5
+        },
+        {
+          "item": 8.0
+        },
+        {
+          "item": 7.0
+        },
+        {
+          "item": 8.0
+        },
+        {
+          "item": 0.5
+        },
+        {
+          "item": 6.0
+        },
+        {
+          "item": 5.0
+        },
+        {
+          "item": 3.0
+        },
+        {
+          "item": 2.0
+        },
+        {
+          "item": 2.0
+        },
+        {
+          "item": 5.0
+        },
+        {
+          "item": 6.0
+        },
+        {
+          "item": 5.0
+        },
+        {
+          "item": 2.0
+        },
+        {
+          "item": 4.0
+        },
+        {
+          "item": 4.0
+        },
+        {
+          "item": 5.0
+        },
+        {
+          "item": 1.0
+        },
+        {
+          "item": 1.0
+        },
+        {
+          "item": 1.0
+        },
+        {
+          "item": 2.0
+        },
+        {
+          "item": 0.5
+        },
+        {
+          "item": 0.5
+        },
+        {
+          "item": 0.5
+        },
+        {
+          "item": 0.5
+        }
+      ]
+    },
+    {
+      "paid_loot__weapChanceRange:list<r>": []
+    },
+    {
+      "item__id:i": {
+        "value": 0,
+        "_hide": true
+      }
+    }
+  ],
+  "m1911_colt_zombie_gun": [
+    {
+      "_use": "m1911_colt_gun"
+    },
+    {
+      "_use": "gun_with_initial_ammo"
+    },
+    {
+      "_use": "paid_loot_ressuply"
+    },
+    {
+      "item__template": "m1911_colt_zombie_gun_item"
+    },
+    {
+      "item__weapTemplate": "m1911_colt_zombie_gun"
+    },
+    {
+      "paid_loot__ressuplyCost": 10
+    }
+  ],
+  "m1911_colt_zombie_gun_item": [
+    {
+      "_use": "item_gun"
+    },
+    {
+      "_use": "m1911_colt_zombie_gun"
+    },
+    {
+      "collres__res": "m1911_colt_collision"
+    },
+    {
+      "_group": {
+        "_tags": "server",
+        "gun__initialAmmoHoldersCount:list<i>": {
+          "item": 5
+        }
+      }
+    }
+  ],
+  "mosin_m38_zombie_gun": [
+    {
+      "_use": "mosin_m38_gun"
+    },
+    {
+      "_use": "gun_with_initial_ammo"
+    },
+    {
+      "_use": "paid_loot_ressuply"
+    },
+    {
+      "item__template": "mosin_m38_zombie_gun_item"
+    },
+    {
+      "item__weapTemplate": "mosin_m38_zombie_gun"
+    },
+    {
+      "paid_loot__ressuplyCost": 20
+    }
+  ],
+  "mosin_m38_zombie_gun_item": [
+    {
+      "_use": "item_gun"
+    },
+    {
+      "_use": "mosin_m38_zombie_gun"
+    },
+    {
+      "collres__res": "mosin_m38_collision"
+    },
+    {
+      "_group": {
+        "_tags": "server",
+        "gun__initialAmmoHoldersCount:list<i>": {
+          "item": 8
+        }
+      }
+    }
+  ],
+  "beretta_m31_zombie_gun": [
+    {
+      "_use": "beretta_m31_gun"
+    },
+    {
+      "_use": "gun_with_initial_ammo"
+    },
+    {
+      "_use": "paid_loot_ressuply"
+    },
+    {
+      "item__template": "beretta_m31_zombie_gun_item"
+    },
+    {
+      "item__weapTemplate": "beretta_m31_zombie_gun"
+    },
+    {
+      "gun__kineticDamageMult": 1.4
+    },
+    {
+      "weapon__aimNodeOffset": 0.3
+    },
+    {
+      "paid_loot__ressuplyCost": 30
+    }
+  ],
+  "beretta_m31_zombie_gun_item": [
+    {
+      "_use": "item_gun"
+    },
+    {
+      "_use": "beretta_m31_zombie_gun"
+    },
+    {
+      "collres__res": "beretta_m31_collision"
+    },
+    {
+      "_group": {
+        "_tags": "server",
+        "gun__initialAmmoHoldersCount:list<i>": {
+          "item": 7
+        }
+      }
+    }
+  ],
+  "m1_garand_zombie_gun": [
+    {
+      "_use": "m1_garand_gun"
+    },
+    {
+      "_use": "gun_with_initial_ammo"
+    },
+    {
+      "_use": "paid_loot_ressuply"
+    },
+    {
+      "item__template": "m1_garand_zombie_gun_item"
+    },
+    {
+      "item__weapTemplate": "m1_garand_zombie_gun"
+    },
+    {
+      "gun__kineticDamageMult": 1.4
+    },
+    {
+      "weapon__aimNodeOffset": 0.3
+    },
+    {
+      "paid_loot__ressuplyCost": 30
+    }
+  ],
+  "m1_garand_zombie_gun_item": [
+    {
+      "_use": "item_gun"
+    },
+    {
+      "_use": "m1_garand_zombie_gun"
+    },
+    {
+      "collres__res": "m1_garand_collision"
+    },
+    {
+      "_group": {
+        "_tags": "server",
+        "gun__initialAmmoHoldersCount:list<i>": {
+          "item": 6
+        }
+      }
+    }
+  ],
+  "stl_mp_40_zombie_gun": [
+    {
+      "_use": "stl_mp_40_gun"
+    },
+    {
+      "_use": "gun_with_initial_ammo"
+    },
+    {
+      "_use": "paid_loot_ressuply"
+    },
+    {
+      "item__template": "stl_mp_40_zombie_gun_item"
+    },
+    {
+      "item__weapTemplate": "stl_mp_40_zombie_gun"
+    },
+    {
+      "paid_loot__ressuplyCost": 40
+    }
+  ],
+  "stl_mp_40_zombie_gun_item": [
+    {
+      "_use": "item_gun"
+    },
+    {
+      "_use": "stl_mp_40_zombie_gun"
+    },
+    {
+      "collres__res": "mp40_collision"
+    },
+    {
+      "_group": {
+        "_tags": "server",
+        "gun__initialAmmoHoldersCount:list<i>": {
+          "item": 5
+        }
+      }
+    }
+  ],
+  "winchester_model_1912_zombie_gun": [
+    {
+      "_use": "winchester_model_1912_gun"
+    },
+    {
+      "_use": "gun_with_initial_ammo"
+    },
+    {
+      "_use": "paid_loot_ressuply"
+    },
+    {
+      "item__template": "winchester_model_1912_zombie_gun_item"
+    },
+    {
+      "item__weapTemplate": "winchester_model_1912_zombie_gun"
+    },
+    {
+      "paid_loot__ressuplyCost": 50
+    }
+  ],
+  "winchester_model_1912_zombie_gun_item": [
+    {
+      "_use": "item_gun"
+    },
+    {
+      "_use": "winchester_model_1912_zombie_gun"
+    },
+    {
+      "collres__res": "winchester_model_1912_collision"
+    },
+    {
+      "_group": {
+        "_tags": "server",
+        "gun__initialAmmoHoldersCount:list<i>": {
+          "item": 8
+        }
+      }
+    }
+  ],
+  "stg_44_zombie_gun": [
+    {
+      "_use": "stg_44_gun"
+    },
+    {
+      "_use": "gun_with_initial_ammo"
+    },
+    {
+      "_use": "paid_loot_ressuply"
+    },
+    {
+      "item__template": "stg_44_zombie_gun_item"
+    },
+    {
+      "item__weapTemplate": "stg_44_zombie_gun"
+    },
+    {
+      "paid_loot__ressuplyCost": 110
+    }
+  ],
+  "stg_44_zombie_gun_item": [
+    {
+      "_use": "item_gun"
+    },
+    {
+      "_use": "stg_44_zombie_gun"
+    },
+    {
+      "collres__res": "stg_44_collision"
+    },
+    {
+      "_group": {
+        "_tags": "server",
+        "gun__initialAmmoHoldersCount:list<i>": {
+          "item": 5
+        }
+      }
+    }
+  ],
+  "dp_27_zombie_gun": [
+    {
+      "_use": "dp_27_gun"
+    },
+    {
+      "_use": "gun_with_initial_ammo"
+    },
+    {
+      "_use": "paid_loot_ressuply"
+    },
+    {
+      "gun__kineticDamageMult": 1.25
+    },
+    {
+      "item__template": "dp_27_zombie_gun_item"
+    },
+    {
+      "item__weapTemplate": "dp_27_zombie_gun"
+    },
+    {
+      "paid_loot__ressuplyCost": 290
+    }
+  ],
+  "dp_27_zombie_gun_item": [
+    {
+      "_use": "item_gun"
+    },
+    {
+      "_use": "dp_27_zombie_gun"
+    },
+    {
+      "collres__res": "dp_27_collision"
+    },
+    {
+      "_group": {
+        "_tags": "server",
+        "gun__initialAmmoHoldersCount:list<i>": {
+          "item": 3
+        }
+      }
+    }
+  ],
+  "nagant_m1895_zombie_gun": [
+    {
+      "_use": "nagant_m1895_gun"
+    },
+    {
+      "_use": "gun_with_initial_ammo"
+    },
+    {
+      "_use": "paid_loot_ressuply"
+    },
+    {
+      "item__template": "nagant_m1895_zombie_gun_item"
+    },
+    {
+      "item__weapTemplate": "nagant_m1895_zombie_gun"
+    },
+    {
+      "paid_loot__ressuplyCost": 10
+    }
+  ],
+  "nagant_m1895_zombie_gun_item": [
+    {
+      "_use": "item_gun"
+    },
+    {
+      "_use": "nagant_m1895_zombie_gun"
+    },
+    {
+      "collres__res": "nagant_m1895_collision"
+    },
+    {
+      "_group": {
+        "_tags": "server",
+        "gun__initialAmmoHoldersCount:list<i>": {
+          "item": 5
+        }
+      }
+    }
+  ],
+  "nambu_type_a_sword_pistol_zombie_gun": [
+    {
+      "_use": "nambu_type_a_sword_pistol_gun"
+    },
+    {
+      "_use": "gun_with_initial_ammo"
+    },
+    {
+      "_use": "paid_loot_ressuply"
+    },
+    {
+      "item__template": "nambu_type_a_sword_pistol_zombie_gun_item"
+    },
+    {
+      "item__weapTemplate": "nambu_type_a_sword_pistol_zombie_gun"
+    },
+    {
+      "paid_loot__ressuplyCost": 10
+    }
+  ],
+  "nambu_type_a_sword_pistol_zombie_gun_item": [
+    {
+      "_use": "item_gun"
+    },
+    {
+      "_use": "nambu_type_a_sword_pistol_zombie_gun"
+    },
+    {
+      "collres__res": "nambu_type_a_sword_pistol_collision"
+    },
+    {
+      "_group": {
+        "_tags": "server",
+        "gun__initialAmmoHoldersCount:list<i>": {
+          "item": 5
+        }
+      }
+    }
+  ],
+  "colt_swartz_zombie_gun": [
+    {
+      "_use": "colt_swartz_gun"
+    },
+    {
+      "_use": "gun_with_initial_ammo"
+    },
+    {
+      "_use": "paid_loot_ressuply"
+    },
+    {
+      "item__template": "colt_swartz_zombie_gun_item"
+    },
+    {
+      "item__weapTemplate": "colt_swartz_zombie_gun"
+    },
+    {
+      "paid_loot__ressuplyCost": 20
+    }
+  ],
+  "colt_swartz_zombie_gun_item": [
+    {
+      "_use": "item_gun"
+    },
+    {
+      "_use": "colt_swartz_zombie_gun"
+    },
+    {
+      "collres__res": "m1911_colt_swartz_automatic_conversion_collision"
+    },
+    {
+      "_group": {
+        "_tags": "server",
+        "gun__initialAmmoHoldersCount:list<i>": {
+          "item": 5
+        }
+      }
+    }
+  ],
+  "mondragon_m1908_zombie_gun": [
+    {
+      "_use": "mondragon_m1908_gun"
+    },
+    {
+      "_use": "gun_with_initial_ammo"
+    },
+    {
+      "_use": "paid_loot_ressuply"
+    },
+    {
+      "item__template": "mondragon_m1908_zombie_gun_item"
+    },
+    {
+      "item__weapTemplate": "mondragon_m1908_zombie_gun"
+    },
+    {
+      "gun__kineticDamageMult": 1.3
+    },
+    {
+      "weapon__aimNodeOffset": 0.3
+    },
+    {
+      "paid_loot__ressuplyCost": 110
+    }
+  ],
+  "mondragon_m1908_zombie_gun_item": [
+    {
+      "_use": "item_gun"
+    },
+    {
+      "_use": "mondragon_m1908_zombie_gun"
+    },
+    {
+      "collres__res": "mondragon_m1908_collision"
+    },
+    {
+      "_group": {
+        "_tags": "server",
+        "gun__initialAmmoHoldersCount:list<i>": {
+          "item": 3
+        }
+      }
+    }
+  ],
+  "fg_42_zombie_gun": [
+    {
+      "_use": "fg_42_gun"
+    },
+    {
+      "_use": "gun_with_initial_ammo"
+    },
+    {
+      "_use": "paid_loot_ressuply"
+    },
+    {
+      "item__template": "fg_42_zombie_gun_item"
+    },
+    {
+      "item__weapTemplate": "fg_42_zombie_gun"
+    },
+    {
+      "gun__kineticDamageMult": 1.3
+    },
+    {
+      "weapon__aimNodeOffset": 0.3
+    },
+    {
+      "paid_loot__ressuplyCost": 120
+    }
+  ],
+  "fg_42_zombie_gun_item": [
+    {
+      "_use": "item_gun"
+    },
+    {
+      "_use": "fg_42_zombie_gun"
+    },
+    {
+      "collres__res": "fg_42_collision"
+    },
+    {
+      "_group": {
+        "_tags": "server",
+        "gun__initialAmmoHoldersCount:list<i>": {
+          "item": 5
+        }
+      }
+    }
+  ],
+  "pps_42_zombie_gun": [
+    {
+      "_use": "pps_42_gun"
+    },
+    {
+      "_use": "gun_with_initial_ammo"
+    },
+    {
+      "_use": "paid_loot_ressuply"
+    },
+    {
+      "item__template": "pps_42_zombie_gun_item"
+    },
+    {
+      "item__weapTemplate": "pps_42_zombie_gun"
+    },
+    {
+      "paid_loot__ressuplyCost": 40
+    }
+  ],
+  "pps_42_zombie_gun_item": [
+    {
+      "_use": "item_gun"
+    },
+    {
+      "_use": "pps_42_zombie_gun"
+    },
+    {
+      "collres__res": "pps_42_collision"
+    },
+    {
+      "_group": {
+        "_tags": "server",
+        "gun__initialAmmoHoldersCount:list<i>": {
+          "item": 5
+        }
+      }
+    }
+  ],
+  "nambu_type_2_1934_smg_zombie_gun": [
+    {
+      "_use": "nambu_type_2_1934_smg_gun"
+    },
+    {
+      "_use": "gun_with_initial_ammo"
+    },
+    {
+      "_use": "paid_loot_ressuply"
+    },
+    {
+      "item__template": "nambu_type_2_1934_smg_zombie_gun_item"
+    },
+    {
+      "item__weapTemplate": "nambu_type_2_1934_smg_zombie_gun"
+    },
+    {
+      "paid_loot__ressuplyCost": 40
+    }
+  ],
+  "nambu_type_2_1934_smg_zombie_gun_item": [
+    {
+      "_use": "item_gun"
+    },
+    {
+      "_use": "nambu_type_2_1934_smg_zombie_gun"
+    },
+    {
+      "collres__res": "nambu_type_2_1934_collision"
+    },
+    {
+      "_group": {
+        "_tags": "server",
+        "gun__initialAmmoHoldersCount:list<i>": {
+          "item": 5
+        }
+      }
+    }
+  ],
+  "ppsh_41_zombie_gun": [
+    {
+      "_use": "ppsh_41_gun"
+    },
+    {
+      "_use": "gun_with_initial_ammo"
+    },
+    {
+      "_use": "paid_loot_ressuply"
+    },
+    {
+      "item__template": "ppsh_41_zombie_gun_item"
+    },
+    {
+      "item__weapTemplate": "ppsh_41_zombie_gun"
+    },
+    {
+      "paid_loot__ressuplyCost": 140
+    }
+  ],
+  "ppsh_41_zombie_gun_item": [
+    {
+      "_use": "item_gun"
+    },
+    {
+      "_use": "ppsh_41_zombie_gun"
+    },
+    {
+      "collres__res": "ppsh_41_late_collision"
+    },
+    {
+      "_group": {
+        "_tags": "server",
+        "gun__initialAmmoHoldersCount:list<i>": {
+          "item": 3
+        }
+      }
+    }
+  ],
+  "browning_m1919a6_zombie_gun": [
+    {
+      "_use": "browning_m1919a6_gun"
+    },
+    {
+      "_use": "gun_with_initial_ammo"
+    },
+    {
+      "_use": "paid_loot_ressuply"
+    },
+    {
+      "gun__kineticDamageMult": 1.25
+    },
+    {
+      "item__template": "browning_m1919a6_zombie_gun_item"
+    },
+    {
+      "item__weapTemplate": "browning_m1919a6_zombie_gun"
+    },
+    {
+      "paid_loot__ressuplyCost": 380
+    }
+  ],
+  "browning_m1919a6_zombie_gun_item": [
+    {
+      "_use": "item_gun"
+    },
+    {
+      "_use": "browning_m1919a6_zombie_gun"
+    },
+    {
+      "collres__res": "browning_m1919a6_collision"
+    },
+    {
+      "_group": {
+        "_tags": "server",
+        "gun__initialAmmoHoldersCount:list<i>": {
+          "item": 2
+        }
+      }
+    }
+  ],
+  "ptrs_41_zombie_gun": [
+    {
+      "_use": "ptrs_41_gun"
+    },
+    {
+      "_use": "gun_with_initial_ammo"
+    },
+    {
+      "_use": "paid_loot_ressuply"
+    },
+    {
+      "item__template": "ptrs_41_zombie_gun_item"
+    },
+    {
+      "item__weapTemplate": "ptrs_41_zombie_gun"
+    },
+    {
+      "paid_loot__ressuplyCost": 240
+    }
+  ],
+  "ptrs_41_zombie_gun_item": [
+    {
+      "_use": "item_gun"
+    },
+    {
+      "_use": "ptrs_41_zombie_gun"
+    },
+    {
+      "collres__res": "ptrs_41_collision"
+    },
+    {
+      "_group": {
+        "_tags": "server",
+        "gun__initialAmmoHoldersCount:list<i>": {
+          "item": 5
+        }
+      }
+    }
+  ],
+  "m2_flamethrower_zombie_gun": [
+    {
+      "_use": "m2_flamethrower_gun"
+    },
+    {
+      "_use": "gun_with_initial_ammo"
+    },
+    {
+      "_use": "paid_loot_ressuply"
+    },
+    {
+      "item__template": "m2_flamethrower_zombie_gun_item"
+    },
+    {
+      "item__weapTemplate": "m2_flamethrower_zombie_gun"
+    },
+    {
+      "paid_loot__ressuplyCost": 170
+    }
+  ],
+  "m2_flamethrower_zombie_gun_item": [
+    {
+      "_use": "item_gun"
+    },
+    {
+      "_use": "m2_flamethrower_zombie_gun"
+    },
+    {
+      "collres__res": "m2_flamethrower_collision"
+    },
+    {
+      "_group": {
+        "_tags": "server",
+        "gun__initialAmmoHoldersCount:list<i>": {
+          "item": 1
+        }
+      }
+    }
+  ],
+  "neiman_minethrower_zombie_gun": [
+    {
+      "_use": "neiman_minethrower_gun"
+    },
+    {
+      "_use": "gun_with_initial_ammo"
+    },
+    {
+      "_use": "paid_loot_ressuply"
+    },
+    {
+      "item__template": "neiman_minethrower_zombie_gun_item"
+    },
+    {
+      "item__weapTemplate": "neiman_minethrower_zombie_gun"
+    },
+    {
+      "paid_loot__ressuplyCost": 220
+    }
+  ],
+  "neiman_minethrower_zombie_gun_item": [
+    {
+      "_use": "item_gun"
+    },
+    {
+      "_use": "neiman_minethrower_zombie_gun"
+    },
+    {
+      "collres__res": "neiman_minethrower_collision"
+    },
+    {
+      "_group": {
+        "_tags": "server",
+        "gun__initialAmmoHoldersCount:list<i>": {
+          "item": 6
+        }
+      }
+    }
+  ],
+  "akm_47_zombie_gun": [
+    {
+      "_use": "akm_47_gun"
+    },
+    {
+      "_use": "gun_with_initial_ammo"
+    },
+    {
+      "_use": "paid_loot_ressuply"
+    },
+    {
+      "item__template": "akm_47_zombie_gun_item"
+    },
+    {
+      "item__weapTemplate": "akm_47_zombie_gun"
+    },
+    {
+      "paid_loot__ressuplyCost": 110
+    }
+  ],
+  "akm_47_zombie_gun_item": [
+    {
+      "_use": "item_gun"
+    },
+    {
+      "_use": "akm_47_zombie_gun"
+    },
+    {
+      "collres__res": "akm_collision"
+    },
+    {
+      "_group": {
+        "_tags": "server",
+        "gun__initialAmmoHoldersCount:list<i>": {
+          "item": 5
+        }
+      }
+    }
+  ],
+  "stg_44_gold_zombie_gun": [
+    {
+      "_use": "stg_44_gold_gun"
+    },
+    {
+      "_use": "gun_with_initial_ammo"
+    },
+    {
+      "_use": "paid_loot_ressuply"
+    },
+    {
+      "item__template": "stg_44_gold_zombie_gun_item"
+    },
+    {
+      "item__weapTemplate": "stg_44_gold_zombie_gun"
+    },
+    {
+      "paid_loot__ressuplyCost": 110
+    },
+    {
+      "gun__shotFreq": 11.913
+    },
+    {
+      "gun__kineticDamageMult": 1.15
+    }
+  ],
+  "stg_44_gold_zombie_gun_item": [
+    {
+      "_use": "item_gun"
+    },
+    {
+      "_use": "stg_44_gold_zombie_gun"
+    },
+    {
+      "collres__res": "stg_44_collision"
+    },
+    {
+      "_group": {
+        "_tags": "server",
+        "gun__initialAmmoHoldersCount:list<i>": {
+          "item": 5
+        }
+      }
+    }
+  ],
+  "thompson_m1928a1_50_drum_gold_zombie_gun": [
+    {
+      "_use": "thompson_m1928a1_50_drum_gold_gun"
+    },
+    {
+      "_use": "gun_with_initial_ammo"
+    },
+    {
+      "_use": "paid_loot_ressuply"
+    },
+    {
+      "item__template": "thompson_m1928a1_50_drum_gold_zombie_gun_item"
+    },
+    {
+      "item__weapTemplate": "thompson_m1928a1_50_drum_gold_zombie_gun"
+    },
+    {
+      "paid_loot__ressuplyCost": 130
+    },
+    {
+      "gun__shotFreq": 12.837
+    },
+    {
+      "gun__kineticDamageMult": 1.15
+    }
+  ],
+  "thompson_m1928a1_50_drum_gold_zombie_gun_item": [
+    {
+      "_use": "item_gun"
+    },
+    {
+      "_use": "thompson_m1928a1_50_drum_gold_zombie_gun"
+    },
+    {
+      "collres__res": "thompson_m1928a1_50_drum_collision"
+    },
+    {
+      "_group": {
+        "_tags": "server",
+        "gun__initialAmmoHoldersCount:list<i>": {
+          "item": 4
+        }
+      }
+    }
+  ]
+}

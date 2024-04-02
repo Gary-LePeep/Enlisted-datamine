@@ -19,6 +19,19 @@
     "damage_decals__explosionNumTraces:list<i>": [],
     "damage_decals__explosionMaxTraceLen:list<r>": []
   },
+  "vehicle_damage_decals_decor": {
+    "_tags": "render",
+    "damage_decals_decor__projectileHitCollNodeName:list<t>": [],
+    "damage_decals_decor__projectileHitLocalPos:list<p3>": [],
+    "damage_decals_decor__projectileHitLocalDir:list<p3>": [],
+    "damage_decals_decor__projectileHitLocalNormal:list<p3>": [],
+    "damage_decals_decor__projectileHitCaliber:list<r>": [],
+    "damage_decals_decor__projectileHitDamageType:list<t>": [],
+    "damage_decals_decor__shrapnelDecalCollNodeName:list<t>": [],
+    "damage_decals_decor__shrapnelDecalLocalPos:list<p3>": [],
+    "damage_decals_decor__shrapnelDecalLocalDir:list<p3>": [],
+    "damage_decals_decor__shrapnelDecalLocalNormal:list<p3>": []
+  },
   "shrapnel_decals_debug": {
     "_tags": "dev",
     "damage_decals__prevExplosionPos": [0.0,0.0,0.0],

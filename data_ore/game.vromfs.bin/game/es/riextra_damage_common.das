@@ -19,8 +19,14 @@ def damage_ri_on_server(handle : riex_handle_t; damage : float; pos : float3; im
 def is_ri_extra_can_be_damaged_by_team(handle : riex_handle_t; owner_team : int)
   if owner_team == TEAM_UNASSIGNED
     return true
-  var isFriendly = false
+  var canBeDestroyed = true
   let riexEid = find_ri_extra_eid(handle)
-  query(riexEid) <| $ [es(REQUIRE=undestroyableByOwningTeam)] (team : int)
-    isFriendly = team == owner_team
-  return !isFriendly
+  query(riexEid) <| $ [es] (team : int = TEAM_UNASSIGNED;
+                            undestroyableByOwningTeam : Tag const?;
+                            undestroyableRiExtra : Tag const?)
+    if undestroyableRiExtra != null
+      canBeDestroyed = false
+      return
+    if undestroyableByOwningTeam != null
+      canBeDestroyed = team != owner_team
+  return canBeDestroyed

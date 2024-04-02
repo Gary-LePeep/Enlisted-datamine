@@ -508,6 +508,18 @@ let COLUMN_GUN_GAME_LEVEL = {
     rowText(1 + (playerData.player?["scoring_player__gunGameLevelup"] ?? 0),
       flex(), playerData)
 }
+let COLUMN_ZOMBIE_KILLS = {
+  width = NUM_COL_WIDTH
+  headerIcon = "ui/skin#statistics_kills_icon.svg"
+  locId = "scoring/kills"
+  field = "scoring_player__zombieKills"
+}
+let COLUMN_LOOT_POINTS = {
+  width = SCORE_COL_WIDTH
+  headerIcon = "!ui/skin#lb_score.avif"
+  field = "scoring_player__zombieTotalScore"
+  locId = "scoring/total"
+}
 
 let allColumns = [
   COLUMN_PLAYER_NUM
@@ -521,6 +533,8 @@ let allColumns = [
   COLUMN_DEATH
   COLUMN_SCORE
   COLUMN_GUN_GAME_LEVEL
+  COLUMN_ZOMBIE_KILLS
+  COLUMN_LOOT_POINTS
 ]
 allColumns.each(function(c) {
   c.mkHeader <- c?.mkHeader ?? @(_) mkHeaderIcon(c.headerIcon)
@@ -551,8 +565,18 @@ let columnsGunGame = [
   COLUMN_SCORE
 ]
 
+let columnsZombieMod = [
+  COLUMN_PLAYER_NUM
+  COLUMN_PLAYER_NAME
+  COLUMN_ZOMBIE_KILLS
+  COLUMN_VEHICLE_KILLS
+  COLUMN_DEATH
+  COLUMN_LOOT_POINTS
+]
+
 let columnsByGameMode = {
   gun_game = columnsGunGame
+  zombie_mode = columnsZombieMod
 }
 
 function getScoreTableColumns(key) {

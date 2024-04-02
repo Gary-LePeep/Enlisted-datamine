@@ -93,21 +93,6 @@ def human_voice_effect_on_change(evt : Event;
 
 
 [es(tag=sound)]
-def human_voice_effect_on_cmd(evt : CmdHumanVoiceEffect;
-                              var human_voice_effect__event : SoundEvent&;
-                              [[shared_comp]] human_voice_sound__path : Object;
-                              [[shared_comp]] human_voice_sound__descs : Object;
-                              human_voice_effect__isActive : bool;
-                              human_speech__isSpeaking : bool = false;
-                              is_watched_sound : bool = false;
-                              sound_tags : Object;
-                              transform : float3x4)
-  if !human_voice_effect__isActive && !human_speech__isSpeaking
-    release(human_voice_effect__event.handle)
-    human_voice_effect__event.handle = play(evt.phrase, human_voice_sound__path, human_voice_sound__descs, sound_tags, is_watched_sound, transform[3], false)
-
-
-[es(tag=sound)]
 def human_voice_effect_on_net_cmd(evt : CmdNetHumanVoiceEffect;
                                   var human_voice_effect__event : SoundEvent&;
                                   [[shared_comp]] human_voice_sound__path : Object;
@@ -136,3 +121,23 @@ def human_voice_effect_update(evt : Event;
       return
     release(human_voice_effect__event.handle)
   human_voice_effect__isActive = !empty(human_voice_effect__type)
+
+
+[es(tag=sound)]
+def human_voice_effect_oneshot(evt : CmdHumanVoiceEffectOneshot;
+                               [[shared_comp]] human_voice_sound__path : Object;
+                               [[shared_comp]] human_voice_sound__oneshots : Object;
+                               human_voice_effect__isActive : bool;
+                               human_voice_effect__type : string;
+                               human_speech__isSpeaking : bool = false;
+                               is_watched_sound : bool = false;
+                               sound_tags : Object;
+                               transform : float3x4)
+  if !human_speech__isSpeaking
+
+    if human_voice_effect__isActive && !empty(human_voice_effect__type)
+      let desc = get_desc(human_voice_sound__oneshots, evt.phrase)
+      if desc == null || get_desc(*desc, human_voice_effect__type) == null
+        return
+
+    play(evt.phrase, human_voice_sound__path, human_voice_sound__oneshots, sound_tags, is_watched_sound, transform[3])

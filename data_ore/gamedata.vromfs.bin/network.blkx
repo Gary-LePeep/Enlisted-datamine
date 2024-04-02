@@ -355,8 +355,12 @@
     "alwaysReloadScriptsOnUpdate": true,
     "marketplaceURL": "https://trade.gaijin.net/",
     "shopUrl": "https://store.gaijin.net/storefront.php?category=CuisineRoyale",
+    "shopUrlSteam": "https://store.steampowered.com/app/{appId}",
     "shopGuidUrl": "https://store.gaijin.net/yuplay/show_item.php?guid={guid}",
+    "shopGuidUrlSteam": "http://store.gaijin.net/steam.php?guid={guid}&app_id={appId}&steam_id={steamId}",
     "shopCategoryUrl": "https://store.gaijin.net/catalog.php?category={category}",
+    "shopCategoryUrlSteam": "https://store.gaijin.net/catalog.php?category={category}&app_id={appId}&steam_id={steamId}",
+    "steamBindUrl": "https://login.gaijin.net/steam?token={token}&lang={langAbbreviation}",
     "psnFriendsUrl": "https://auth-psn-dev.gaijinent.com/psn_friends.php",
     "contentUpdater": {
       "shouldPatchVromsWithRemoteVersion": true
@@ -629,6 +633,7 @@
     "shopGuidUrl": "https://store.gaijin.net/yuplay/show_item.php?guid={guid}",
     "shopGuidUrlSteam": "http://store.gaijin.net/steam.php?guid={guid}&app_id={appId}&steam_id={steamId}",
     "shopCategoryUrl": "https://store.gaijin.net/catalog.php?category={category}",
+    "shopCategoryUrlSteam": "https://store.gaijin.net/catalog.php?category={category}&app_id={appId}&steam_id={steamId}",
     "steamBindUrl": "https://login.gaijin.net/steam?token={token}&lang={langAbbreviation}",
     "psnFriendsUrl": "https://auth.gaijinent.com/psn_friends.php",
     "contentUpdater": {
@@ -1704,6 +1709,7 @@
     "shopGuidUrl": "https://store.gaijin.net/yuplay/show_item.php?guid={guid}",
     "shopGuidUrlSteam": "http://store.gaijin.net/steam.php?guid={guid}&app_id={appId}&steam_id={steamId}",
     "shopCategoryUrl": "https://store.gaijin.net/catalog.php?category={category}",
+    "shopCategoryUrlSteam": "https://store.gaijin.net/catalog.php?category={category}&app_id={appId}&steam_id={steamId}",
     "steamBindUrl": "https://login.gaijin.net/steam?token={token}&lang={langAbbreviation}",
     "psnFriendsUrl": "https://auth-psn-dev.gaijinent.com/psn_friends.php",
     "contentUpdater": {
@@ -2133,6 +2139,7 @@
     "shopUrlSteam": "https://store.steampowered.com/app/997120",
     "shopGuidUrl": "https://store.gaijin.net/yuplay/show_item.php?guid={guid}",
     "shopCategoryUrl": "https://store.gaijin.net/catalog.php?category={category}",
+    "shopCategoryUrlSteam": "https://store.gaijin.net/catalog.php?category={category}&app_id={appId}&steam_id={steamId}",
     "shopGuidUrlSteam": "http://store.gaijin.net/steam.php?guid={guid}&app_id={appId}&steam_id={steamId}",
     "steamBindUrl": "https://login.gaijin.net/steam?token={token}&lang={langAbbreviation}",
     "psnFriendsUrl": "https://auth-psn-dev.gaijinent.com/psn_friends.php",
@@ -2189,6 +2196,7 @@
     "shopGuidUrl": "https://store.gaijin.net/yuplay/show_item.php?guid={guid}",
     "shopGuidUrlSteam": "http://store.gaijin.net/steam.php?guid={guid}&app_id={appId}&steam_id={steamId}",
     "shopCategoryUrl": "https://store.gaijin.net/catalog.php?category={category}",
+    "shopCategoryUrlSteam": "https://store.gaijin.net/catalog.php?category={category}&app_id={appId}&steam_id={steamId}",
     "steamBindUrl": "https://login.gaijin.net/steam?token={token}&lang={langAbbreviation}",
     "psnFriendsUrl": "https://auth-psn-dev.gaijinent.com/psn_friends.php",
     "contentUpdater": {

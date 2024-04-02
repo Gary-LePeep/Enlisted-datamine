@@ -718,6 +718,32 @@
       }
     }
   ],
+  "envir_misc_burned_ground_fire_15m_no_dist_effect": [
+    {
+      "_use": "environment_effect_base"
+    },
+    {
+      "_use": "environment_sound_effect_base"
+    },
+    {
+      "_use": "range_pauseable_effect"
+    },
+    {
+      "effect__emit_range_limit": 120.0
+    },
+    {
+      "_group": {
+        "_tags": "render",
+        "effect__name": "envir_misc_burned_ground_fire_15m_no_dist_cmps_fx"
+      }
+    },
+    {
+      "_group": {
+        "_tags": "sound",
+        "sound_effect__path": "env_effects/fire/fire_small"
+      }
+    }
+  ],
   "envir_misc_burned_ground_smoke_single_effect": [
     {
       "_use": "environment_effect_base"

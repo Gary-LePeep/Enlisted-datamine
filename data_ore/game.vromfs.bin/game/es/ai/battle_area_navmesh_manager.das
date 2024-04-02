@@ -107,3 +107,4 @@ def battle_area_navmesh_manager_es(info : ParallelUpdateFrameDelayed;
         return
 
   clear(battle_area_navmesh_manager__areaEids)
+  broadcastEvent([[OnTankNavmeshFlagsGlobalUpdate]])

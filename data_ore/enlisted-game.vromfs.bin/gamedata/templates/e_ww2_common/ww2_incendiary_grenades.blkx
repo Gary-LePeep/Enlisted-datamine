@@ -149,6 +149,67 @@
       "dmgzone__doNotDamageUnderwater:tag": []
     }
   ],
+  "green_smoke_zombie_damage_zone": [
+    {
+      "_use": "replicating"
+    },
+    {
+      "_use": "event_zombie_smoke_green_effect"
+    },
+    {
+      "_use": "voxel_grid"
+    },
+    {
+      "voxel_grid__step": 0.3
+    },
+    {
+      "voxel_grid_init__managerSubTemplate": "voxel_grid_init_manager"
+    },
+    {
+      "transform": [
+        [1.0,0.0,0.0],
+        [0.0,1.0,0.0],
+        [0.0,0.0,1.0],
+        [0.0,0.0,0.0]
+      ]
+    },
+    {
+      "dmgzone__damage": 1.75
+    },
+    {
+      "dmgzone__lastUpdate": -1.0
+    },
+    {
+      "dmgzone__updateInterval": 1.0
+    },
+    {
+      "dm__damageType": "gas"
+    },
+    {
+      "dm__damageTypeId": -1
+    },
+    {
+      "dmgzone__shellId": -1
+    },
+    {
+      "dmgzone__gunPropsId": -1
+    },
+    {
+      "sphere_zone__radius": 3.4
+    },
+    {
+      "game_effect__timeToDestroy": 8.0
+    },
+    {
+      "game_effect__destroyAt": -1.0
+    },
+    {
+      "dmgzone__offender:eid": []
+    },
+    {
+      "dmgzone__doNotDamageUnderwater:tag": []
+    }
+  ],
   "incendiary_grenade_fire": {
     "_use": "fire_source",
     "sphere_zone__radius": 0.3,
@@ -163,6 +224,13 @@
       "effect__name": "fire_spot_2m_nosmoke_cmps_fx"
     }
   },
+  "incendiary_zombie_grenade_fire": {
+    "_use": "incendiary_grenade_fire",
+    "_group": {
+      "_tags": "render",
+      "effect__name": "event_zombie_fire_spot_2m_nosmoke_cmps_fx"
+    }
+  },
   "incendiary_grenade_spread": {
     "_use": "explosion_spread",
     "explosion_spread__traceCount": 5,
@@ -171,6 +239,10 @@
     "explosion_spread__createOnTrace": "incendiary_grenade_fire",
     "explosion_spread__staticDir": [0.0,1.0,0.0],
     "explosion_spread__stepBack": -0.4
+  },
+  "incendiary_zombie_grenade_spread": {
+    "_use": "incendiary_grenade_spread",
+    "explosion_spread__createOnTrace": "incendiary_zombie_grenade_fire"
   },
   "incendiary_grenade": {
     "_use": "incendiary_grenade_shell_base"
@@ -293,6 +365,18 @@
       "_use": "uk_no_77_incendiary_grenade_base"
     }
   ],
+  "uk_no_77_incendiary_zombie_grenade_phys": {
+    "_use": "uk_no_77_incendiary_grenade_phys",
+    "shell_explosion_fx__infoTemplate": "hit_effect_group_zombie_phosphorus_grenade_explosion",
+    "on_explosion__create:list<t>": [
+      {
+        "tmplt": "incendiary_zombie_grenade_spread+on_explosion"
+      },
+      {
+        "tmplt": "green_smoke_zombie_damage_zone+incendiary_grenade_explode_sound+on_explosion"
+      }
+    ]
+  },
   "uk_no_77_incendiary_grenade_phys": [
     {
       "_use": "incendiary_grenade_phys_base"

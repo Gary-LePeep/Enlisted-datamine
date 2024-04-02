@@ -163,6 +163,9 @@ let soldierStatsCfg = [
   { stat = "friendlyApcKills", locId = "debriefing/awards/friendlyApcKills" },
   { stat = "friendlyPlaneHits", locId = "debriefing/awards/friendlyPlaneHits" },
   { stat = "friendlyPlaneKills", locId = "debriefing/awards/friendlyPlaneKills" },
+  { stat = "zombieKills", locId = "debriefing/awards/zombieKills" },
+  { stat = "zombieWaves", locId = "debriefing/awards/zombieWaves" },
+  { stat = "zombieTotalScore", locId = "debriefing/awards/zombieTotalScore" },
   { stat = "awardScore", locId = "debriefing/score", isVisible = @(_) true },
   { stat = "noviceBonus", locId = "debriefing/noviceExpBonus" }
 ].map(@(s) { toString = @(v) v.tostring(), isVisible = @(v) v != 0 }.__update(s))

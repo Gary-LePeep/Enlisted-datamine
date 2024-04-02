@@ -1,0 +1,28 @@
+{
+  "melee": {
+    "hitPower": 20.0,
+    "impulsePower": 20.0,
+    "node": "Bip01 Head",
+    "hitFxPreset": "hands"
+  },
+  "slow": [],
+  "volume": {
+    "frustum": {
+      "znear": 0.01,
+      "zfar": 2.0,
+      "fovx": 120.0,
+      "fovy": 90.0
+    }
+  },
+  "ridmg": {
+    "node": "Bip01 Pelvis",
+    "nodeOffset": [0.3,0.5,-0.15],
+    "hitPower": 30.0,
+    "rayLen": 1.5,
+    "rad": 0.4,
+    "backoffFactor": 0.1
+  },
+  "actionSound": {
+    "humanHitSoundName": "melee_hands"
+  }
+}

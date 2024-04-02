@@ -779,7 +779,6 @@ def after_update_projectile_es(info : ParallelUpdateFrameDelayed;
                                projectile__addBulletHole : bool = true;
                                projectile__ballisticsUpdated : bool = true;
                                projectile__destroyVel : float = 6.f;
-                               projectile__isBomb : bool = false;
                                var projectile_ballistics : ProjectileBallistics;
                                var dm_projectile_state : ProjectileState&;
                                var projectile__exploded : bool&;
@@ -815,7 +814,7 @@ def after_update_projectile_es(info : ParallelUpdateFrameDelayed;
   let destrVelSq = square(projectile__destroyVel)
   let projectileDestroyByVel = length_sq(projectile_ballistics.state.vel) < destrVelSq
   projectile__stopped = projectileDestroyByVel
-  if !projectileDestroyByVel && !projectile__isBomb
+  if !projectileDestroyByVel
     trace_shootable_objects(prevPos, dir, len, ownerEid, vehicleEid) <| $(sortedIntersectedList : IntersectedEntities)
       if length(sortedIntersectedList) > 0
         for isect in sortedIntersectedList
@@ -842,14 +841,15 @@ def after_update_projectile_es(info : ParallelUpdateFrameDelayed;
             return
           if hitRes == ProjectileHitResult Ignore
             continue
-          broadcastEvent([[ProjectileOnIntersectEntityWithHp victim=isect.eid, offender=ownerEid]])
           entitiesIntersected = true
           if hitRes == ProjectileHitResult HitAndContinue
             projectile__penetratedEids |> push(isect.eid)
+            sendEventImmediate(eid, [[EventProjectileIntersectEntityWithHp victim=isect.eid, offender=ownerEid, pos=isect.pos, collNodeId=isect.collNodeId]])
           else // HitAndDestroyProjectile
             projectile__stopped = true
             if allowDetonation
               projectile__exploded = true
+            sendEventImmediate(eid, [[EventProjectileIntersectEntityWithHp victim=isect.eid, offender=ownerEid, pos=isect.pos, collNodeId=isect.collNodeId]])
             break
 
   // Actually correct would be iterate over until we got closest hit. However, we will be using simplified version.

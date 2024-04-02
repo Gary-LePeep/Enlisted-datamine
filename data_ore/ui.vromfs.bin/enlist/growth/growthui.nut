@@ -22,9 +22,9 @@ let { curArmy, curCampItems } = require("%enlist/soldiers/model/state.nut")
 let { GrowthStatus, curGrowthId, curGrowthConfig, curGrowthState, curGrowthSelected,
   callGrowthSelect, callGrowthPurchase, curSquads, curTemplates, mkGrowthData,
   curGrowthTiers, curGrowthProgress, curGrowthFreeExp, callGrowthExp, callGrowthBuyExp,
-  reqGrowthId, growthTierToScroll, isGrowthVisible
+  reqGrowthId, growthTierToScroll, isGrowthVisible, isShopItemSuitable
 } = require("growthState.nut")
-let shopItemClick = require("%enlist/shop/shopItemClick.nut")
+let { shopItemClick } = require("%enlist/shop/shopItemClick.nut")
 let { mkColoredGradientX, mkColoredGradientY } = require("%enlSqGlob/ui/gradients.nut")
 let { makeHorizScroll } = require("%ui/components/scrollbar.nut")
 let { gradientProgressBar } = require("%enlSqGlob/ui/defComponents.nut")
@@ -554,12 +554,6 @@ function selectAction(growthCfg, growthData) {
     ], true)
   })
 }
-
-
-let isShopItemSuitable = @(item) (item?.can_be_bought ?? true)
-  || (item?.curShopItemPrice.price ?? 0) > 0
-  || (item?.price ?? 0) > 0
-  || (item?.itemCost.len() ?? 0) > 0
 
 
 function findGrowthShopItem(shopItemsGuids, availShopItems) {

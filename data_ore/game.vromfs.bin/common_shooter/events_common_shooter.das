@@ -23,7 +23,8 @@ struct EventOnSelectNextBulletId
   nextBulletId : int
 
 [event(unicast)]
-struct EventEntityKilledToPart
+struct EvtEntityKilledToPart
+  offender : EntityId
   collNodeId : int
   damageType : int
 

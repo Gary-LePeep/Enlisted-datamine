@@ -84,17 +84,22 @@ function close(needToClose = true) {
 
 
 
-let mkEventGameMode = @(event) {
-  id = "events"
-  image = event?.extraParams.imageGameMode ?? defCustomGameImage
-  title = doesLocTextExist(event?.locId) ? loc(event.locId) : loc("events")
-  description = loc(event?.descGameModeLocId ?? "events/descTitle")
-  isAvailable = true
-  needShowCrossplayIcon = true
-  isVersionCompatible = true
-  onClick = function() {
-    openEventsGameMode()
-    close()
+let mkEventGameMode = function(activeEvent) {
+  let {
+      descGameModeLocId = "", imageGameMode = null // descLocId = "" is too long
+    } = activeEvent?.queues.findvalue(@(_) true).extraParams
+  return {
+    id = "events"
+    image = imageGameMode ?? defCustomGameImage
+    title = doesLocTextExist(descGameModeLocId) ? loc(descGameModeLocId) : loc("events")
+    description = ""
+    isAvailable = true
+    needShowCrossplayIcon = true
+    isVersionCompatible = true
+    onClick = function() {
+      openEventsGameMode()
+      close()
+    }
   }
 }
 

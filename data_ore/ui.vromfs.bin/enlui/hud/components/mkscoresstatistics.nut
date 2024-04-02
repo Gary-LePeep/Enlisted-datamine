@@ -192,6 +192,12 @@ let sortStatistics = @(a, b)
   || (b.player?["scoring_player__kills"] ?? 0) <=> (a.player?["scoring_player__kills"] ?? 0) //compatibility with prev debriefing
   || a.eid <=> b.eid
 
+let sortStatisticsZombieMod = @(a, b)
+  a.player.disconnected <=> b.player.disconnected
+  || (b.player?.scoring_player__zombieTotalScore ?? 0) <=> (a.player?.scoring_player__zombieTotalScore ?? 0) //compatibility with prev debriefing
+  || (a.player?.lastUpdate ?? 0) <=> (b.player?.lastUpdate ?? 0)
+  || a.eid <=> b.eid
+
 let STATISTICS_VIEW_PARAMS = {
   localPlayerEid = ecs.INVALID_ENTITY_ID
   localPlayerGroupId = INVALID_GROUP_ID
@@ -237,8 +243,10 @@ function mkTable(players, params = STATISTICS_VIEW_PARAMS) {
     else
       enemies.append(res)
   }
-  allies.sort(sortStatistics)
-  enemies.sort(sortStatistics)
+
+  let sorter = params.missionType == "zombie_mode" ? sortStatisticsZombieMod : sortStatistics
+  allies.sort(sorter)
+  enemies.sort(sorter)
 
   let minRows = max(allies.len(), enemies.len())
   return {

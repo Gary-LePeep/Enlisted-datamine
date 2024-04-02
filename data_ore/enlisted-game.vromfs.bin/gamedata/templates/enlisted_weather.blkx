@@ -844,300 +844,150 @@
     "sky_atmosphere__mie_scale": [0.2,0.2],
     "sky_atmosphere__planet_scale": 1.5
   },
-  "weather_clear_night_a": [
-    {
-      "_use": "skies_settings"
-    },
-    {
-      "_use": "skies_settings"
-    },
-    {
-      "clouds_rendering__erosion_noise_size": 30.5
-    },
-    {
-      "clouds_rendering__ms_attenuation": 0.4
-    },
-    {
-      "clouds_rendering__ms_contribution": 0.7
-    },
-    {
-      "clouds_rendering__ambient_desaturation": 0.5
-    },
-    {
-      "clouds_rendering__ms_ecc_attenuation": 0.4
-    },
-    {
-      "clouds_rendering__back_eccentricity": 0.5
-    },
-    {
-      "clouds_rendering__erosionWindSpeed": 21.0
-    },
-    {
-      "clouds_rendering__forward_eccentricity_weight": 0.5
-    },
-    {
-      "strata_clouds__amount": [0.8,1.0]
-    },
-    {
-      "strata_clouds__altitude": [7.0,9.0]
-    },
-    {
-      "clouds_form__turbulenceStrength": [0.5,0.5]
-    },
-    {
-      "clouds_form__shapeNoiseScale": 7
-    },
-    {
-      "clouds_form__cumulonimbusShapeScale": 5
-    },
-    {
-      "clouds_form__turbulenceFreq": 2
-    },
-    {
-      "clouds_weather_gen__epicness": 0.0
-    },
-    {
-      "clouds_weather_gen__cumulonimbusSeed": [0.0,100.0]
-    },
-    {
-      "clouds_weather_gen__worldSize": 65536.0
-    },
-    {
-      "clouds_form__extinction": [0.05,0.05]
-    },
-    {
-      "clouds_rendering__forward_eccentricity": 4.5
-    },
-    {
-      "clouds_weather_gen__cumulonimbusCoverage": [0.5,0.6]
-    },
-    {
-      "sky_atmosphere__mie_height": [0.0,0.0]
-    },
-    {
-      "sky_atmosphere__mie2_altitude": [35.0,35.0]
-    },
-    {
-      "sky_atmosphere__ozone_scale": [0.2,0.2]
-    },
-    {
-      "sky_atmosphere__average_ground_albedo": 1.9
-    },
-    {
-      "sky_atmosphere__planet_scale": 0.5
-    },
-    {
-      "sky_atmosphere__atmosphere_scale": 0.5
-    },
-    {
-      "sky_atmosphere__rayleigh_scale": [0.5,0.5]
-    },
-    {
-      "sky_atmosphere__mie_scale": [5.5,5.5]
-    },
-    {
-      "sky_atmosphere__mie2_thickness": [100.0,250.0]
-    },
-    {
-      "sky_atmosphere__mie2_scale": [35.0,35.0]
-    },
-    {
-      "sky_atmosphere__moon_brightness": 1.8
-    },
-    {
-      "sky_atmosphere__multiple_scattering_factor": 1.0
-    },
-    {
-      "sky_atmosphere__rayleigh_alt_scale": [2.5,2.5]
-    },
-    {
-      "clouds_form__layers:array": [
-        {
-          "clouds_form__layers:object": {
-            "density": [0.72,0.82],
-            "clouds_type_variance": [1.0,1.0],
-            "startAt": [3.9,4.3],
-            "clouds_type": [1.5,1.5],
-            "thickness": [4.5,5.5]
-          }
-        },
-        {
-          "clouds_form__layers:object": {
-            "density": [0.65,0.75],
-            "clouds_type_variance": [1.0,1.0],
-            "startAt": [7.5,8.5],
-            "clouds_type": [3.0,3.0],
-            "thickness": [9.0,10.0]
-          }
+  "weather_clear_night_a": {
+    "_use": "skies_settings",
+    "clouds_rendering__erosion_noise_size": 30.5,
+    "clouds_rendering__ms_attenuation": 0.4,
+    "clouds_rendering__ms_contribution": 0.7,
+    "clouds_rendering__ambient_desaturation": 0.5,
+    "clouds_rendering__ms_ecc_attenuation": 0.4,
+    "clouds_rendering__back_eccentricity": 0.5,
+    "clouds_rendering__erosionWindSpeed": 21.0,
+    "clouds_rendering__forward_eccentricity_weight": 0.5,
+    "strata_clouds__amount": [0.8,1.0],
+    "strata_clouds__altitude": [7.0,9.0],
+    "clouds_form__turbulenceStrength": [0.5,0.5],
+    "clouds_form__shapeNoiseScale": 7,
+    "clouds_form__cumulonimbusShapeScale": 5,
+    "clouds_form__turbulenceFreq": 2,
+    "clouds_weather_gen__epicness": 0.0,
+    "clouds_weather_gen__cumulonimbusSeed": [0.0,100.0],
+    "clouds_weather_gen__worldSize": 65536.0,
+    "clouds_form__extinction": [0.05,0.05],
+    "clouds_rendering__forward_eccentricity": 4.5,
+    "clouds_weather_gen__cumulonimbusCoverage": [0.5,0.6],
+    "sky_atmosphere__mie_height": [0.0,0.0],
+    "sky_atmosphere__mie2_altitude": [35.0,35.0],
+    "sky_atmosphere__ozone_scale": [0.2,0.2],
+    "sky_atmosphere__average_ground_albedo": 1.9,
+    "sky_atmosphere__planet_scale": 0.5,
+    "sky_atmosphere__atmosphere_scale": 0.5,
+    "sky_atmosphere__rayleigh_scale": [0.5,0.5],
+    "sky_atmosphere__mie_scale": [5.5,5.5],
+    "sky_atmosphere__mie2_thickness": [100.0,250.0],
+    "sky_atmosphere__mie2_scale": [35.0,35.0],
+    "sky_atmosphere__moon_brightness": 1.5,
+    "sky_atmosphere__multiple_scattering_factor": 1.0,
+    "sky_atmosphere__rayleigh_alt_scale": [2.5,2.5],
+    "clouds_form__layers:array": [
+      {
+        "clouds_form__layers:object": {
+          "density": [0.72,0.82],
+          "clouds_type_variance": [1.0,1.0],
+          "startAt": [3.9,4.3],
+          "clouds_type": [1.5,1.5],
+          "thickness": [4.5,5.5]
         }
-      ]
-    },
-    {
-      "clouds_weather_gen__layers:array": [
-        {
-          "clouds_weather_gen__layers:object": {
-            "coverage": [0.32,0.37],
-            "seed": [0.0,100.0],
-            "freq": [9.0,10.0]
-          }
-        },
-        {
-          "clouds_weather_gen__layers:object": {
-            "coverage": [0.52,0.57],
-            "seed": [0.0,100.0],
-            "freq": [6.0,7.0]
-          }
+      },
+      {
+        "clouds_form__layers:object": {
+          "density": [0.65,0.75],
+          "clouds_type_variance": [1.0,1.0],
+          "startAt": [7.5,8.5],
+          "clouds_type": [3.0,3.0],
+          "thickness": [9.0,10.0]
         }
-      ]
-    }
-  ],
-  "weather_clear_night_b": [
-    {
-      "_use": "skies_settings"
-    },
-    {
-      "_use": "skies_settings"
-    },
-    {
-      "clouds_rendering__erosion_noise_size": 30.5
-    },
-    {
-      "clouds_rendering__ms_attenuation": 0.4
-    },
-    {
-      "clouds_rendering__ms_contribution": 0.7
-    },
-    {
-      "clouds_rendering__ambient_desaturation": 0.5
-    },
-    {
-      "clouds_rendering__ms_ecc_attenuation": 0.4
-    },
-    {
-      "clouds_rendering__erosionWindSpeed": 21.0
-    },
-    {
-      "clouds_rendering__forward_eccentricity_weight": 0.5
-    },
-    {
-      "strata_clouds__amount": [0.8,1.0]
-    },
-    {
-      "strata_clouds__altitude": [7.0,9.0]
-    },
-    {
-      "clouds_form__turbulenceStrength": [0.5,0.5]
-    },
-    {
-      "clouds_form__shapeNoiseScale": 7
-    },
-    {
-      "clouds_form__cumulonimbusShapeScale": 5
-    },
-    {
-      "clouds_form__turbulenceFreq": 2
-    },
-    {
-      "clouds_weather_gen__epicness": 0.0
-    },
-    {
-      "clouds_weather_gen__cumulonimbusCoverage": [0.0,0.0]
-    },
-    {
-      "clouds_weather_gen__cumulonimbusSeed": [0.0,100.0]
-    },
-    {
-      "clouds_weather_gen__worldSize": 65536.0
-    },
-    {
-      "clouds_form__extinction": [0.05,0.05]
-    },
-    {
-      "clouds_rendering__forward_eccentricity": 0.1
-    },
-    {
-      "clouds_rendering__back_eccentricity": 0.1
-    },
-    {
-      "sky_atmosphere__mie_height": [0.0,0.0]
-    },
-    {
-      "sky_atmosphere__mie2_altitude": [35.0,35.0]
-    },
-    {
-      "sky_atmosphere__ozone_scale": [0.2,0.2]
-    },
-    {
-      "sky_atmosphere__average_ground_albedo": 1.9
-    },
-    {
-      "sky_atmosphere__planet_scale": 0.5
-    },
-    {
-      "sky_atmosphere__atmosphere_scale": 0.5
-    },
-    {
-      "sky_atmosphere__rayleigh_scale": [0.5,0.5]
-    },
-    {
-      "sky_atmosphere__mie_scale": [5.5,5.5]
-    },
-    {
-      "sky_atmosphere__mie2_thickness": [100.0,250.0]
-    },
-    {
-      "sky_atmosphere__mie2_scale": [35.0,35.0]
-    },
-    {
-      "sky_atmosphere__moon_brightness": 1.8
-    },
-    {
-      "sky_atmosphere__multiple_scattering_factor": 1.0
-    },
-    {
-      "sky_atmosphere__rayleigh_alt_scale": [2.5,2.5]
-    },
-    {
-      "clouds_form__layers:array": [
-        {
-          "clouds_form__layers:object": {
-            "density": [0.72,0.82],
-            "clouds_type_variance": [1.0,1.0],
-            "startAt": [3.9,4.3],
-            "clouds_type": [1.5,1.5],
-            "thickness": [4.5,5.5]
-          }
-        },
-        {
-          "clouds_form__layers:object": {
-            "density": [0.65,0.75],
-            "clouds_type_variance": [1.0,1.0],
-            "startAt": [7.5,8.5],
-            "clouds_type": [3.0,3.0],
-            "thickness": [9.0,10.0]
-          }
+      }
+    ],
+    "clouds_weather_gen__layers:array": [
+      {
+        "clouds_weather_gen__layers:object": {
+          "coverage": [0.32,0.37],
+          "seed": [0.0,100.0],
+          "freq": [9.0,10.0]
         }
-      ]
-    },
-    {
-      "clouds_weather_gen__layers:array": [
-        {
-          "clouds_weather_gen__layers:object": {
-            "coverage": [0.32,0.37],
-            "seed": [0.0,100.0],
-            "freq": [9.0,10.0]
-          }
-        },
-        {
-          "clouds_weather_gen__layers:object": {
-            "coverage": [0.52,0.57],
-            "seed": [0.0,100.0],
-            "freq": [6.0,7.0]
-          }
+      },
+      {
+        "clouds_weather_gen__layers:object": {
+          "coverage": [0.52,0.57],
+          "seed": [0.0,100.0],
+          "freq": [6.0,7.0]
         }
-      ]
-    }
-  ],
+      }
+    ]
+  },
+  "weather_clear_night_b": {
+    "_use": "skies_settings",
+    "clouds_rendering__erosion_noise_size": 30.5,
+    "clouds_rendering__ms_attenuation": 0.4,
+    "clouds_rendering__ms_contribution": 0.7,
+    "clouds_rendering__ambient_desaturation": 0.5,
+    "clouds_rendering__ms_ecc_attenuation": 0.4,
+    "clouds_rendering__erosionWindSpeed": 21.0,
+    "clouds_rendering__forward_eccentricity_weight": 0.5,
+    "strata_clouds__amount": [0.8,1.0],
+    "strata_clouds__altitude": [7.0,9.0],
+    "clouds_form__turbulenceStrength": [0.5,0.5],
+    "clouds_form__shapeNoiseScale": 7,
+    "clouds_form__cumulonimbusShapeScale": 5,
+    "clouds_form__turbulenceFreq": 2,
+    "clouds_weather_gen__epicness": 0.0,
+    "clouds_weather_gen__cumulonimbusCoverage": [0.0,0.0],
+    "clouds_weather_gen__cumulonimbusSeed": [0.0,100.0],
+    "clouds_weather_gen__worldSize": 65536.0,
+    "clouds_form__extinction": [0.05,0.05],
+    "clouds_rendering__forward_eccentricity": 0.1,
+    "clouds_rendering__back_eccentricity": 0.1,
+    "sky_atmosphere__mie_height": [0.0,0.0],
+    "sky_atmosphere__mie2_altitude": [35.0,35.0],
+    "sky_atmosphere__ozone_scale": [0.2,0.2],
+    "sky_atmosphere__average_ground_albedo": 1.9,
+    "sky_atmosphere__planet_scale": 0.5,
+    "sky_atmosphere__atmosphere_scale": 0.5,
+    "sky_atmosphere__rayleigh_scale": [0.5,0.5],
+    "sky_atmosphere__mie_scale": [5.5,5.5],
+    "sky_atmosphere__mie2_thickness": [100.0,250.0],
+    "sky_atmosphere__mie2_scale": [35.0,35.0],
+    "sky_atmosphere__moon_brightness": 1.5,
+    "sky_atmosphere__multiple_scattering_factor": 1.0,
+    "sky_atmosphere__rayleigh_alt_scale": [2.5,2.5],
+    "clouds_form__layers:array": [
+      {
+        "clouds_form__layers:object": {
+          "density": [0.72,0.82],
+          "clouds_type_variance": [1.0,1.0],
+          "startAt": [3.9,4.3],
+          "clouds_type": [1.5,1.5],
+          "thickness": [4.5,5.5]
+        }
+      },
+      {
+        "clouds_form__layers:object": {
+          "density": [0.65,0.75],
+          "clouds_type_variance": [1.0,1.0],
+          "startAt": [7.5,8.5],
+          "clouds_type": [3.0,3.0],
+          "thickness": [9.0,10.0]
+        }
+      }
+    ],
+    "clouds_weather_gen__layers:array": [
+      {
+        "clouds_weather_gen__layers:object": {
+          "coverage": [0.32,0.37],
+          "seed": [0.0,100.0],
+          "freq": [9.0,10.0]
+        }
+      },
+      {
+        "clouds_weather_gen__layers:object": {
+          "coverage": [0.52,0.57],
+          "seed": [0.0,100.0],
+          "freq": [6.0,7.0]
+        }
+      }
+    ]
+  },
   "weather_clear_night_c": {
     "_use": "skies_settings",
     "strata_clouds__altitude": [10.0,12.0],
@@ -1165,42 +1015,116 @@
     "sky_atmosphere__mie_scale": [5.5,5.5],
     "sky_atmosphere__mie2_thickness": [100.0,250.0],
     "sky_atmosphere__mie2_scale": [35.0,35.0],
-    "sky_atmosphere__moon_brightness": 1.8,
+    "sky_atmosphere__moon_brightness": 1.5,
     "sky_atmosphere__multiple_scattering_factor": 1.0,
     "sky_atmosphere__rayleigh_alt_scale": [2.5,2.5],
     "clouds_form__layers:array": [
       {
         "clouds_form__layers:object": {
-          "startAt": [0.7,2.0],
-          "thickness": [3.0,6.0],
-          "density": [0.6,1.0],
-          "clouds_type": [0.25,0.5],
-          "clouds_type_variance": [1.0,1.0]
+          "density": [0.72,0.82],
+          "clouds_type_variance": [1.0,1.0],
+          "startAt": [3.9,4.3],
+          "clouds_type": [1.5,1.5],
+          "thickness": [4.5,5.5]
         }
       },
       {
         "clouds_form__layers:object": {
-          "startAt": [5.0,8.0],
-          "thickness": [3.0,5.0],
-          "density": [0.5,0.55],
-          "clouds_type": [0.1,0.25],
-          "clouds_type_variance": [0.5,0.5]
+          "density": [0.65,0.75],
+          "clouds_type_variance": [1.0,1.0],
+          "startAt": [7.5,8.5],
+          "clouds_type": [3.0,3.0],
+          "thickness": [9.0,10.0]
         }
       }
     ],
     "clouds_weather_gen__layers:array": [
       {
         "clouds_weather_gen__layers:object": {
-          "coverage": [0.0,0.0],
+          "coverage": [0.32,0.37],
           "seed": [0.0,100.0],
-          "freq": [3.0,3.0]
+          "freq": [9.0,10.0]
         }
       },
       {
         "clouds_weather_gen__layers:object": {
-          "coverage": [0.0,0.0],
+          "coverage": [0.52,0.57],
           "seed": [0.0,100.0],
-          "freq": [7.0,7.0]
+          "freq": [6.0,7.0]
+        }
+      }
+    ]
+  },
+  "weather_zombie_night_a": {
+    "_use": "skies_settings",
+    "clouds_settings__force_panorama": true,
+    "clouds_rendering__erosion_noise_size": 30.5,
+    "clouds_rendering__ms_attenuation": 0.4,
+    "clouds_rendering__ms_contribution": 0.7,
+    "clouds_rendering__ambient_desaturation": 0.5,
+    "clouds_rendering__ms_ecc_attenuation": 0.4,
+    "clouds_rendering__back_eccentricity": 0.5,
+    "clouds_rendering__erosionWindSpeed": 21.0,
+    "clouds_rendering__forward_eccentricity_weight": 0.5,
+    "strata_clouds__amount": [0.8,1.0],
+    "strata_clouds__altitude": [7.0,9.0],
+    "clouds_form__turbulenceStrength": [0.5,0.5],
+    "clouds_form__shapeNoiseScale": 7,
+    "clouds_form__cumulonimbusShapeScale": 5,
+    "clouds_form__turbulenceFreq": 2,
+    "clouds_weather_gen__epicness": 0.0,
+    "clouds_weather_gen__cumulonimbusSeed": [0.0,100.0],
+    "clouds_weather_gen__worldSize": 65536.0,
+    "clouds_form__extinction": [0.05,0.05],
+    "clouds_rendering__forward_eccentricity": 4.5,
+    "clouds_weather_gen__cumulonimbusCoverage": [0.5,0.6],
+    "sky_atmosphere__mie_height": [0.0,0.0],
+    "sky_atmosphere__mie2_altitude": [35.0,35.0],
+    "sky_atmosphere__ozone_scale": [0.2,0.2],
+    "sky_atmosphere__average_ground_albedo": 1.9,
+    "sky_atmosphere__planet_scale": 0.5,
+    "sky_atmosphere__atmosphere_scale": 0.5,
+    "sky_atmosphere__rayleigh_scale": [0.5,0.5],
+    "sky_atmosphere__mie_scale": [5.5,5.5],
+    "sky_atmosphere__mie2_thickness": [100.0,250.0],
+    "sky_atmosphere__mie2_scale": [35.0,35.0],
+    "sky_atmosphere__moon_brightness": 1.65,
+    "sky_atmosphere__multiple_scattering_factor": 1.0,
+    "sky_atmosphere__rayleigh_alt_scale": [2.5,2.5],
+    "skies_settings__weatherSeed": 108593,
+    "clouds_form__layers:array": [
+      {
+        "clouds_form__layers:object": {
+          "density": [0.72,0.82],
+          "clouds_type_variance": [1.0,1.0],
+          "startAt": [3.9,4.3],
+          "clouds_type": [1.5,1.5],
+          "thickness": [4.5,5.5]
+        }
+      },
+      {
+        "clouds_form__layers:object": {
+          "density": [0.65,0.75],
+          "clouds_type_variance": [1.0,1.0],
+          "startAt": [7.5,8.5],
+          "clouds_type": [3.0,3.0],
+          "thickness": [9.0,10.0]
+        }
+      }
+    ],
+    "clouds_weather_gen__layers:array": [
+      {
+        "clouds_weather_gen__layers:object": {
+          "coverage": [0.32,0.37],
+          "seed": [0.0,100.0],
+          "freq": [9.0,10.0]
+        }
+      },
+      {
+        "clouds_weather_gen__layers:object": {
+          "coverage": [0.52,0.57],
+          "seed": [0.0,100.0],
+          "freq": [6.0,7.0]
         }
       }
     ]

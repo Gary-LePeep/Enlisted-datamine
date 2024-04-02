@@ -1086,5 +1086,33 @@
         "level__timeVec": 16.0
       }
     ]
+  },
+  "zombie_level_night": {
+    "_use": "level",
+    "level__weatherChoice:object": [
+      {
+        "weather_zombie_night_a": 1.0
+      },
+      {
+        "weather_zombie_night_a:object": {
+          "weight": 0.5,
+          "level__timeVec:array": {
+            "level__timeVec": 1.344
+          }
+        }
+      },
+      {
+        "weather_zombie_night_a:object": {
+          "weight": 1.0,
+          "cloudsHoleEnabled": false,
+          "level__timeVec:array": {
+            "level__timeVec": 1.344
+          }
+        }
+      }
+    ],
+    "level__timeVec:array": {
+      "level__timeVec": 1.344
+    }
   }
 }

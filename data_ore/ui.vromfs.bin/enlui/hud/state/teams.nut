@@ -34,6 +34,7 @@ let teams_comps = {
     ["team__narrator", ecs.TYPE_OBJECT, {}],
     ["team__squadsCanSpawn", ecs.TYPE_BOOL, true],
     ["team__eachSquadMaxSpawns", ecs.TYPE_INT, 0],
+    ["team__goalShowTime", ecs.TYPE_FLOAT, -1.0],
   ]
 }
 let fullCompsList = [].extend(teams_comps.comps_ro, teams_comps.comps_track)

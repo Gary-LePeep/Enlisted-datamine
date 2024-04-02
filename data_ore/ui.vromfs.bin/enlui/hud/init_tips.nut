@@ -5,6 +5,7 @@ let { minimalistHud } = require("%ui/hud/state/hudOptionsState.nut")
 let { forcedMinimalHud } = require("%ui/hud/state/hudGameModes.nut")
 let {setTips} = require("%ui/hud/state/tips.nut")
 let medkit_tip               = require("%ui/hud/huds/tips/medkit_tip.nut")
+let revive_from_team_tip     = require("%ui/hud/huds/tips/need_revive_from_teammate.nut")
 let aim_stamina_tip          = require("%ui/hud/huds/tips/low_stamina_aim_tip.nut")
 let switch_soldier_tip       = require("%ui/hud/huds/tips/switch_soldier_tip.nut")
 let downed_grenade_usage_tip = require("%ui/hud/huds/tips/downed_grenade_usage_tip.nut")
@@ -40,7 +41,7 @@ let fullTips = [
     gap = hdpx(2)
     children = [
       mark_enemy_tip, swithAimBtnTip,
-      hold_breath_tip, downed_grenade_usage_tip,
+      hold_breath_tip, downed_grenade_usage_tip, revive_from_team_tip,
       switch_soldier_tip, medkit_tip, aim_stamina_tip, low_stamina_use_flask_tip,
       place_bipod_tip, prevent_reloading_tip,
       mortar_aiming_tip, mortar_switch_shell_tip, open_parachute_tip, is_mobile_respawn_close_to_capzone_tip
@@ -61,7 +62,7 @@ let minTips = [
   {
     pos = [fsh(30), fsh(25)]
     gap = hdpx(2)
-    children = [medkit_tip, mortar_aiming_tip]
+    children = [medkit_tip, mortar_aiming_tip, revive_from_team_tip]
   }
   { children = medkit_usage }
   { children = vehicle_under_water }

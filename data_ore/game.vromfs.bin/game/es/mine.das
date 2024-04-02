@@ -12,6 +12,7 @@ require ecs.common
 require game.es.mine_common
 require PhysMat
 require Dacoll
+require game.events_game
 
 [es(on_event=EventEntityDestroyed, tag=server, REQUIRE=engeneer_mine)]
 def mine_was_destroyed_es(evt : Event;
@@ -29,18 +30,20 @@ def mine_activator_was_destroyed_es(evt : Event;
   if !!activator__weaponEid
     destroyEntity(activator__weaponEid)
 
-[es(on_event=EventEntityDied, tag=server, REQUIRE=engeneer_mine)]
-def mine_exploder_by_hp_es(evt : Event;
+[es(tag=server, REQUIRE=engeneer_mine)]
+def mine_exploder_by_hp_es(evt : EventEntityDied;
                            eid : EntityId;
                            transform : float3x4;
                            mineActivatorTemplate : string;
                            placeable_item__ownerEid : EntityId;
                            var mine__activated : bool&;
+                           mine__setShellOwnerFromKiller : Tag const?;
                            mine_activator__offset : float3)
   if mine__activated
     var tm = transform
     tm[3] += mine_activator__offset
-    detonate_mine(eid, mineActivatorTemplate, placeable_item__ownerEid, tm)
+    let owner = mine__setShellOwnerFromKiller != null ? evt.offender : placeable_item__ownerEid
+    detonate_mine(eid, mineActivatorTemplate, owner, tm)
     mine__activated = false
 
 [es(on_appear, before=mine_zone_list_cleaner_es, tag=server, REQUIRE=engeneer_mine, REQUIRE_NOT=menuItemObject)]

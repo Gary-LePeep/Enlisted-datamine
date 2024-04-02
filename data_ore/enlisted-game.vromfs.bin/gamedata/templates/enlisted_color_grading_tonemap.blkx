@@ -135,18 +135,39 @@
   "postfx_color_grading_tonemap_night_enlisted": {
     "_use": "postfx_color_grading_tonemap_death_alive_enlisted",
     "_singleton": true,
-    "color_grading:object": {
-      "colorContrast": [1.0,1.0,1.0,0.95],
-      "_tags": "render"
-    },
     "tonemap:object": {
       "tonemapMidOut": 0.155,
       "tonemapMidIn": 0.05,
       "tonemapShoulder": 0.95,
       "tonemapContrast": 1.0,
       "tonemapHdrMax": 4.0,
+      "_tags": "render"
+    },
+    "color_grading__alive:object": {
       "colorContrast": [1.0,1.0,1.0,0.95],
       "shadows_colorContrast": [1.0,1.0,1.0,0.85],
+      "_tags": "render"
+    },
+    "white_balance:object": {
+      "whiteTemp": 15000.0,
+      "_tags": "render"
+    }
+  },
+  "postfx_color_grading_tonemap_zombie_night_enlisted": {
+    "_use": "postfx_color_grading_tonemap_death_alive_enlisted",
+    "_singleton": true,
+    "tonemap:object": {
+      "tonemapMidOut": 0.17,
+      "tonemapMidIn": 0.08,
+      "tonemapShoulder": 1.0,
+      "tonemapContrast": 1.1,
+      "tonemapHdrMax": 4.0,
+      "_tags": "render"
+    },
+    "color_grading__alive:object": {
+      "colorSaturation": [1.0,1.0,1.0,0.9],
+      "colorContrast": [1.2,1.0,0.9,1.1],
+      "shadows_colorContrast": [1.0,1.0,1.0,0.7],
       "_tags": "render"
     },
     "white_balance:object": {

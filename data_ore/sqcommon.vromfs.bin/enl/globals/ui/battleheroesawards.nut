@@ -143,6 +143,7 @@ let requiredScoreTable = {
     escort        = { withBots = 0, noBots = 0 }
     gun_game      = { withBots = 0, noBots = 0 }
     no_mode       = { withBots = 0, noBots = 0 }
+    zombie_mode   = { withBots = 0, noBots = 0 }
   },
   [BattleHeroesAward.TOP_VEHICLE_SQUAD] = {
     domination    = { withBots = 800,  noBots = 400 }
@@ -153,6 +154,7 @@ let requiredScoreTable = {
     escort        = { withBots = 1200, noBots = 500 }
     gun_game      = { withBots = 800,  noBots = 400 }
     no_mode       = { withBots = 1200, noBots = 500 }
+    zombie_mode   = { withBots = 800,  noBots = 400 }
   },
   [BattleHeroesAward.TOP_INFANTRY_SQUAD] = {
     domination    = { withBots = 800,  noBots = 400 }
@@ -163,6 +165,7 @@ let requiredScoreTable = {
     escort        = { withBots = 1200, noBots = 500 }
     gun_game      = { withBots = 800, noBots =  400 }
     no_mode       = { withBots = 1200, noBots = 500 }
+    zombie_mode   = { withBots = 800,  noBots = 400 }
   },
   [BattleHeroesAward.SQUAD_COMMAND] = { // min score for each squad to participate in award calculation
     domination    = { withBots = 800,  noBots = 400 }
@@ -173,6 +176,7 @@ let requiredScoreTable = {
     escort        = { withBots = 1200, noBots = 500 }
     gun_game      = { withBots = 800, noBots =  400 }
     no_mode       = { withBots = 1200, noBots = 500 }
+    zombie_mode   = { withBots = 800,  noBots = 400 }
   },
 }
 
@@ -231,6 +235,7 @@ let requiredSoldierKindScoreTable = {
   escort        = { withBots = 450, noBots = 350 }
   gun_game      = { withBots = 300, noBots = 250 }
   no_mode       = { withBots = 450, noBots = 350 }
+  zombie_mode   = { withBots = 450, noBots = 350 }
 }
 
 function getAwardBySoldierKind(kind) {

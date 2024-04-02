@@ -210,5 +210,104 @@
       "effect__name": "event_mech_muzzle_blue_cmps_fx",
       "effect__distance_scale": 1.0
     }
-  }
+  },
+  "event_zombie_explosion_grenades_green_effect": [
+    {
+      "_use": "explosion_effect"
+    },
+    {
+      "_use": "hit_env_affect_fx"
+    },
+    {
+      "wind_emitter__radius": 1.0
+    },
+    {
+      "wind_emitter__duration": 2.0
+    },
+    {
+      "wind_emitter__strength": 1.0
+    },
+    {
+      "wind_emitter__phaseSin": true
+    },
+    {
+      "wind_emitter__numWaves": 3
+    },
+    {
+      "wind_emitter__phaseAttack": true
+    },
+    {
+      "wind_emitter__omni:tag": []
+    },
+    {
+      "_group": {
+        "_tags": "render",
+        "effect__name": "event_zombie_explosion_grenades_green_cmps_fx",
+        "effect__environmentDestructionRadius": 2.0
+      }
+    }
+  ],
+  "event_zombie_smoke_green_effect": {
+    "_use": "smoke_occluders",
+    "transform": [
+      [1.0,0.0,0.0],
+      [0.0,1.0,0.0],
+      [0.0,0.0,1.0],
+      [0.0,0.0,0.0]
+    ],
+    "effect__scale": 1.0,
+    "_tracked": "effect__scale",
+    "smoke_occluders__updateInterval": 2.0,
+    "_group": {
+      "_tags": "render",
+      "effect__name": "event_zombie_explosion_grenades_green_aftersmoke_cmps_fx",
+      "effect": []
+    },
+    "extinguishUnderwater:tag": [],
+    "smoke_occluders__isStatic:tag": [],
+    "smoke_occluders__info:shared:array": {
+      "big:object": {
+        "windScale": 0.0,
+        "expanseStartTime": 0.0,
+        "expanseFullTime": 2.0,
+        "fadeStartTime": 15.0,
+        "totalTime": 15.0,
+        "upSpeed": [0.0,3.0,0.0],
+        "normalSpeed": [0.0,0.0,0.0],
+        "radius": [0.0,9.5,1.0]
+      }
+    }
+  },
+  "event_zombie_fire_spot_2m_nosmoke_effect": [
+    {
+      "_use": "environment_effect_base"
+    },
+    {
+      "_use": "environment_sound_effect_base"
+    },
+    {
+      "_use": "damage_fire_base"
+    },
+    {
+      "_use": "range_pauseable_effect"
+    },
+    {
+      "sphere_zone__radius": 0.9
+    },
+    {
+      "effect__emit_range_limit": 120.0
+    },
+    {
+      "_group": {
+        "_tags": "render",
+        "effect__name": "event_zombie_fire_spot_2m_nosmoke_cmps_fx"
+      }
+    },
+    {
+      "_group": {
+        "_tags": "sound",
+        "sound_effect__path": "env_effects/fire/fire_mid"
+      }
+    }
+  ]
 }

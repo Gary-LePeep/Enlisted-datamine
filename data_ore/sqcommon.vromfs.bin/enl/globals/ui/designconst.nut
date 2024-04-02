@@ -19,6 +19,18 @@ let fadedTxtColor = 0x96828282
 
 let footerContentHeight = hdpx(36) + safeAreaVerPadding.value
 
+let scoreNestGradientR = mkColoredGradientX({
+  colorLeft = 0x00FFFFFF
+  colorRight = 0xAAFFFFFF
+  width = 6
+  isAlphaPremultiplied = false
+})
+let scoreNestGradientL = mkColoredGradientX({
+  colorLeft = 0xAAFFFFFF
+  colorRight = 0x00FFFFFF
+  width = 6
+  isAlphaPremultiplied = false
+})
 
 let levelNestGradient    = mkColoredGradientX({colorLeft=0x00FFFFFF, colorRight=0x22FFFFFF, width=6, isAlphaPremultiplied=false})
 let hoverLevelNestGradient = mkColoredGradientX({colorLeft=0x00000000, colorRight=0x33555555, width=6, isAlphaPremultiplied=false})
@@ -236,6 +248,8 @@ return {
   // soldier and squad slot color
   levelNestGradient
   hoverLevelNestGradient
+  scoreNestGradientR
+  scoreNestGradientL
   haveLevelColor = 0xFFF8BD41
   gainLevelColor = 0xFFFFCE68
   lockLevelColor = 0xFFAAAAAA

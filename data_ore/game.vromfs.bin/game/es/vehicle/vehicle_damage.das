@@ -6,6 +6,7 @@ require vehicle
 require ecs
 require danetlibs.native_dasevents.main.native_events
 require strings
+require DagorSystem
 
 def is_in_array(value : int; arr : ecs::IntList) : bool
   for item in arr
@@ -120,6 +121,17 @@ def vehicle_damage_part_events_es(evt : EventOnPartDamaged;
     dm_phys_parts__transmissionPartIds,
     dm_phys_parts__tracksPartIds,
     eid)
+
+[es(tag=server, on_appear)]
+def dm_parts_init_killed_es(evt : Event;
+                            dm_parts__initializeKilled : StringList;
+                            var damage_model : DamageModel&)
+  for part in dm_parts__initializeKilled
+    let partId = find_part_id_by_name(damage_model, string(part))
+    if partId < 0
+      logerr("dm_parts_init_killed_es: DM part '{part}' not found")
+      continue
+    damage_model.dmData.parts[partId].relHpFixed = uint16(0)
 
 def read_part_ids(damage_model : DamageModel; part_names : StringList; var part_ids : IntList&)
   for part in part_names

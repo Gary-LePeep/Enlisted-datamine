@@ -52,7 +52,7 @@ def human_inventory_server_es(info : UpdateStageInfoAct;
   var needRemove = true
   query(human_inventory__entityToUse) <| $ [es] (var item__useCount : int&) { needRemove = --item__useCount <= 0; }
 
-  if !needRemove
+  if !needRemove || has(human_inventory__entityToUse, "canBeUsedOutOfInventory")
     sendEventImmediate(human_inventory__entityToUse, [[EventOnLootItemUsed target=human_inventory__targetToUse]])
     sendEventImmediate(eid, [[EventOnLootUse itemEid=human_inventory__entityToUse]])
     human_inventory__entityToUse = INVALID_ENTITY_ID

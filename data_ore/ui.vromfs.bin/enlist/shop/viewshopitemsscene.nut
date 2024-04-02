@@ -233,7 +233,7 @@ let shopItemsScene = @() {
                 children = [
                   mkShopItemView({ shopItem = shopItem.value, isLocked })
                   armyLevel > level ? mkLevelLockLine(armyLevel)
-                    : mkShopItemPriceLine(shopItem.value)
+                    : mkShopItemPriceLine(shopItem.value, null, false, false)
                 ]
               })
             }

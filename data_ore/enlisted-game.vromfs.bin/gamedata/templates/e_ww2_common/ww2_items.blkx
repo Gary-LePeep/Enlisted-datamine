@@ -7609,6 +7609,78 @@
       "vehicleTriggerable:tag": []
     }
   ],
+  "tutorial_placed_medic_box_item": [
+    {
+      "_use": "replicating"
+    },
+    {
+      "_use": "item"
+    },
+    {
+      "_use": "placeable_item"
+    },
+    {
+      "_use": "medik_box_base"
+    },
+    {
+      "animchar__res": "sanitary_box_char"
+    },
+    {
+      "animchar_render__enabled": true
+    },
+    {
+      "item__iconRoll": 30.0
+    },
+    {
+      "item__iconScale": 1.1
+    },
+    {
+      "item__iconYaw": 45.0
+    },
+    {
+      "item__name": "items/medic_box"
+    },
+    {
+      "item__template": "medic_box_item"
+    },
+    {
+      "item__weapTemplate": "medic_box_item"
+    },
+    {
+      "item__weapType": "medic_box"
+    },
+    {
+      "gun__switchToPriority": -3
+    },
+    {
+      "item__weight": 8.5
+    },
+    {
+      "ri_extra__name": "dummy_wooden_box_a"
+    },
+    {
+      "customAnimcharVars:array": {
+        "param:object": {
+          "varName": "sanitary_box_cap",
+          "value": 0.0
+        }
+      }
+    },
+    {
+      "_group": {
+        "ui__geom_node_idx": -1,
+        "ui__node_pos": [0.0,0.0,0.0],
+        "ui__geom_node_name": "weaponRoot",
+        "_tags": "ui"
+      }
+    },
+    {
+      "animchar__noUpdateOnDedicated:tag": []
+    },
+    {
+      "vehicleTriggerable:tag": []
+    }
+  ],
   "medic_box_item": [
     {
       "_use": "placed_medic_box_item"

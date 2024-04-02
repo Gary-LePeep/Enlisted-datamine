@@ -102,6 +102,10 @@ let playerStatQuery = ecs.SqQuery("playerStatQuery", {
     ["scoring_player__score", ecs.TYPE_INT, 0],
     ["scoring_player__isBattleHero", ecs.TYPE_BOOL, false],
     ["appId", ecs.TYPE_INT],
+    ["scoring_player__zombieKills", ecs.TYPE_INT, 0],
+    ["scoring_player__zombieHeadshots", ecs.TYPE_INT, 0],
+    ["scoring_player__zombieWaves", ecs.TYPE_INT, 0],
+    ["scoring_player__zombieTotalScore", ecs.TYPE_INT, 0],
   ]
 })
 

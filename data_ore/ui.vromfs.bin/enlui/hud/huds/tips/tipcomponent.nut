@@ -1,13 +1,17 @@
 from "%enlSqGlob/ui/ui_library.nut" import *
 
-let {fontBody} = require("%enlSqGlob/ui/fontsStyle.nut")
-let {HUD_TIPS_FG} = require("%ui/hud/style.nut")
+let { fontBody, fontawesome } = require("%enlSqGlob/ui/fontsStyle.nut")
+let { HUD_TIPS_FG } = require("%ui/hud/style.nut")
 let { controlHudHint, mkHasBinding } = require("%ui/components/controlHudHint.nut")
 
+let hintTags = {
+  fa = fontawesome
+}
 
 function text_hint(text, params={}) {
   let res = {
-    rendObj = ROBJ_TEXT
+    rendObj = ROBJ_TEXTAREA
+    behavior = Behaviors.TextArea
     margin = hdpx(2)
     text
     color = params?.textColor ?? HUD_TIPS_FG
@@ -15,6 +19,7 @@ function text_hint(text, params={}) {
     fontSize = params?.fontSize ?? fontBody.fontSize
     transform = {pivot=[0.1,0.5]}
     animations = params?.textAnims ?? []
+    tagsTable = hintTags
   }
   if (text instanceof Watched)
     return @() res.__update({ watch = text, text = text.value })

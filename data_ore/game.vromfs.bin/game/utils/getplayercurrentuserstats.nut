@@ -43,6 +43,9 @@ function isTeamWon(roundResult, team) {
 let isGameWithDeveloperQuery = ecs.SqQuery("isGameWithDeveloperQuery", { comps_rq = ["gameWithDeveloper"] })
 let isGameWithDeveloper = @() isGameWithDeveloperQuery(@(...) true) ?? false
 
+let isZombieModeQuery = ecs.SqQuery("isZombieModeQuery", { comps_rq = ["zombieSpawnMode"] })
+let isZombieMode = @() isZombieModeQuery(@(...) true) ?? false
+
 function addStatValue(stats, value, addName) {
   if (value > 0)
     stats[addName] <- value
@@ -95,6 +98,10 @@ let playerUserstatComps = [
   ["squads__spawnCount", ecs.TYPE_INT, 0],
   ["scoring_player__score", ecs.TYPE_INT, 0],
   ["scoring_player__isBattleHero", ecs.TYPE_BOOL, false],
+  ["scoring_player__zombieKills", ecs.TYPE_INT, 0],
+  ["scoring_player__zombieHeadshots", ecs.TYPE_INT, 0],
+  ["scoring_player__zombieWaves", ecs.TYPE_INT, 0],
+  ["scoring_player__zombieTotalScore", ecs.TYPE_INT, 0],
 ]
 
 let getEngineerBuildingUsages = @(comp)
@@ -149,18 +156,26 @@ function getPlayerCurrentUserstats(comp, roundResult = null) {
   if (roundResult != null) {
     let isGameFinished = comp["scoring_player__isGameFinished"]
     let isVictory = isTeamWon(roundResult, comp.team)
-    if (isGameFinished) {
-      addStatValue(stats, 1, "battles")
-      addStatValue(stats, 1, isVictory ? "victories" : "defeats")
-      if (comp.scoring_player__isBattleHero)
-        addStatValue(stats, 1, isVictory ? "hero_wins" : "hero_loses")
-      if (isGameWithDeveloper())
-        addStatValue(stats, 1, "game_with_developers")
-    } else {
-      addStatValue(stats, 1, "early_quits")
-      addStatValue(stats, 1, isVictory ? "victories_early_quit" : "defeats_early_quit")
-      if (comp.scoring_player__isBattleHero)
-        addStatValue(stats, 1, isVictory ? "hero_wins_deserted" : "hero_loses_deserted")
+    if (isZombieMode()) {
+      if (isGameFinished)
+        addStatValue(stats, 1, "zombie_batlles")
+      else
+        addStatValue(stats, 1, "zombie_early_quits")
+    }
+    else {
+      if (isGameFinished) {
+        addStatValue(stats, 1, "battles")
+        addStatValue(stats, 1, isVictory ? "victories" : "defeats")
+        if (comp.scoring_player__isBattleHero)
+          addStatValue(stats, 1, isVictory ? "hero_wins" : "hero_loses")
+        if (isGameWithDeveloper())
+          addStatValue(stats, 1, "game_with_developers")
+      } else {
+        addStatValue(stats, 1, "early_quits")
+        addStatValue(stats, 1, isVictory ? "victories_early_quit" : "defeats_early_quit")
+        if (comp.scoring_player__isBattleHero)
+          addStatValue(stats, 1, isVictory ? "hero_wins_deserted" : "hero_loses_deserted")
+      }
     }
     stats.__update(getScorePlaceStats(roundResult, comp.team, comp["scoring_player__score"]))
     let {
@@ -172,6 +187,10 @@ function getPlayerCurrentUserstats(comp, roundResult = null) {
     addStatValue(stats, groupTime.tointeger(), "battle_group_battle_time")
     addStatValue(stats, groupScorePerMin.tointeger(), "battle_group_sum_score_per_minute")
   }
+  addStat(stats, comp, "scoring_player__zombieWaves", "zombie_waves")
+  addStat(stats, comp, "scoring_player__zombieTotalScore", "zombie_score")
+  addStat(stats, comp, "scoring_player__zombieKills", "zombie_kills")
+  addStat(stats, comp, "scoring_player__zombieHeadshots", "zombie_headshots")
 
   if (comp.userstatsFilter != null)
     stats = stats.filter(@(_,stat) stat in comp.userstatsFilter)

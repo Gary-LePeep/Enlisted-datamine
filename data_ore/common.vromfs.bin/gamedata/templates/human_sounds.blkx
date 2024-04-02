@@ -16,9 +16,17 @@
   "base_human_hit_sound": {
     "_group": {
       "_tags": "sound",
+      "human_hit_sound__nextSoundAt": 0.0,
+      "human_hit_sound__cooldown": 0.5,
       "human_hit_sound__headshotSoundEnabled": true,
       "human_hit_sound__shattersDelayFirstNextLast": [0.3,0.4,0.45],
       "human_hit_sound__paths:shared:object": []
+    }
+  },
+  "offender_hits_human_sound": {
+    "_group": {
+      "_tags": "sound",
+      "offender_hits_human_sound__path:shared:object": []
     }
   },
   "base_human_voice_sound": {
@@ -27,23 +35,18 @@
       "human_voice_sound__voiceTag": "",
       "human_voice_sound__path:shared:object": [],
       "human_voice_sound__descs:shared:object": [],
+      "human_voice_sound__oneshots:shared:object": [],
       "human_voice_sound__irqs:shared:object": []
     }
   },
-  "human_voice_effect_drinking": {
-    "_use": "base_human_voice_effect"
-  },
+  "human_voice_effect_drinking": [],
   "human_voice_effect_burning": {
-    "_use": "base_human_voice_effect",
     "humanVoiceEffectBurning:tag": {
       "_tags": "sound"
     }
   },
-  "human_voice_effect_hold_breath": {
-    "_use": "base_human_voice_effect"
-  },
+  "human_voice_effect_hold_breath": [],
   "human_voice_effect_coughing": {
-    "_use": "base_human_voice_effect",
     "_group": {
       "_tags": "sound",
       "human_voice_effect__endCoughingAt": 0.0,
@@ -51,9 +54,6 @@
     }
   },
   "human_voice_effect_fallcry": [
-    {
-      "_use": "base_human_voice_effect"
-    },
     {
       "_tracked": "human_voice_effect_fallcry__isFalling"
     },
@@ -70,7 +70,6 @@
     }
   ],
   "human_hit_cry_sound": {
-    "_use": "base_human_voice_effect",
     "_group": {
       "_tags": "sound",
       "human_hit_cry_sound__nextTime": 0.0,
@@ -85,18 +84,42 @@
       "human_fall_wind_sound__event:SoundEvent": []
     }
   },
-  "base_human_sound": [
+  "common_human_sound_components": [
     {
       "_use": "watched_by_player_sound"
-    },
-    {
-      "_use": "sound_control"
     },
     {
       "_use": "sound_event_group"
     },
     {
+      "_use": "sound_control"
+    },
+    {
       "_use": "sound_player_components"
+    },
+    {
+      "_group": {
+        "_tags": "sound",
+        "sound_control__range": 100.0
+      }
+    },
+    {
+      "human_animchar_sound:HumanAnimcharSound": {
+        "_tags": "sound"
+      }
+    },
+    {
+      "humanSound:tag": {
+        "_tags": "sound"
+      }
+    }
+  ],
+  "base_human_sound": [
+    {
+      "_use": "common_human_sound_components"
+    },
+    {
+      "_use": "human_voice_effects"
     },
     {
       "_use": "human_melee_sound"
@@ -118,6 +141,9 @@
     },
     {
       "_use": "human_hit_cry_sound"
+    },
+    {
+      "_use": "entity_intersected_with_projectile_sound"
     },
     {
       "_replicated": "human_sound_net_tags__equipmentList"
@@ -157,17 +183,6 @@
       ]
     },
     {
-      "humanSound:tag": {
-        "_tags": "sound"
-      }
-    },
-    {
-      "_group": {
-        "_tags": "sound",
-        "sound_control__range": 100.0
-      }
-    },
-    {
       "_group": {
         "_tags": "sound",
         "human_reverb_sound__nodeId": -1
@@ -186,11 +201,6 @@
         "human_steps_sound_generator__walkRunSprint_crouch_intervals": [0.5,0.85,0.85],
         "human_steps_sound_generator__enableForVisible": true,
         "human_steps_sound_generator__enableForInvisible": true
-      }
-    },
-    {
-      "human_animchar_sound:HumanAnimcharSound": {
-        "_tags": "sound"
       }
     },
     {
@@ -250,32 +260,6 @@
       }
     }
   ],
-  "human_sound": [
-    {
-      "_use": "base_human_sound"
-    },
-    {
-      "_use": "possessable_human_sound"
-    },
-    {
-      "_use": "human_loot_sound"
-    },
-    {
-      "_use": "human_voice_effect_burning"
-    },
-    {
-      "_use": "human_voice_effect_coughing"
-    },
-    {
-      "_use": "human_voice_effect_drinking"
-    },
-    {
-      "_use": "human_voice_effect_hold_breath"
-    },
-    {
-      "_use": "human_voice_effect_fallcry"
-    }
-  ],
   "human_sound_paths": {
     "sound_paths:shared:object": {
       "_tags": "sound",
@@ -333,16 +317,13 @@
       "swim_still:object": {
         "path": "/walker/ww2_soldier/foley_mov/swim/leg"
       }
-    },
+    }
+  },
+  "human_hit_sound_paths": {
     "human_hit_sound__paths:shared:object": {
       "_tags": "sound",
       "hit_dmgMelee:object": {
         "name": "melee",
-        "hero": "player/walker/ww2_soldier/hit",
-        "enemy": "enemy/walker/ww2_soldier/hit"
-      },
-      "hit_dmgProjectile:object": {
-        "name": "bullet_body",
         "hero": "player/walker/ww2_soldier/hit",
         "enemy": "enemy/walker/ww2_soldier/hit"
       },
@@ -373,7 +354,22 @@
         "hero": "player/walker/ww2_soldier/hit/bullet_body",
         "enemy": "enemy/walker/ww2_soldier/hit/bullet_body"
       }
-    },
+    }
+  },
+  "human_intersected_with_projectile_sound_paths": {
+    "entity_intersected_with_projectile_sound__paths:shared:object": {
+      "_tags": "sound",
+      "bullet:object": {
+        "hero": "player/walker/ww2_soldier/hit/bullet_body",
+        "enemy": "enemy/walker/ww2_soldier/hit/bullet_body"
+      },
+      "shell:object": {
+        "hero": "impact/shell",
+        "enemy": "impact/shell"
+      }
+    }
+  },
+  "human_steps_sound_paths": {
     "human_steps_sound__path:shared:object": {
       "_tags": "sound",
       "path": "/walker/ww2_soldier/foley_mov"
@@ -487,7 +483,9 @@
           "name": "step"
         }
       }
-    ],
+    ]
+  },
+  "human_voice_sound_paths": {
     "human_voice_sound__path:shared:object": {
       "_tags": "sound",
       "options:array": [
@@ -577,9 +575,6 @@
           "name": "breath/out"
         }
       },
-      "hitCry:object": {
-        "name": "hit"
-      },
       "drink:object": [],
       "burn:object": {
         "name": "burning"
@@ -591,6 +586,16 @@
         "name": "fall"
       }
     },
+    "human_voice_sound__oneshots:shared:object": {
+      "_tags": "sound",
+      "hitCry:object": {
+        "name": "hit",
+        "downed:object": [],
+        "concussed:object": []
+      }
+    }
+  },
+  "human_melee_sound_paths": {
     "human_melee_sound__irqs:shared:object": {
       "_tags": "sound",
       "melee_sound:object": {

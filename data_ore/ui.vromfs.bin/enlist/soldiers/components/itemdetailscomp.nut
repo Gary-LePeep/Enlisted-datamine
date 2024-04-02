@@ -2,7 +2,7 @@ from "%enlSqGlob/ui/ui_library.nut" import *
 
 let { fontBody, fontSub } = require("%enlSqGlob/ui/fontsStyle.nut")
 let { defTxtColor, titleTxtColor, smallPadding, inventoryItemDetailsWidth, midPadding, totalBlack,
-  defItemBlur, transpDarkPanelBgColor
+  defItemBlur, transpDarkPanelBgColor, largePadding
 } = require("%enlSqGlob/ui/designConst.nut")
 let { statusTier, statusHintText, statusIconCtor } = require("%enlSqGlob/ui/itemPkg.nut")
 let { getItemName, getItemTypeName } = require("%enlSqGlob/ui/itemsInfo.nut")
@@ -16,6 +16,7 @@ let { campPresentation, needFreemiumStatus } = require("%enlist/campaigns/campai
 let { inventoryItems } = require("%enlist/soldiers/model/selectItemState.nut")
 let { makeVertScroll } = require("%ui/components/scrollbar.nut")
 let { mkBattleRating } = require("%enlSqGlob/ui/battleRatingPkg.nut")
+let { detailsModeCheckbox, isDetailsFull } = require("%enlist/items/detailsMode.nut")
 
 let animations = [
   { prop = AnimProp.opacity, from = 0, to = 1, duration = 0.3, easing = OutCubic,
@@ -179,74 +180,134 @@ function mkItemHeader(item, isFull) {
   }
 }
 
-function mkDetailsInfo(item, isFull = true, maxHeight = SIZE_TO_CONTENT) {
-  let isVehicle = item?.itemtype == "vehicle"
-  return makeVertScroll({
-    rendObj = ROBJ_WORLD_BLUR_PANEL
-    color = defItemBlur
-    fillColor = transpDarkPanelBgColor
-    flow = FLOW_VERTICAL
-    halign = ALIGN_RIGHT
-    gap = midPadding
-    size = [inventoryItemDetailsWidth, SIZE_TO_CONTENT]
-    padding = midPadding
-    vplace = isFull ? ALIGN_TOP : ALIGN_BOTTOM
-    valign = ALIGN_BOTTOM
-    children = [
-      mkItemHeader(item, isFull)
-      isFull ? mkItemDescription(item) : null
-      isVehicle ? null : mkSlotIncreaseInfo(item)
-      isVehicle ? null : mkAmmoIncreaseInfo(item)
-      isVehicle ? mkVehicleDetails(item) : mkItemDetails(item, isFull)
-      mkUpgrades(item, isFull)
-    ]
-  }, {
-    size = SIZE_TO_CONTENT
-    maxHeight
-  })
-}
 
-let mkViewItemWatchDetails = @(viewItemWatch, isFullMode = Watched(true)) function() {
-  let res = {
-    watch = [viewItemWatch, isFullMode]
-    transform = {}
-    animations = animations
-  }
-  let item = viewItemWatch.value
+function setlastTpl(item) {
   let tpl = item?.basetpl
-  if (lastTpl != tpl) {
+  if (lastTpl != tpl)
     lastTpl = tpl
-    anim_start("itemDetailsAnim")
-  }
-  if (!tpl)
-    return res
-
-  let isFull = isFullMode.value
-  return res.__update({
-    key = tpl
-    children = mkDetailsInfo(item, isFull)
-  })
-}
-
-function mkViewItemDetails (item, isFullMode = Watched(true), maxHeight = SIZE_TO_CONTENT) {
-  let tpl = item?.basetpl
-  if (lastTpl != tpl) {
-    lastTpl = tpl
-    anim_start("itemDetailsAnim")
-  }
   if (!tpl)
     return null
 
-  return @() {
-    watch = isFullMode
-    key = tpl
-    transform = {}
-    animations = animations
-    children = mkDetailsInfo(item, isFullMode.value, maxHeight)
-  }
+  anim_start("itemDetailsAnim")
+  return tpl
 }
+
+let panelStyle = {
+  rendObj = ROBJ_WORLD_BLUR_PANEL
+  fillColor = transpDarkPanelBgColor
+  flow = FLOW_VERTICAL
+  halign = ALIGN_RIGHT
+  gap = largePadding
+  transform = {}
+  animations = animations
+}
+
+let contentStyle = {
+  color = defItemBlur
+  flow = FLOW_VERTICAL
+  halign = ALIGN_RIGHT
+  gap = midPadding
+  padding = midPadding
+  size = [inventoryItemDetailsWidth, SIZE_TO_CONTENT]
+  valign = ALIGN_BOTTOM
+}
+
+function mkViewDetailsContent(item, isFull) {
+  let isVehicle = item?.itemtype == "vehicle"
+  return isVehicle
+    ? [
+        mkItemHeader(item, isFull)
+        isFull ? mkItemDescription(item) : null
+        mkVehicleDetails(item)
+        mkUpgrades(item, isFull)
+      ]
+    : [
+        mkItemHeader(item, isFull)
+        isFull ? mkItemDescription(item) : null
+        mkSlotIncreaseInfo(item)
+        mkAmmoIncreaseInfo(item)
+        mkItemDetails(item, isFull)
+        mkUpgrades(item, isFull)
+      ]
+}
+
+let briefChildrenComp = @(item) {
+  children = {
+    vplace = ALIGN_BOTTOM
+    children = mkViewDetailsContent(item, false)
+  }.__update(contentStyle)
+}
+
+let fullChildrenCompWithScroll = @(item, maxHeight)
+  makeVertScroll({
+    vplace = ALIGN_TOP
+    children = mkViewDetailsContent(item, true)
+  }.__update(contentStyle), {
+    size = SIZE_TO_CONTENT
+    maxHeight
+  })
+
+let mkViewItemWatchDetails = @(viewItemWatch, maxHeight = SIZE_TO_CONTENT) function() {
+  let res = { watch = viewItemWatch }
+  let item = viewItemWatch.value
+  let tpl = setlastTpl(item)
+  if (!tpl)
+    return res
+
+  return res.__update({
+    key = tpl
+    children = fullChildrenCompWithScroll(item, maxHeight)
+  }.__update(panelStyle))
+}
+
+function mkViewDetailsBrief(item) {
+  let tpl = setlastTpl(item)
+  if (!tpl)
+    return null
+  return {
+    key = tpl
+    children = briefChildrenComp(item)
+  }.__update(panelStyle)
+}
+
+function mkViewDetailsFull(item, maxHeight = SIZE_TO_CONTENT) {
+  let tpl = setlastTpl(item)
+  if (!tpl)
+    return null
+  return {
+    key = tpl
+    children = fullChildrenCompWithScroll(item, maxHeight)
+  }.__update(panelStyle)
+}
+
+function mkViewDetailsSwitchable(item, maxHeight = SIZE_TO_CONTENT) {
+  let tpl = setlastTpl(item)
+  if (!tpl)
+    return null
+  return {
+    key = tpl
+    children = [
+      @() isDetailsFull.value
+        ? {
+            watch = isDetailsFull
+            children = fullChildrenCompWithScroll(item, maxHeight)
+          }
+        : {
+            watch = isDetailsFull
+            children = briefChildrenComp(item)
+          }
+      {
+        padding = [0, midPadding]
+        children = detailsModeCheckbox
+      }
+    ]
+  }.__update(panelStyle)
+}
+
 return {
-  mkViewItemDetails
+  mkViewDetailsSwitchable
+  mkViewDetailsFull
+  mkViewDetailsBrief
   mkViewItemWatchDetails
   lockedInfo
   detailsStatusTier

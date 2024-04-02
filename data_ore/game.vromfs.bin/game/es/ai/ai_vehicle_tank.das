@@ -3,6 +3,7 @@ require ecs.safe
 require app
 require pathfinder
 require danetlibs.pathfinder.main.pathfinder_common
+require danetlibs.dm.dm_events
 require game.es.events
 require enlisted.events_enlisted
 require enlisted.game.es.ai_poly_areas_common
@@ -42,15 +43,31 @@ require game.es.vehicle.vehicle_seats_common
 require game.es.ai.enlisted_combat_ai_common
 
 
+[event(unicast)]
+struct CmdAiVehicleTankUpdateObjective {}
+
+
+enum AiTankObjectiveType
+  CAPZONE
+  CUSTOM
+
+
 enum AiTankTargetType
   HUMAN
   VEHICLE
+
+
+enum AiTankPathFindingState
+  UPDATING_DESTINATION
+  UPDATING_PATH
+  PATH_FOUND
 
 
 enum AiTankMotionState
   STAND_BY
   MOVE
   TRY_TO_GET_UNSTUCK
+  TRY_TO_EXIT_OBSTACLE
   HELP_TARGETTING
 
 
@@ -67,10 +84,8 @@ enum AiTankTargetState
   TARGET_FAILURE
 
 
-def update_tank_next_position(planned_path : Point3List; wait_time : float; max_step_size : float; var next_position : float3&; var state : int&; var timeout_at : float&; var recorded_min_distance : float&)
-  state = int(AiTankMotionState MOVE)
+def update_tank_next_position(planned_path : Point3List; max_step_size : float; var next_position : float3&; var recorded_min_distance : float&)
   recorded_min_distance = FLT_MAX
-  timeout_at = get_sync_time() + wait_time
   if length(planned_path) == 1
     next_position = planned_path[0]
   elif !empty(planned_path)
@@ -81,6 +96,16 @@ def update_tank_next_position(planned_path : Point3List; wait_time : float; max_
     else
       let dir = diff / sqrt(lenSq)
       next_position = planned_path[0] + 0.5 * max_step_size * dir
+
+
+def erase_reached_points_in_path(tank_pos : float3; count : int; threshold : float; var path : Point3List&)
+  let pointCount = min(count, length(path))
+  for a in range(pointCount)
+    let i = pointCount - a - 1
+    if length_sq(path[i] - tank_pos) <= square(threshold)
+      path |> erase(0, i + 1)
+      return true
+  return false
 
 
 [es(tag=server, before=vehicle_input_driver_es, REQUIRE_NOT=deadEntity)]
@@ -94,7 +119,7 @@ def ai_vehicle_tank_driver_es(info : ParallelUpdateFrameDelayed;
                               ai_vehicle_tank__plannedPathLengthForSlowingDown : int;
                               ai_vehicle_tank__nextPositionReachedWaitTime : float;
                               ai_vehicle_tank__maxStepSize : float;
-                              var ai_vehicle_tank__motionState : int&;
+                              ai_vehicle_tank__motionState : int;
                               var ai_vehicle_tank__plannedPath : Point3List&;
                               var ai_vehicle_tank__nextPosition : float3&;
                               var ai_vehicle_tank__nextPositionRecordedMinDistance : float&;
@@ -109,12 +134,11 @@ def ai_vehicle_tank_driver_es(info : ParallelUpdateFrameDelayed;
   if length_sq(diff) <= square(ai_vehicle_tank__nextPositionReachedThreshold)
     if !empty(ai_vehicle_tank__plannedPath)
       ai_vehicle_tank__plannedPath |> erase(0)
+      if ai_vehicle_tank__motionState == int(AiTankMotionState MOVE)
+        ai_vehicle_tank__motionStateTimeoutAt = get_sync_time() + ai_vehicle_tank__nextPositionReachedWaitTime
       update_tank_next_position(ai_vehicle_tank__plannedPath,
-                                ai_vehicle_tank__nextPositionReachedWaitTime,
                                 ai_vehicle_tank__maxStepSize,
                                 ai_vehicle_tank__nextPosition,
-                                ai_vehicle_tank__motionState,
-                                ai_vehicle_tank__motionStateTimeoutAt,
                                 ai_vehicle_tank__nextPositionRecordedMinDistance)
 
   if ai_vehicle_tank__motionState == int(AiTankMotionState HELP_TARGETTING)
@@ -142,7 +166,11 @@ def ai_vehicle_tank_driver_es(info : ParallelUpdateFrameDelayed;
     let targetDir = dir_to_angles(moveDir)
     let normAng = renorm_ang(targetDir.x, vehicleDirAngle.x) - vehicleDirAngle.x
 
-    if ai_vehicle_tank__motionState == int(AiTankMotionState STAND_BY) || empty(ai_vehicle_tank__plannedPath)
+    if ai_vehicle_tank__motionState == int(AiTankMotionState TRY_TO_EXIT_OBSTACLE)
+      throttle = -1.0
+      steering = 0.0
+      brake = 0.0
+    elif ai_vehicle_tank__motionState == int(AiTankMotionState STAND_BY) || empty(ai_vehicle_tank__plannedPath)
       throttle = 0.0
       steering = 0.0
     elif abs(normAng) > ai_vehicle_tank__steeringDeadZone && vehicle_net_phys.phys.haveSeparateBrakes
@@ -178,19 +206,37 @@ def ai_vehicle_tank_driver_es(info : ParallelUpdateFrameDelayed;
   producedCT |> ground_control_state_setAxisValue(EGroundControlAxis GCA_BRAKE_RIGHT, brake)
 
 
+def remove_close_path_points(pos : float3; threshold : float; var path : Point3List&)
+  var removeCount = 0
+  let thresholdSq = square(threshold)
+  for i in iter_range(path)
+    if length_sq(path[i] - pos) <= thresholdSq
+      removeCount++
+    else
+      break
+  if removeCount > 0
+    erase(path, 0, removeCount)
+
+[unused_argument(nav_mesh_idx, poly_ref, flags)]
+def get_poly_flags_ex2(nav_mesh_idx : int; poly_ref : dtPolyRef; var flags : uint16&)
+  static_if typeinfo(builtin_function_exists @@ < (arg0 : int; arg1 : dtPolyRef; var arg2 : uint16 &) : bool > pathfinder::get_poly_flags_ex)
+    return get_poly_flags_ex(nav_mesh_idx, poly_ref, flags)
+  else
+    flags = flags //so the warning about unnecessary 'var' in front of 'flags' shuts up
+    return false
+
+
 def try_find_tank_path(team : int;
                        tank_pos : float3;
                        dest : float3;
-                       cur_time : float;
-                       delay : float;
                        step_size : float;
+                       max_length : float;
+                       next_position_threshold : float;
+                       ignore_battle_area : bool;
                        var out_path : Point3List&;
-                       var allow_at_time : float&;
                        horz_dist : float = 0.5;
                        path_slop : float = 0.25)
   out_path |> clear()
-  if cur_time < allow_at_time
-    return false
 
   var isNavmeshUpdatePending = false
   find_query() <| $ [es] (battle_area_navmesh_manager__areaEids : EidList)
@@ -200,18 +246,40 @@ def try_find_tank_path(team : int;
   if isNavmeshUpdatePending
     return false
 
-  allow_at_time = cur_time + delay
+  let battleAreaFlags = ignore_battle_area ? uint16(PolyFlag POLYFLAG_GROUND) : team_to_tank_navmesh_poly_flags(team)
+
+  var destTriangle : NavMeshTriangle
+  if !get_triangle_by_pos_ex(NM_EXT_1, dest, 0.5, destTriangle)
+    return false
+  var destFlags : uint16
+  get_poly_flags_ex2(NM_EXT_1, destTriangle.polyRef, destFlags)
+  if (uint(destFlags) & uint(battleAreaFlags)) == 0u || (uint(destFlags) & uint(EnlPolyFlags POLYFLAG_TANK_OBSTACLE)) != 0u
+    return false
+
+  var tankTriangle : NavMeshTriangle
+  if !get_triangle_by_pos_ex(NM_EXT_1, tank_pos, 0.5, tankTriangle)
+    return false
+  var tankFlags : uint16
+  get_poly_flags_ex2(NM_EXT_1, tankTriangle.polyRef, tankFlags)
+  if (uint(tankFlags) & uint(EnlPolyFlags POLYFLAG_TANK_OBSTACLE)) != 0u
+    return false
 
   var res = true
-
   using(tank_pos, dest, float3(horz_dist, FLT_MAX, horz_dist)) <| $(var req : FindRequest#)
-    req.includeFlags = int(team_to_tank_navmesh_poly_flags(team))
+    req.includeFlags = int(battleAreaFlags)
+    req.excludeFlags = int(EnlPolyFlags POLYFLAG_TANK_OBSTACLE)
     let findPathResult = find_path_ex(NM_EXT_1, req, step_size, path_slop) <| $(data)
       for point in data
         out_path |> push(point)
     if findPathResult != FindPathResult FPR_FULL
       out_path |> clear()
       res = false
+
+  let maxPointCount = int(ceil(max_length / step_size))
+  if length(out_path) > maxPointCount
+    resize(out_path, maxPointCount)
+  remove_close_path_points(tank_pos, next_position_threshold, out_path)
+
   return res
 
 
@@ -222,18 +290,22 @@ def can_capzone_be_attacked(team : int; capzone__owningTeam : int; capzone__must
     capzone__mustBeCapturedByTeam == team))
 
 
-def check_or_choose_new_capzone(team : int; current_capzone_eid : EntityId)
+[es(tag=server, on_event=CmdAiVehicleTankUpdateObjective, REQUIRE=aiVehicleTankGoToCapzones)]
+def ai_tank_update_objective_capzone(evt : Event;
+                                     team : int;
+                                     ai_vehicle_tank__curObjective : EntityId;
+                                     var ai_vehicle_tank__checkedObjective : EntityId&)
   var attackableZones : array<EntityId>
   var defendableZones : array<EntityId>
   var isCurZoneAttackable = false
   var isCurZoneDefendable = false
 
-  query(current_capzone_eid) <| $ [es] (active : bool;
-                                        capzone_tanks__positions : Point3List;
-                                        capzone__owningTeam : int = -1;
-                                        capzone__mustBeCapturedByTeam : int = -1;
-                                        capzone__onlyTeamCanCapture : int = -1)
-    if !active || empty(capzone_tanks__positions)
+  query(ai_vehicle_tank__curObjective) <| $ [es] (active : bool;
+                                                  ai_tank_objective__positions : Point3List;
+                                                  capzone__owningTeam : int = -1;
+                                                  capzone__mustBeCapturedByTeam : int = -1;
+                                                  capzone__onlyTeamCanCapture : int = -1)
+    if !active || empty(ai_tank_objective__positions)
       return
     if can_capzone_be_attacked(team, capzone__owningTeam, capzone__mustBeCapturedByTeam, capzone__onlyTeamCanCapture)
       isCurZoneAttackable = true
@@ -241,15 +313,16 @@ def check_or_choose_new_capzone(team : int; current_capzone_eid : EntityId)
       isCurZoneDefendable = true
 
   if isCurZoneAttackable
-    return current_capzone_eid
+    ai_vehicle_tank__checkedObjective = ai_vehicle_tank__curObjective
+    return
 
   query() <| $ [es] (eid : EntityId;
                      active : bool;
-                     capzone_tanks__positions : Point3List;
+                     ai_tank_objective__positions : Point3List;
                      capzone__owningTeam : int = -1;
                      capzone__mustBeCapturedByTeam : int = -1;
                      capzone__onlyTeamCanCapture : int = -1)
-    if !active || empty(capzone_tanks__positions)
+    if !active || empty(ai_tank_objective__positions) || eid == ai_vehicle_tank__curObjective
       return
     if can_capzone_be_attacked(team, capzone__owningTeam, capzone__mustBeCapturedByTeam, capzone__onlyTeamCanCapture)
       attackableZones |> push(eid)
@@ -257,42 +330,73 @@ def check_or_choose_new_capzone(team : int; current_capzone_eid : EntityId)
       defendableZones |> push(eid)
 
   if !empty(attackableZones)
-    return attackableZones[rnd_int(0, length(attackableZones) - 1)]
+    ai_vehicle_tank__checkedObjective = attackableZones[rnd_int(0, length(attackableZones) - 1)]
   elif isCurZoneDefendable
-    return current_capzone_eid
+    ai_vehicle_tank__checkedObjective = ai_vehicle_tank__curObjective
   elif !empty(defendableZones)
-    return defendableZones[rnd_int(0, length(defendableZones) - 1)]
+    ai_vehicle_tank__checkedObjective = defendableZones[rnd_int(0, length(defendableZones) - 1)]
+  else
+    ai_vehicle_tank__checkedObjective = INVALID_ENTITY_ID
+
+
+def check_or_choose_new_custom_objective(cur_objective : EntityId)
+  var isCurObjActive = false
+  var activeObjectives : array<EntityId>
+
+  query(cur_objective) <| $ [es] (active : bool)
+    isCurObjActive = active
+
+  if isCurObjActive
+    return cur_objective
+
+  query() <| $ [es(REQUIRE=ai_tank_objective_custom)] (eid : EntityId; active : bool)
+    if !active
+      return
+    activeObjectives |> push(eid)
+
+  if !empty(activeObjectives)
+    return activeObjectives[rnd_int(0, length(activeObjectives) - 1)]
   return INVALID_ENTITY_ID
 
 
 [es(tag=server, before=ai_vehicle_driver_es, REQUIRE_NOT=deadEntity)]
 def ai_vehicle_tank_update_es(info : ParallelUpdateFrameDelayed;
+                              eid : EntityId;
                               transform : float3x4;
-                              team : int;
                               turret_control__gunEids : EidList;
                               ai_vehicle_tank__targetScoreThresholdForStanding : float;
                               ai_vehicle_tank__updateInterval : float;
-                              ai_vehicle_tank__pathFindingDelay : float;
-                              ai_vehicle_tank__pathFindingTryCountPerFrame : int;
+                              ai_vehicle_tank__destination : float3;
                               ai_vehicle_tank__nextPositionTooFarThreshold : float;
                               ai_vehicle_tank__nextPositionReachedWaitTime : float;
+                              ai_vehicle_tank__nextPositionReachedThreshold : float;
                               ai_vehicle_tank__nextPositionRecordedMinDistanceStep : float;
-                              ai_vehicle_tank__tryToGetUnstuckWaitTime : float;
-                              ai_vehicle_tank__stepSize : float;
                               ai_vehicle_tank__maxStepSize : float;
-                              var ai_vehicle_tank__curCapzone : EntityId&;
-                              var ai_vehicle_tank__curCapzonePosIdx : int&;
-                              var ai_vehicle_tank__motionState : int&;
+                              ai_vehicle_tank__plannedPathCheckedPointCount : int;
+                              ai_vehicle_tank__tryToGetUnstuckWaitTime : float;
+                              ai_vehicle_tank__tryToExitObstacleWaitTime : float;
+                              ai_vehicle_tank__updatePathWaitTime : float;
+                              ai_vehicle_tank__curObjective : EntityId&;
+                              ai_vehicle_tank__checkedObjective : EntityId;
                               var ai_vehicle_tank__plannedPath : Point3List&;
-                              var ai_vehicle_tank__nextUpdateAt : float&;
-                              var ai_vehicle_tank__allowPathFindingAtTime : float&;
-                              var ai_vehicle_tank__destination : float3&;
                               var ai_vehicle_tank__nextPosition : float3&;
+                              var ai_vehicle_tank__motionState : int&;
+                              var ai_vehicle_tank__motionStateTimeoutAt : float&;
+                              var ai_vehicle_tank__nextUpdateAt : float&;
                               var ai_vehicle_tank__nextPositionRecordedMinDistance : float&;
-                              var ai_vehicle_tank__motionStateTimeoutAt : float&)
+                              var ai_vehicle_tank__pathFindingState : int&;
+                              var ai_vehicle_tank__pathFindingStateTimeoutAt : float&)
   if !pathfinder_is_loaded_ex(NM_EXT_1) || ai_vehicle_tank__nextUpdateAt > info.curTime
     return
   ai_vehicle_tank__nextUpdateAt = info.curTime + ai_vehicle_tank__updateInterval
+
+  if erase_reached_points_in_path(transform[3], ai_vehicle_tank__plannedPathCheckedPointCount, ai_vehicle_tank__nextPositionReachedThreshold, ai_vehicle_tank__plannedPath)
+    if ai_vehicle_tank__motionState == int(AiTankMotionState MOVE)
+      ai_vehicle_tank__motionStateTimeoutAt = get_sync_time() + ai_vehicle_tank__nextPositionReachedWaitTime
+    update_tank_next_position(ai_vehicle_tank__plannedPath,
+                              ai_vehicle_tank__maxStepSize,
+                              ai_vehicle_tank__nextPosition,
+                              ai_vehicle_tank__nextPositionRecordedMinDistance)
 
   var isValuableTargetFound = false
   for gunEid in turret_control__gunEids
@@ -305,55 +409,143 @@ def ai_vehicle_tank_update_es(info : ParallelUpdateFrameDelayed;
   if ai_vehicle_tank__motionState != int(AiTankMotionState MOVE)
     ai_vehicle_tank__nextPositionRecordedMinDistance = FLT_MAX
 
+  var tankTriangle : NavMeshTriangle
+  var exitedObstacle = false
+
+  //transitions of motion state
+
   if isValuableTargetFound
     ai_vehicle_tank__motionState = int(AiTankMotionState HELP_TARGETTING)
-  elif (ai_vehicle_tank__motionState == int(AiTankMotionState STAND_BY) ||
-        ai_vehicle_tank__motionState == int(AiTankMotionState HELP_TARGETTING) ||
-        ai_vehicle_tank__motionState == int(AiTankMotionState TRY_TO_GET_UNSTUCK) && info.curTime > ai_vehicle_tank__motionStateTimeoutAt)
-    ai_vehicle_tank__motionState = int(AiTankMotionState MOVE)
-    ai_vehicle_tank__motionStateTimeoutAt = info.curTime + ai_vehicle_tank__nextPositionReachedWaitTime
-  elif ai_vehicle_tank__motionState == int(AiTankMotionState MOVE)
-    let distSq = length_sq(ai_vehicle_tank__nextPosition - transform[3])
-    if distSq <= square(ai_vehicle_tank__nextPositionRecordedMinDistance - ai_vehicle_tank__nextPositionRecordedMinDistanceStep)
+  else
+    var tankFlags = uint16(0)
+    let isInsideNavMesh = get_triangle_by_pos_ex(NM_EXT_1, transform[3], 0.5, tankTriangle)
+    if isInsideNavMesh
+      get_poly_flags_ex2(NM_EXT_1, tankTriangle.polyRef, tankFlags)
+    let isTankInsideObstacle = (uint(tankFlags) & uint(EnlPolyFlags POLYFLAG_TANK_OBSTACLE)) != 0u
+    if (isTankInsideObstacle && ai_vehicle_tank__pathFindingState != int(AiTankPathFindingState PATH_FOUND)
+        && (ai_vehicle_tank__motionState == int(AiTankMotionState MOVE) || ai_vehicle_tank__motionState == int(AiTankMotionState TRY_TO_EXIT_OBSTACLE)))
+      ai_vehicle_tank__motionState = int(AiTankMotionState TRY_TO_EXIT_OBSTACLE)
+      ai_vehicle_tank__motionStateTimeoutAt = info.curTime + ai_vehicle_tank__tryToExitObstacleWaitTime
+    elif (ai_vehicle_tank__motionState == int(AiTankMotionState STAND_BY) ||
+          ai_vehicle_tank__motionState == int(AiTankMotionState HELP_TARGETTING) ||
+          (ai_vehicle_tank__motionState == int(AiTankMotionState TRY_TO_EXIT_OBSTACLE) ||
+          ai_vehicle_tank__motionState == int(AiTankMotionState TRY_TO_GET_UNSTUCK)) && info.curTime > ai_vehicle_tank__motionStateTimeoutAt)
+      exitedObstacle = ai_vehicle_tank__motionState == int(AiTankMotionState TRY_TO_EXIT_OBSTACLE)
+      ai_vehicle_tank__motionState = int(AiTankMotionState MOVE)
       ai_vehicle_tank__motionStateTimeoutAt = info.curTime + ai_vehicle_tank__nextPositionReachedWaitTime
-      ai_vehicle_tank__nextPositionRecordedMinDistance = sqrt(distSq)
-    elif info.curTime > ai_vehicle_tank__motionStateTimeoutAt
-      if !empty(ai_vehicle_tank__plannedPath)
-        ai_vehicle_tank__motionState = int(AiTankMotionState TRY_TO_GET_UNSTUCK)
-      ai_vehicle_tank__motionStateTimeoutAt = info.curTime + ai_vehicle_tank__tryToGetUnstuckWaitTime
+    elif ai_vehicle_tank__motionState == int(AiTankMotionState MOVE)
+      let distSq = length_sq(ai_vehicle_tank__nextPosition - transform[3])
+      if distSq <= square(ai_vehicle_tank__nextPositionRecordedMinDistance - ai_vehicle_tank__nextPositionRecordedMinDistanceStep)
+        ai_vehicle_tank__motionStateTimeoutAt = info.curTime + ai_vehicle_tank__nextPositionReachedWaitTime
+        ai_vehicle_tank__nextPositionRecordedMinDistance = sqrt(distSq)
+      elif info.curTime > ai_vehicle_tank__motionStateTimeoutAt
+        if !empty(ai_vehicle_tank__plannedPath)
+          ai_vehicle_tank__motionState = int(AiTankMotionState TRY_TO_GET_UNSTUCK)
+        ai_vehicle_tank__motionStateTimeoutAt = info.curTime + ai_vehicle_tank__tryToGetUnstuckWaitTime
 
-  let checkedCapzoneEid = check_or_choose_new_capzone(team, ai_vehicle_tank__curCapzone)
-  if ai_vehicle_tank__curCapzone != checkedCapzoneEid
-    query(checkedCapzoneEid) <| $ [es] (capzone_tanks__positions : Point3List)
-      for _i in range(ai_vehicle_tank__pathFindingTryCountPerFrame)
-        let posIdx = rnd_int(0, length(capzone_tanks__positions) - 1)
-        let pos = capzone_tanks__positions[posIdx]
-        if try_find_tank_path(team, transform[3], pos, info.curTime, ai_vehicle_tank__pathFindingDelay, ai_vehicle_tank__stepSize, ai_vehicle_tank__plannedPath,
-            ai_vehicle_tank__allowPathFindingAtTime)
-          ai_vehicle_tank__curCapzone = checkedCapzoneEid
-          ai_vehicle_tank__curCapzonePosIdx = posIdx
-          ai_vehicle_tank__destination = pos
+  //update ai_vehicle_tank__checkedObjective depending on the chosen strategy
+  sendEvent(eid, [[CmdAiVehicleTankUpdateObjective]])
+
+  //transtions of pathfinding state
+
+  if ai_vehicle_tank__curObjective != ai_vehicle_tank__checkedObjective
+    ai_vehicle_tank__pathFindingState = int(AiTankPathFindingState UPDATING_DESTINATION)
+  elif ai_vehicle_tank__pathFindingState == int(AiTankPathFindingState PATH_FOUND)
+    if (exitedObstacle ||
+        length_sq(ai_vehicle_tank__nextPosition - transform[3]) > square(ai_vehicle_tank__nextPositionTooFarThreshold) ||
+        empty(ai_vehicle_tank__plannedPath) && length_sq(ai_vehicle_tank__destination - transform[3]) > square(ai_vehicle_tank__nextPositionTooFarThreshold))
+      ai_vehicle_tank__pathFindingState = int(AiTankPathFindingState UPDATING_PATH)
+      ai_vehicle_tank__pathFindingStateTimeoutAt = info.curTime + ai_vehicle_tank__updatePathWaitTime
+  elif ai_vehicle_tank__pathFindingState == int(AiTankPathFindingState UPDATING_PATH)
+    if info.curTime > ai_vehicle_tank__pathFindingStateTimeoutAt
+      ai_vehicle_tank__pathFindingState = int(AiTankPathFindingState UPDATING_DESTINATION)
+
+
+[es(tag=server, after=ai_vehicle_tank_update_es, REQUIRE_NOT=deadEntity)]
+def ai_vehicle_tank_path_finding_es(info : ParallelUpdateFrameDelayed;
+                                    transform : float3x4;
+                                    team : int;
+                                    ai_vehicle_tank__updatingPathTriesPerFrame : float;
+                                    ai_vehicle_tank__updatingDestinationTriesPerFrame : float;
+                                    ai_vehicle_tank__stepSize : float;
+                                    ai_vehicle_tank__maxStepSize : float;
+                                    ai_vehicle_tank__maxPathLength : float;
+                                    ai_vehicle_tank__nextPositionReachedThreshold : float;
+                                    ai_vehicle_tank__checkedObjective : EntityId;
+                                    ai_vehicle_tank__ignoreBattleArea : bool;
+                                    var ai_vehicle_tank__pathFindingState : int&;
+                                    var ai_vehicle_tank__curObjective : EntityId&;
+                                    var ai_vehicle_tank__curObjectivePosIdx : int&;
+                                    var ai_vehicle_tank__plannedPath : Point3List&;
+                                    var ai_vehicle_tank__destination : float3&;
+                                    var ai_vehicle_tank__nextPosition : float3&;
+                                    var ai_vehicle_tank__nextPositionRecordedMinDistance : float&;
+                                    var ai_vehicle_tank__pathFindingTryCountRemainder : float&)
+  if ai_vehicle_tank__pathFindingState == int(AiTankPathFindingState UPDATING_DESTINATION)
+    using() <| $(var new_path : Point3List)
+      query(ai_vehicle_tank__checkedObjective) <| $ [es] (ai_tank_objective__positions : Point3List;
+                                                          ai_tank_objective__positionCountsPerType : IntList;
+                                                          ai_tank_objective__probabilityPerPositionType : FloatList)
+        //ai_vehicle_tank__updatingDestinationTriesPerFrame can be any positive number.
+        //If it is less than 1.0, pathfinding will be skipped on some frames.
+        //If greater than 1.0, pathfinding will happen every frame, possibly more than once
+        //Note: the end position is chosen randomly from a list of positions each pathfinding attempt
+        ai_vehicle_tank__pathFindingTryCountRemainder += ai_vehicle_tank__updatingDestinationTriesPerFrame
+        let tryCountThisFrame = floor(ai_vehicle_tank__pathFindingTryCountRemainder)
+        ai_vehicle_tank__pathFindingTryCountRemainder -= tryCountThisFrame
+
+        for _ in range(int(tryCountThisFrame))
+          var positionType = -1
+          let typeRnd = rnd_float(0.0, 1.0)
+          var cumulProb = 0.0
+          var beginPosIdx = 0
+          var endPosIdx = 0
+
+          for i in iter_range(ai_tank_objective__probabilityPerPositionType)
+            beginPosIdx = endPosIdx
+            endPosIdx = beginPosIdx + ai_tank_objective__positionCountsPerType[i]
+            cumulProb += ai_tank_objective__probabilityPerPositionType[i]
+            if ai_tank_objective__positionCountsPerType[i] != 0 && typeRnd <= cumulProb
+              positionType = i
+              break
+
+          if positionType < 0 // should not normally be possible
+            continue
+
+          let posIdx = rnd_int(beginPosIdx, endPosIdx - 1)
+          let pos = ai_tank_objective__positions[posIdx]
+          if try_find_tank_path(team, transform[3], pos, ai_vehicle_tank__stepSize, ai_vehicle_tank__maxPathLength,
+                                ai_vehicle_tank__nextPositionReachedThreshold, ai_vehicle_tank__ignoreBattleArea, new_path)
+            ai_vehicle_tank__pathFindingState = int(AiTankPathFindingState PATH_FOUND)
+            ai_vehicle_tank__plannedPath := new_path
+            ai_vehicle_tank__curObjective = ai_vehicle_tank__checkedObjective
+            ai_vehicle_tank__curObjectivePosIdx = posIdx
+            ai_vehicle_tank__destination = pos
+            update_tank_next_position(ai_vehicle_tank__plannedPath,
+                                      ai_vehicle_tank__maxStepSize,
+                                      ai_vehicle_tank__nextPosition,
+                                      ai_vehicle_tank__nextPositionRecordedMinDistance)
+            break
+  elif ai_vehicle_tank__pathFindingState == int(AiTankPathFindingState UPDATING_PATH)
+    using() <| $(var new_path : Point3List)
+      //ai_vehicle_tank__updatingPathTriesPerFrame can be less or equal to 1.0.
+      //If less than 1.0, pathfinding will be skipped on some frames.
+      //If equal to 1.0, pathfinding will happen once per every frame
+      //There's no point in ai_vehicle_tank__updatingPathTriesPerFrame being greater than 1.0
+      //because the pathfinding algorithm would yield the same results in the same frame
+      //(the start and end positions are the same)
+      ai_vehicle_tank__pathFindingTryCountRemainder += ai_vehicle_tank__updatingPathTriesPerFrame
+      if ai_vehicle_tank__pathFindingTryCountRemainder >= 1.0
+        if try_find_tank_path(team, transform[3], ai_vehicle_tank__destination, ai_vehicle_tank__stepSize,
+                              ai_vehicle_tank__maxPathLength, ai_vehicle_tank__nextPositionReachedThreshold,
+                              ai_vehicle_tank__ignoreBattleArea, new_path)
+          ai_vehicle_tank__pathFindingState = int(AiTankPathFindingState PATH_FOUND)
+          ai_vehicle_tank__plannedPath := new_path
           update_tank_next_position(ai_vehicle_tank__plannedPath,
-                                    ai_vehicle_tank__nextPositionReachedWaitTime,
                                     ai_vehicle_tank__maxStepSize,
                                     ai_vehicle_tank__nextPosition,
-                                    ai_vehicle_tank__motionState,
-                                    ai_vehicle_tank__motionStateTimeoutAt,
                                     ai_vehicle_tank__nextPositionRecordedMinDistance)
-          break
-
-  if length_sq(ai_vehicle_tank__nextPosition - transform[3]) > square(ai_vehicle_tank__nextPositionTooFarThreshold)
-    using() <| $(var new_path : Point3List)
-      if try_find_tank_path(team, transform[3], ai_vehicle_tank__destination, info.curTime, ai_vehicle_tank__pathFindingDelay, ai_vehicle_tank__stepSize,
-          new_path, ai_vehicle_tank__allowPathFindingAtTime)
-        ai_vehicle_tank__plannedPath := new_path
-        update_tank_next_position(ai_vehicle_tank__plannedPath,
-                                  ai_vehicle_tank__nextPositionReachedWaitTime,
-                                  ai_vehicle_tank__maxStepSize,
-                                  ai_vehicle_tank__nextPosition,
-                                  ai_vehicle_tank__motionState,
-                                  ai_vehicle_tank__motionStateTimeoutAt,
-                                  ai_vehicle_tank__nextPositionRecordedMinDistance)
+      ai_vehicle_tank__pathFindingTryCountRemainder -= floor(ai_vehicle_tank__pathFindingTryCountRemainder)
 
 
 def get_forestall_or(owner_pos, owner_vel, target_pos, target_vel : float3; gun_eid : EntityId; default_val : float3)
@@ -389,7 +581,7 @@ def get_target_pos(owner_pos, owner_vel, prev_target_pos : float3; prev_target_a
       target.partType = prev_target_part_type
     else
       let MAX_POINTS_PER_TARGET = 5
-      let CHANCE_TRY_NOT_PENETRATE = 0.2
+      let CHANCE_TRY_NOT_PENETRATE = 0.7
       let ignoreWithNoCrew = false
       let noCrew = ignoreWithNoCrew || !is_vehicle_with_alive_crew(target_eid)
       let withSecondaryChance = 0.25
@@ -456,7 +648,8 @@ def calc_target_score(target_eid : EntityId;
                       min_dist : float;
                       limit_angles : float4;
                       limit_vision_angles : float4;
-                      settings : TargetScoreSettings)
+                      settings : TargetScoreSettings;
+                      var attackers : Object&)
   let initialLocalDirToTarget = turret_initial_itm * ai_target.targetPos
   let distanceToTarget = length(initialLocalDirToTarget)
   if distanceToTarget > max_dist || distanceToTarget < min_dist
@@ -474,7 +667,12 @@ def calc_target_score(target_eid : EntityId;
   let visionYaw = visionAngles.x
   let visionPitch = visionAngles.y
 
-  if visionYaw < limit_vision_angles[0] || visionYaw > limit_vision_angles[1] || visionPitch < limit_vision_angles[2] || visionPitch > limit_vision_angles[3]
+  let attackerTimeout = attackers["{target_eid}"]
+  let useVisionLimits = (attackerTimeout ?? 0.0) < get_sync_time()
+  if attackerTimeout != null && useVisionLimits
+    erase(attackers, "{target_eid}")
+
+  if useVisionLimits && (visionYaw < limit_vision_angles[0] || visionYaw > limit_vision_angles[1] || visionPitch < limit_vision_angles[2] || visionPitch > limit_vision_angles[3])
     return FLT_MAX
 
   let pos = turret_pos
@@ -504,6 +702,7 @@ def find_next_target(owner_eid : EntityId;
                      max_dist : float;
                      limit_angles_deg : float4;
                      limit_vision_angles_deg : float4;
+                     var attackers : Object&;
                      var targets : EidList&;
                      var next_target_idx : int&;
                      var cur_target_eid : EntityId&;
@@ -525,7 +724,7 @@ def find_next_target(owner_eid : EntityId;
     let targetEid = targets[targetIdx]
     query(targetEid) <| $ [es] (ai_target : Target; ai_target__scoreMult : float = 1.0; ai_target__type : int = int(AiTankTargetType HUMAN))
       let score = calc_target_score(targetEid, prev_target_eid, turret_pos, turret_initial_itm, turret_itm, ai_target, ai_target__scoreMult,
-        max_dist, min_dist, limitAngles, limitVisionAngles, target_score_settings)
+        max_dist, min_dist, limitAngles, limitVisionAngles, target_score_settings, attackers)
       if score < target_score
         target_score = score
         cur_target_eid = targetEid
@@ -552,6 +751,7 @@ def tank_ai_gunner_find_target(info : ParallelUpdateFrameDelayed;
                                tank_turret_ai__maxTargetScore : float;
                                tank_turret_ai__limitAngles : float4 const?;
                                var turret_aim__target : EntityId&;
+                               var tank_turret_ai__attackers : Object&;
                                var tank_turret_ai__nextTargetCheckAtTime : float&;
                                var tank_turret_ai__targetList : EidList&;
                                var tank_turret_ai__nextCheckedTargetIdx : int&;
@@ -596,7 +796,7 @@ def tank_ai_gunner_find_target(info : ParallelUpdateFrameDelayed;
       let limitAngles = tank_turret_ai__limitAngles ?? turret__limit
       find_next_target(turret__owner, team, tank_turret_ai__checkedTargetsPerFrame, tank_turret_ai__maxTargetScore, turretWtm[3],
         turretInitialItm, turretItm, tank_turret_ai__atackMinDist, tank_turret_ai__attackDist, limitAngles,
-        tank_turret_ai__limitVisionAngles, tank_turret_ai__targetList, tank_turret_ai__nextCheckedTargetIdx, tank_turret_ai__curTargetEid,
+        tank_turret_ai__limitVisionAngles, tank_turret_ai__attackers, tank_turret_ai__targetList, tank_turret_ai__nextCheckedTargetIdx, tank_turret_ai__curTargetEid,
         tank_turret_ai__prevTargetEid, tank_turret_ai__curTargetType, tank_turret_ai__targetScore, TargetScoreSettings())
       turret_aim__target = tank_turret_ai__curTargetEid
 
@@ -631,8 +831,8 @@ def turret_tank_ai_gunner_aim(evt : CmdTurretsUpdate;
                               transform : float3x4;
                               turret_control__gunEids : EidList;
                               net_phys__currentStateVelocity : float3;
-                              ai_vehicle_tank__curCapzone : EntityId = INVALID_ENTITY_ID;
-                              ai_vehicle_tank__curCapzonePosIdx : int = -1)
+                              ai_vehicle_tank__curObjective : EntityId = INVALID_ENTITY_ID;
+                              ai_vehicle_tank__curObjectivePosIdx : int = -1)
   let shooterVel = net_phys__currentStateVelocity
   let shooterPos = transform[3]
   let curTime = get_sync_time()
@@ -678,9 +878,9 @@ def turret_tank_ai_gunner_aim(evt : CmdTurretsUpdate;
 
       //state machine output
       if tank_turret_ai__targetState == int(AiTankTargetState IDLE)
-        let success = query(ai_vehicle_tank__curCapzone) <| $ [es] (capzone_tanks__aimAtPositions : Point3List)
-          if uint(ai_vehicle_tank__curCapzonePosIdx) < uint(length(capzone_tanks__aimAtPositions))
-            turret_aim__shootToPos = capzone_tanks__aimAtPositions[ai_vehicle_tank__curCapzonePosIdx]
+        let success = query(ai_vehicle_tank__curObjective) <| $ [es] (ai_tank_objective__aimAtPositions : Point3List)
+          if uint(ai_vehicle_tank__curObjectivePosIdx) < uint(length(ai_tank_objective__aimAtPositions))
+            turret_aim__shootToPos = ai_tank_objective__aimAtPositions[ai_vehicle_tank__curObjectivePosIdx]
             let diff = turret_aim__shootToPos - turret_state.shoot.pos
             let wishDir = normalize(diff)
             let lateralDir = normalize_default(cross(wishDir, float3(0, 1, 0)), float3(1, 0, 0))
@@ -752,6 +952,86 @@ def turret_tank_ai_gunner_aim(evt : CmdTurretsUpdate;
       elif tank_turret_ai__shootState == int(AiTankShootState LONG_PAUSE)
         if curTime > tank_turret_ai__shootStateTimeoutAt
           tank_turret_ai__shootState = int(AiTankShootState READY)
+
+
+def vehicle_not_still(this_eid : EntityId; still_transform : float3x4; still_box_extents : float)
+  update_navmesh_poly_flags_on_still_obstacle(false, still_transform[3], still_box_extents)
+  query() <| $ [es] (eid aka other_eid : EntityId;
+                     vehicle__isStill aka other_vehicle__isStill : bool;
+                     vehicle__stillTransform aka other_vehicle__stillTransform : float3x4;
+                     vehicle__stillBoxExtents aka other_vehicle__stillBoxExtents : float)
+    if this_eid != other_eid && other_vehicle__isStill && length_sq(other_vehicle__stillTransform[3] - still_transform[3]) < still_box_extents + other_vehicle__stillBoxExtents
+      update_navmesh_poly_flags_on_still_obstacle(true, other_vehicle__stillTransform[3], other_vehicle__stillBoxExtents)
+  //Let's not broadcast OnTankNavmeshFlagsLocalUpdate here,
+  //so that AI tanks continue on the paths they had already chosen when the obstacle was there.
+  //Otherwise, they sometimes get stuck, changing their path too often.
+
+
+[es(tag=server)]
+def vehicle_still_es(info : ParallelUpdateFrameDelayed;
+                     eid : EntityId;
+                     transform : float3x4;
+                     vehicle__stillPosThreshold : float;
+                     vehicle__stillCheckUpdateInterval : float;
+                     vehicle__stillBoxExtents aka this_vehicle__stillBoxExtents : float;
+                     var vehicle__stillTransform aka this_vehicle__stillTransform : float3x4&;
+                     var vehicle__stillNextCheckAt : float&;
+                     var vehicle__isStill : bool&;
+                     deadEntity : Tag const?;
+                     ai_vehicle_tank__motionState : int const?;
+                     ai_vehicle_tank__plannedPath : Point3List const?)
+  if info.curTime < vehicle__stillNextCheckAt
+    return
+  vehicle__stillNextCheckAt = info.curTime + vehicle__stillCheckUpdateInterval
+
+  let isAiTank = ai_vehicle_tank__motionState != null && ai_vehicle_tank__plannedPath != null
+  let isAiTankMoving = ((deadEntity == null) && isAiTank
+    && (*ai_vehicle_tank__motionState == int(AiTankMotionState MOVE) || *ai_vehicle_tank__motionState == int(AiTankMotionState TRY_TO_GET_UNSTUCK))
+    && !empty(*ai_vehicle_tank__plannedPath))
+
+  let prevIsStill = vehicle__isStill
+  vehicle__isStill = !isAiTankMoving && length_sq(transform[3] - vehicle__stillTransform[3]) < square(vehicle__stillPosThreshold)
+
+  if !prevIsStill && vehicle__isStill
+    update_navmesh_poly_flags_on_still_obstacle(true, vehicle__stillTransform[3], vehicle__stillBoxExtents)
+    broadcastEvent([[OnTankNavmeshFlagsLocalUpdate pos=vehicle__stillTransform[3], extents = vehicle__stillBoxExtents]])
+  elif prevIsStill && !vehicle__isStill
+    vehicle_not_still(eid, vehicle__stillTransform, vehicle__stillBoxExtents)
+
+  if !vehicle__isStill
+    vehicle__stillTransform = transform
+
+
+[es(tag=server, on_disappear)]
+def on_still_vehicle_disappear(evt : Event;
+                               eid : EntityId;
+                               vehicle__isStill : bool;
+                               vehicle__stillBoxExtents : float;
+                               vehicle__stillTransform : float3x4)
+  if vehicle__isStill
+    vehicle_not_still(eid, vehicle__stillTransform, vehicle__stillBoxExtents)
+
+[es(tag=server, on_event=OnTankNavmeshFlagsGlobalUpdate)]
+def ai_vehicle_tank_new_path_on_nm_flags_global_update(evt : Event;
+                                                       ai_vehicle_tank__plannedPath : Point3List;
+                                                       var ai_vehicle_tank__pathFindingState : int&)
+  let MIN_PLANNED_PATH_LENGTH = 5
+  if length(ai_vehicle_tank__plannedPath) < MIN_PLANNED_PATH_LENGTH || ai_vehicle_tank__pathFindingState == int(AiTankPathFindingState UPDATING_DESTINATION)
+    return
+  ai_vehicle_tank__pathFindingState = int(AiTankPathFindingState UPDATING_PATH)
+
+
+[es(tag=server)]
+def ai_vehicle_tank_new_path_on_nm_flags_local_update(evt : OnTankNavmeshFlagsLocalUpdate;
+                                                      transform : float3x4;
+                                                      ai_vehicle_tank__plannedPath : Point3List;
+                                                      ai_vehicle_tank__maxPathLength : float;
+                                                      var ai_vehicle_tank__pathFindingState : int&)
+  let MIN_PLANNED_PATH_LENGTH = 5
+  if (length(ai_vehicle_tank__plannedPath) < MIN_PLANNED_PATH_LENGTH || ai_vehicle_tank__pathFindingState == int(AiTankPathFindingState UPDATING_DESTINATION) ||
+      length_sq(evt.pos - transform[3]) > square(ai_vehicle_tank__maxPathLength + evt.extents))
+    return
+  ai_vehicle_tank__pathFindingState = int(AiTankPathFindingState UPDATING_PATH)
 
 
 [es(tag=server, REQUIRE=turret_control__hasTankAiGunners, REQUIRE_NOT=deadEntity, after=turret_tank_ai_gunner_aim, before=apply_turret_aim_pos_to_remote_wish_dir_es)]

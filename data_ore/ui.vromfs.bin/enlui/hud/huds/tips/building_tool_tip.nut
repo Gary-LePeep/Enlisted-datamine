@@ -1,5 +1,6 @@
 from "%enlSqGlob/ui/ui_library.nut" import *
 
+let fa = require("%ui/components/fontawesome.map.nut")
 let { isBuildingToolMenuAvailable, selectedBuildingName, selectedDestroyableObjectName, isBuildingAlive,
   buildingRepairText, buildingPreviewId, buildingAllowRecreates, canInteractWithDeadBuilding,
   availableBuildings, selectedBuildingAllowRepair } = require("%ui/hud/state/building_tool_state.nut")
@@ -11,7 +12,7 @@ let { showBuildingToolMenu } = require("%ui/hud/state/building_tool_menu_state.n
 let {tipCmp} = require("%ui/hud/huds/tips/tipComponent.nut")
 let { DEFAULT_TEXT_COLOR, FAIL_TEXT_COLOR } = require("%ui/hud/style.nut")
 let {fortificationPreviewCanBeRotated} = require("%ui/hud/state/fortification_preview_can_be_rotated.nut")
-let { usefulBoxHintFull, usefulBoxHintEmpty, isUsefulBoxEmpty } = require("%ui/hud/state/useful_box_state.nut")
+let { usefulBoxHintFull, usefulBoxHintEmpty, isUsefulBoxEmpty, usefulBoxPrice, usefulBoxHintCost} = require("%ui/hud/state/useful_box_state.nut")
 
 function notAbleBuildStructures() {
   let res = { watch = [selectedBuildingName, buildingPreviewId, buildingAllowRecreates, availableBuildings, isBuildingToolMenuAvailable] }
@@ -93,18 +94,21 @@ function resupplyCannonStructure() {
 }
 
 function useUsefulBox() {
-  let res = { watch = [usefulBoxHintFull, usefulBoxHintEmpty, isUsefulBoxEmpty] }
-  let text = isUsefulBoxEmpty.value ? usefulBoxHintEmpty : usefulBoxHintFull
-
+  let res = { watch = [usefulBoxHintFull, usefulBoxHintEmpty, isUsefulBoxEmpty, usefulBoxPrice, usefulBoxHintCost] }
+  let text = usefulBoxPrice.value > 0 ? usefulBoxHintCost
+    : isUsefulBoxEmpty.value ? usefulBoxHintEmpty
+    : usefulBoxHintFull
   if (!text.value)
     return res
 
   return res.__update({
-    children = tipCmp({
-      text = loc(text.value)
-      inputId = isUsefulBoxEmpty.value ? "" : "Human.Use"
-      textColor = isUsefulBoxEmpty.value ? Color(120, 120, 120, 120) : DEFAULT_TEXT_COLOR
-    })
+    children = [
+      tipCmp({
+        text = loc(text.value, { currency = $"<fa>{fa["star"]}</fa>", price = usefulBoxPrice.value })
+        inputId = isUsefulBoxEmpty.value ? "" : "Human.Use"
+        textColor = isUsefulBoxEmpty.value ? Color(120, 120, 120, 120) : DEFAULT_TEXT_COLOR
+      })
+    ]
   })
 }
 

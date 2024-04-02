@@ -10,7 +10,7 @@ require AnimV20
 require strings
 
 
-[es(track=(burning__isBurning, animchar_render__enabled), tag=render, before=effect_animation_update_es)]
+[es(on_appear, track=(burning__isBurning, animchar_render__enabled), tag=render, before=effect_animation_update_es)]
 def burning_effects_state_es(evt : Event; eid aka human_eid : EntityId;
                              [[shared_comp]] capsule_approximation : CapsuleApproximation;
                              animchar : AnimcharBaseComponent;
