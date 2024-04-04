@@ -9,7 +9,8 @@ let { lbStatsModes } = require("%enlist/userstat/userstatModes.nut")
 let { RANK, NAME, KILL_DEATH_RATIO, BATTLES, KILLS, KILLS_USING_AIRCRAFT,
   KILLS_USING_TANK, VICTORIES_PERCENT, SCORE, TOURNAMENT_BATTLE_RATING,
   BATTLE_GROUP_SCORE, BATTLE_RATING, BATTLE_TIME, BATTLE_RATING_PENALTY,
-  TIME_AFTER_BATTLE, VICTORY_BOOL
+  TIME_AFTER_BATTLE, VICTORY_BOOL, ZOMBIE_BATTLES, ZOMBIE_WAVES,
+  ZOMBIE_KILLS, ZOMBIE_HEADSHOTS, ZOMBIE_EARLY_QUITS, ZOMBIE_SCORE
 } = require("lbCategory.nut")
 let { separateLeaderboardPlatformName } = require("%enlSqGlob/leaderboard_option_state.nut")
 let { eventGameModes } = require("%enlist/gameModes/gameModeState.nut")
@@ -103,6 +104,15 @@ let lbCatByGroup = {
     best = [TIME_AFTER_BATTLE, TOURNAMENT_BATTLE_RATING, VICTORY_BOOL, SCORE, KILLS, BATTLE_TIME]
     short = [RANK, NAME, TOURNAMENT_BATTLE_RATING]
     sortBy = TOURNAMENT_BATTLE_RATING
+  }
+  for_fun_events = {
+    full = [
+      RANK, NAME, ZOMBIE_WAVES, ZOMBIE_SCORE, ZOMBIE_KILLS, ZOMBIE_HEADSHOTS, ZOMBIE_BATTLES,
+      ZOMBIE_EARLY_QUITS
+    ]
+    best = [TIME_AFTER_BATTLE, BATTLE_RATING, VICTORY_BOOL, SCORE, KILLS, BATTLE_TIME]
+    short = [RANK, NAME, ZOMBIE_WAVES]
+    sortBy = ZOMBIE_WAVES
   }
 }
 

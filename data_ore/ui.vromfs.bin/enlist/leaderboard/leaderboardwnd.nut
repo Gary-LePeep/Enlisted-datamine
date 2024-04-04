@@ -14,7 +14,7 @@ let {
   refreshLbData, curLbRequestData, curLbData, curLbSelfRow, curLbErrName, isLbWndOpened,
   isRefreshLbEnabled, lbSelCategories, LB_PAGE_ROWS, bestBattlesByMode, ratingBattlesCountByMode
 } = require("lbState.nut")
-let { selLbMode } = require("%enlist/gameModes/eventModesState.nut")
+let { selLbMode, selEvent } = require("%enlist/gameModes/eventModesState.nut")
 let { RANK, NAME } = require("lbCategory.nut")
 let exclamation = require("%enlist/components/exclamation.nut")
 let spinner = require("%ui/components/spinner.nut")
@@ -128,10 +128,13 @@ let lbHeaderFlag = {
   )
 }
 
-let lbHeaderImg = {
+let lbHeaderImgPath = Computed(@() selEvent.value?.image ?? "ui/pacific_usa_login_screen")
+
+let lbHeaderImg = @() {
+  watch = lbHeaderImgPath
   size = [flex(), headerImgHeight]
   rendObj = ROBJ_IMAGE
-  image = Picture("ui/pacific_usa_login_screen.avif")
+  image = Picture(lbHeaderImgPath.value)
   keepAspect = KEEP_ASPECT_FILL
 }
 

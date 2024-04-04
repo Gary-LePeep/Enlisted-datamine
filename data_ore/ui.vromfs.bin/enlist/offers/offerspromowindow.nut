@@ -11,7 +11,7 @@ let { safeAreaBorders } = require("%enlist/options/safeAreaState.nut")
 let closeBtnBase = require("%ui/components/closeBtn.nut")
 let textButton = require("%ui/components/textButton.nut")
 let JB = require("%ui/control/gui_buttons.nut")
-let { strokeStyle, midPadding, hoverBgColor, accentTitleTxtColor, titleTxtColor
+let { strokeStyle, midPadding, hoverBgColor, accentTitleTxtColor, titleTxtColor, sidePadding
 } = require("%enlSqGlob/ui/designConst.nut")
 let { mkFormatText } = require("%enlist/components/formatText.nut")
 let { utf8ToUpper } = require("%sqstd/string.nut")
@@ -25,6 +25,7 @@ let mkUnlockBtn = require("%enlist/campaigns/mkUnlockButton.nut")
 let mkSquadBuyPromo = require("mkSquadBuyPromo.nut")
 let { curArmyShopItems } = require("%enlist/shop/armyShopState.nut")
 let serverTime = require("%enlSqGlob/userstats/serverTime.nut")
+let { openEventModes, isEventPlayable } = require("%enlist/gameModes/eventModesState.nut")
 
 
 let PROMO_WIDTH = fsh(45)
@@ -190,16 +191,26 @@ function offersWindowDescription() {
 
 function offersButtons() {
   let children = []
-  let { campaign_unlock_button = null } = curEventData.value?.tags
+  let { campaign_unlock_button = null, linkedGameplayEvent = null } = curEventData.value?.tags
+  if (isEventPlayable(linkedGameplayEvent)) {
+    children.append(textButton.PrimaryFlat(loc("offers/toTheEvent"), function() {
+      openEventModes(linkedGameplayEvent)
+      curEventId(null)
+    }, { hotkeys = [["^J:X", { description = { skip = true } }]]
+  }))}
+
   if (campaign_unlock_button != null) {
     let lock = lockedCampaigns.value?[campaign_unlock_button]
     children.append(mkUnlockBtn(lock))
   }
+
   children.append(closeBtn)
+
   return {
     watch = curEventData
     flow = FLOW_HORIZONTAL
     halign = ALIGN_CENTER
+    gap = sidePadding
     children
   }
 }

@@ -86,7 +86,7 @@ def human_hit_net_speech(evt : EventOnEntityHit;
 
   elif evt.offender == eid
     let offenderTeam = team
-    query(evt.victim) <| $ [es(REQUIRE=human_net_phys)] (team aka victim_team : int; dm_parts__type : StringList&)
+    query(evt.victim) <| $ [es] (team aka victim_team : int; dm_parts__type : StringList&)
       if !is_teams_friendly(offenderTeam, victim_team)
         if wasKilled
           if dd.damageType == int(DamageType DM_EXPLOSION)

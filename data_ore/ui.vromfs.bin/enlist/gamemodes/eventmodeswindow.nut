@@ -572,9 +572,9 @@ let rightBlock = @() {
       flow = FLOW_VERTICAL
       gap = bigPadding
       children = isCustomRoomsUi.value ? customMatchesRightBlock
-        : selEvent.value != null && lbCurrentTable.value != null
-          ? (selEvent.value?.isLeaderboardVisible ?? true) ? leaderboard : null
-          : null
+        : selEvent.value == null || lbCurrentTable.value == null ? null
+        : (selEvent.value?.isLeaderboardVisible ?? false) ? leaderboard
+        : null
     }
     {
       size = [flex(), SIZE_TO_CONTENT]

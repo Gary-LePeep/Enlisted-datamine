@@ -61,7 +61,7 @@ def useful_box_paid_es(evt : EventOnUsefulBoxSuccessfulUse;
     if paid_loot__points >= paid_box__ressuplyCost
       paid_loot__points -= paid_box__ressuplyCost
     else
-      logerr("Soldier use box without shop points. Smthg wrong. {eid} {getEntityTemplateName(eid)}")
+      logwarn("Soldier use box without shop points. Smthg wrong. {eid} {getEntityTemplateName(eid)}")
 
 
 [es(tag=gameClient, REQUIRE=watchedByPlr, track=human_weap__currentGunEid, on_appear)]

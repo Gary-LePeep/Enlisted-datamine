@@ -137,6 +137,42 @@ let categoriesBase = {
     locId = "lb/rating_penalty"
     icon = "ui/skin#friendly_fire.svg"
   }
+
+  ZOMBIE_WAVES = {
+    field = "zombie_waves_max"
+    locId = "lb/zombie_waves"
+    icon = "ui/skin#victories_battles.svg"
+  }
+
+  ZOMBIE_SCORE = {
+    field = "zombie_score"
+    locId = "lb/zombie_score"
+    icon = "ui/skin#score.svg"
+  }
+
+  ZOMBIE_KILLS = {
+    field = "zombie_kills"
+    locId = "lb/zombie_kills"
+    icon = "ui/skin#kills.svg"
+  }
+
+  ZOMBIE_HEADSHOTS = {
+    field = "zombie_headshots"
+    locId = "lb/headshots"
+    icon = "ui/skin#kill_death.svg"
+  }
+
+  ZOMBIE_EARLY_QUITS = {
+    field = "zombie_early_quits"
+    locId = "lb/zombie_early_quits"
+    icon = "ui/skin#friendly_fire.svg"
+  }
+
+  ZOMBIE_BATTLES = {
+    field = "zombie_batlles"
+    locId = "lb/battles"
+    icon = "ui/skin#battles.svg"
+  }
 }
 
 let categories = categoriesBase.map(@(cat, id) cat.__update(makeType(id, cat))) //to allow links on other categories above

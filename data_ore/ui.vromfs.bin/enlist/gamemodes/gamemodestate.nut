@@ -64,6 +64,7 @@ let mkGameModeDefaults = @() {
   isEventQueue = false
   isNewbies = false
   isAvailableForNoobs = false
+  isLeaderboardVisible = false
   showWhenInactive = false
   isPreviewImage = false
   leaderboardTables = []
@@ -166,7 +167,8 @@ let allGameModes = Computed(function() {
     let { extraParams = {} } = queue
     let { uiGameModeId = null, minCampaignLevel = 0, isEventQueue = false, campaigns = [],
       newbies = false, availableForNoobs = false, showWhenInactive = false, isPreviewImage = false,
-      leaderboardTables = [], customProfile = null, campaignsToShow = []
+      leaderboardTables = [], customProfile = null, campaignsToShow = [],
+      isLeaderboardVisible = false
     } = extraParams
 
     if (campaigns.len() > 0 && !campaigns.contains(campId))
@@ -207,6 +209,7 @@ let allGameModes = Computed(function() {
     gMode.isEventQueue = gMode.isEventQueue || isEventQueue
     gMode.isNewbies = gMode.isNewbies || newbies
     gMode.isAvailableForNoobs = gMode.isAvailableForNoobs || availableForNoobs
+    gMode.isLeaderboardVisible = gMode.isLeaderboardVisible || isLeaderboardVisible
     gMode.scenes = gMode.scenes.len() > 0 ? gMode.scenes : (queue?.scenes ?? [])
     gMode.showWhenInactive = gMode.showWhenInactive || showWhenInactive
     gMode.isPreviewImage = gMode.isPreviewImage || isPreviewImage

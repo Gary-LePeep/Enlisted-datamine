@@ -44,6 +44,8 @@ let activeEvents = Computed (@() eventGameModes.value.filter(@(gm) gm.isEnabled)
 
 let allEventsToShow = Computed (@() [].extend(activeEvents.value, inactiveEventsToShow.value))
 
+let isEventPlayable = @(eventId) activeEvents.value.findvalue(@(gm) gm.id == eventId )
+
 let promotedEvent = Computed(@()
   allEventsToShow.value.findvalue(@(gm) gm.isPreviewImage)
     ?? allEventsToShow.value?[0])
@@ -207,6 +209,13 @@ hasBaseEvent.subscribe(@(_) timeUntilStart())
 matching_listen_notify("enlmm.notify_schedule_list_changed")
 eventbus_subscribe("enlmm.notify_schedule_list_changed", @(_) requestNewSchedule())
 
+let selectEvent = @(eventId) selEventIdByPlayer(eventId)
+function openEventModes(eventId = "") {
+  openEventsGameMode()
+  if (eventId != "")
+    selectEvent(eventId)
+}
+
 return {
   eventGameModes
   activeEvents
@@ -219,8 +228,8 @@ return {
   customRoomsModeSaved
   selEvent
   selLbMode
-  selectEvent = @(eventId) selEventIdByPlayer(eventId)
-  openEventModes = @() isEventModesOpened(true)
+  selectEvent
+  openEventModes
   openCustomGameMode
   openEventsGameMode
   selEventEndTime
@@ -232,4 +241,5 @@ return {
   eventCustomProfile
   curTab
   eventStartTime
+  isEventPlayable
 }
